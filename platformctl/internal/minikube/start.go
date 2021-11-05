@@ -17,7 +17,7 @@ func Start(ctx context.Context) error {
 
 	args := []string{
 		"minikube",
-		"--profile=cloudmts",
+		fmt.Sprintf("--profile=%s", cfg.MinikubeProfile()),
 		"start",
 		"--memory=4g",
 		"--cpus=4",
