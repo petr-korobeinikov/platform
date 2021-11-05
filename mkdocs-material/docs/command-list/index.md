@@ -35,3 +35,28 @@ platformctl lib sync
 ```shell
 platformctl lib get library_name
 ```
+
+## service create
+
+Создание нового сервиса.
+
+```shell
+platformctl service create group_name/service_name
+```
+
+## service start
+
+Запуск сервиса в локальном окружении.
+
+```shell
+platformctl service start
+```
+
+## service debug
+
+Запуск зависимостей сервиса в локальном окружении. Сам сервис предполагается
+запускать на хост-машине с помощью отладчика.
+
+```shell
+platformctl service debug
+```
