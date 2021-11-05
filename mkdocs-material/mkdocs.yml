@@ -1,6 +1,7 @@
 site_name: platform
 theme:
   name: material
+  logo: assets/platform-icon.svg
   features:
     - toc.integrate
 nav:

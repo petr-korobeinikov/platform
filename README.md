@@ -1,5 +1,11 @@
 # platform
 
+<p align="center">
+
+![platform](hack/asset/platform-icon-256.png)
+
+</p>
+
 ## Документация
 
 Запуск контейнера с документацией для локального просмотра:
