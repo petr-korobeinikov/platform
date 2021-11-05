@@ -13,11 +13,12 @@ import (
 var libGetCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Get a new dependent library",
+	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
 
-		return lib.Get(ctx)
+		return lib.Get(ctx, args[0])
 	},
 }
 
