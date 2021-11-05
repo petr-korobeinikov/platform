@@ -3,10 +3,10 @@ package cmd
 import (
 	"context"
 
-	"platformctl/internal/cfg"
-	"platformctl/internal/minikube"
-
 	"github.com/spf13/cobra"
+
+	"platformctl/internal/action/minikube"
+	"platformctl/internal/cfg"
 )
 
 // stopCmd represents the stop command
