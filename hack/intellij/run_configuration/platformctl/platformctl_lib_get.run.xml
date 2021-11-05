@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="platformct lib get foobar" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="platformctl lib get" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="platform" />
     <working_directory value="$PROJECT_DIR$/platformctl" />
-    <parameters value="lib get foobar" />
+    <parameters value="lib get" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
