@@ -9,4 +9,5 @@ nav:
       - Установка: getting-started/install.md
       - Запуск и остановка: getting-started/start.md
       - Удаление: getting-started/delete.md
+  - Список команд: command-list/index.md
   - Технические заметки: technical-notes/index.md
