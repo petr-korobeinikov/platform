@@ -7,6 +7,7 @@ import (
 
 	"platformctl/internal/action/minikube"
 	"platformctl/internal/cfg"
+	"platformctl/internal/docker"
 )
 
 // startCmd represents the start command
@@ -16,6 +17,10 @@ var startCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutHeavyOperation())
 		defer cancel()
+
+		if _, err := docker.IsConformsToMinimalRequirements(ctx); err != nil {
+			return err
+		}
 
 		return minikube.Start(ctx)
 	},
