@@ -4,7 +4,7 @@ WORKDIR /go/src/service
 
 COPY . .
 
-RUN ls -la && go build -v -o /build/bin/service cmd/service/main.go
+RUN go build -v -o /build/bin/service cmd/service/main.go
 
 
 
