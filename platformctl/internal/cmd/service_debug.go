@@ -7,6 +7,7 @@ import (
 
 	"platformctl/internal/action/service"
 	"platformctl/internal/cfg"
+	"platformctl/internal/minikube"
 )
 
 var serviceDebugCmd = &cobra.Command{
@@ -15,6 +16,10 @@ var serviceDebugCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
+
+		if _, err := minikube.IsRunning(ctx); err != nil {
+			return err
+		}
 
 		return service.Debug(ctx)
 	},
