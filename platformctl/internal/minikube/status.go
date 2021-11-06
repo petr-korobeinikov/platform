@@ -31,6 +31,7 @@ func IsRunning(ctx context.Context) (bool, error) {
 	cmd.Stdout = &b
 	cmd.Stderr = os.Stderr
 
+	// fixme exec.ExitError is ok for status
 	if err := cmd.Run(); err != nil {
 		return false, err
 	}

@@ -7,6 +7,7 @@ import (
 	"os/exec"
 
 	"platformctl/internal/cfg"
+	"platformctl/internal/minikube"
 )
 
 func Start(ctx context.Context) error {
@@ -35,5 +36,16 @@ func Start(ctx context.Context) error {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	return cmd.Run()
+	if err := cmd.Run(); err != nil {
+		return err
+	}
+
+	// todo automatic /etc/hosts updater
+	ip, err := minikube.IP(ctx)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Update /etc/hosts with the following:\n\n%s	%s\n", cfg.MinikubeProfile(), ip)
+
+	return nil
 }
