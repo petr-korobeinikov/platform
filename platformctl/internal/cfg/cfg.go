@@ -27,5 +27,5 @@ const (
 
 	kubernetesVersion = "v1.22.2"
 
-	minikubeProfile = "cloudmts"
+	minikubeProfile = "platform"
 )

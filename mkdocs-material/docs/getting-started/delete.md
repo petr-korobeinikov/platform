@@ -7,5 +7,5 @@
 в `platformctl` она не будет.
 
 ```shell
-minikube --profile=cloudmts delete
+minikube --profile=platform delete
 ```
