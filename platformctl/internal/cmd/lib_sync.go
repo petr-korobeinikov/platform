@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"platformctl/internal/cfg"
 	"platformctl/internal/lib"
@@ -17,7 +18,9 @@ var libSyncCmd = &cobra.Command{
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
 
-		return lib.Sync(ctx)
+		envs := viper.GetStringSlice("go_env_vars")
+
+		return lib.Sync(ctx, envs)
 	},
 }
 

@@ -1,0 +1,4 @@
+go_env_vars:
+  - "FOO=foo"
+  - "BAR=bar"
+  - "BAZ=baz"

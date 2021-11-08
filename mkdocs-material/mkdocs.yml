@@ -9,6 +9,7 @@ nav:
   - Установка и настройка:
       - Установка: getting-started/install.md
       - Запуск и остановка: getting-started/start.md
+      - Конфигурационный файл: getting-started/cfg-file.md
       - Удаление: getting-started/delete.md
   - Список команд: command-list/index.md
   - Шаблон сервиса: service-boilerplate.md

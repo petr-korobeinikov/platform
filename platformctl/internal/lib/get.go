@@ -6,16 +6,10 @@ import (
 	"os/exec"
 )
 
-func Get(ctx context.Context, lib string) error {
+func Get(ctx context.Context, lib string, envs []string) error {
 	cmd := exec.CommandContext(ctx, `go`, `get`, `-x`, lib)
 
-	// todo extract env into config
-	//cmd.Env = append(os.Environ(), []string{
-	//	`GONOPROXY=none`,
-	//	`GOPROXY=https://nexus.dev.cloud.mts.ru/repository/golang-internal/`,
-	//	`GONOSUMDB=dev.cloud.mts.ru/*`,
-	//	`GOPRIVATE=*.dev.cloud.mts.ru`,
-	//}...)
+	cmd.Env = append(os.Environ(), envs...)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
