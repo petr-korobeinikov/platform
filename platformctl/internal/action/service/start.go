@@ -10,12 +10,11 @@ import (
 )
 
 func Start(ctx context.Context) error {
-	fmt.Println("Start service")
-
-	_, err := service.ReadSpec(ctx)
+	spec, err := service.ReadSpec(ctx)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("Starting service `%s`.\n", spec.Name)
 
 	if err := docker.Build(ctx); err != nil {
 		return err

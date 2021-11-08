@@ -2,17 +2,30 @@ package service
 
 import (
 	"context"
-	"fmt"
+	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 func ReadSpec(ctx context.Context) (*Spec, error) {
-	fmt.Println("detect service in current directory")
+	y, err := os.ReadFile(SpecFile)
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	var spec Spec
+	err = yaml.Unmarshal(y, &spec)
+	if err != nil {
+		return nil, err
+	}
+
+	return &spec, nil
 }
 
 type (
 	Spec struct {
-		Name string
+		Name string `yaml:"name"`
 	}
 )
+
+const SpecFile = `service.yaml`
