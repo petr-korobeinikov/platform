@@ -11,4 +11,5 @@ nav:
       - Запуск и остановка: getting-started/start.md
       - Удаление: getting-started/delete.md
   - Список команд: command-list/index.md
+  - Шаблон сервиса: service-boilerplate.md
   - Технические заметки: technical-notes/index.md
