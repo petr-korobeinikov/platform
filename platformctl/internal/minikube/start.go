@@ -7,7 +7,6 @@ import (
 	"os/exec"
 
 	"platformctl/internal/cfg"
-	"platformctl/internal/minikube"
 )
 
 func Start(ctx context.Context) error {
@@ -41,7 +40,7 @@ func Start(ctx context.Context) error {
 	}
 
 	// todo automatic /etc/hosts updater
-	ip, err := minikube.IP(ctx)
+	ip, err := IP(ctx)
 	if err != nil {
 		return err
 	}

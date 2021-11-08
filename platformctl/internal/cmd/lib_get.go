@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"platformctl/internal/action/lib"
 	"platformctl/internal/cfg"
+	"platformctl/internal/lib"
 )
 
 // libGetCmd gets a new dependent library

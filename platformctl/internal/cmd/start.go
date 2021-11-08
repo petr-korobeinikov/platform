@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"platformctl/internal/action/minikube"
 	"platformctl/internal/cfg"
 	"platformctl/internal/docker"
+	"platformctl/internal/minikube"
 )
 
 // startCmd represents the start command

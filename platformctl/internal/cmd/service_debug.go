@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"platformctl/internal/action/service"
 	"platformctl/internal/cfg"
 	"platformctl/internal/minikube"
+	"platformctl/internal/service"
 )
 
 var serviceDebugCmd = &cobra.Command{

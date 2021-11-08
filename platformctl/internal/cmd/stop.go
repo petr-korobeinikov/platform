@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"platformctl/internal/action/minikube"
 	"platformctl/internal/cfg"
+	"platformctl/internal/minikube"
 )
 
 // stopCmd represents the stop command

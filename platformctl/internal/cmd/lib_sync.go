@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"platformctl/internal/action/lib"
 	"platformctl/internal/cfg"
+	"platformctl/internal/lib"
 )
 
 // libSyncCmd runs sync for dependent libraries

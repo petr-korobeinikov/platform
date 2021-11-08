@@ -6,11 +6,10 @@ import (
 
 	"platformctl/internal/deployment"
 	"platformctl/internal/docker"
-	"platformctl/internal/service"
 )
 
 func Start(ctx context.Context) error {
-	spec, err := service.ReadSpec(ctx)
+	spec, err := ReadSpec(ctx)
 	if err != nil {
 		return err
 	}
