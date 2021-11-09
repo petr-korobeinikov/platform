@@ -4,6 +4,8 @@ theme:
   logo: assets/platform-icon.svg
   features:
     - toc.integrate
+markdown_extensions:
+  - footnotes
 nav:
   - Введение: intro.md
   - Установка и настройка:
@@ -14,3 +16,4 @@ nav:
   - Список команд: command-list/index.md
   - Шаблон сервиса: service-boilerplate.md
   - Технические заметки: technical-notes/index.md
+  - Оформление документации: doc-design.md
