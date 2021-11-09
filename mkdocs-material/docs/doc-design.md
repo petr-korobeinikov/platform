@@ -14,4 +14,8 @@
     Код проекта написан на `go`.
     ```
 
+4. При оформлении исходного кода документации используется соглашение Semantic
+   Line Breaks[^2].
+
 [^1]: [Adding footnote references](https://squidfunk.github.io/mkdocs-material/reference/footnotes/#adding-footnote-references)
+[^2]: [Semantic Line Breaks](https://sembr.org/)
