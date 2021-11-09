@@ -7,5 +7,11 @@
     - Паттерн микросервисной архитектуры (не "шаблон").
     - Микросервис (не "сервис").
     - `go` (не `golang`, `го`, ...)
+3. Для выделения названий технологий используется форматирование inline-блоков
+   кода ` `` `, например:
+
+    ```
+    Код проекта написан на `go`.
+    ```
 
 [^1]: [Adding footnote references](https://squidfunk.github.io/mkdocs-material/reference/footnotes/#adding-footnote-references)
