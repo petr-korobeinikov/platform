@@ -10,6 +10,7 @@ nav:
   - Введение: intro.md
   - Установка и настройка:
       - Установка: getting-started/install.md
+      - asdf-vm: getting-started/asdf-vm.md
       - Запуск и остановка: getting-started/start.md
       - Конфигурационный файл: getting-started/cfg-file.md
       - Удаление: getting-started/delete.md
