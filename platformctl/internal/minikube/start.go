@@ -22,7 +22,6 @@ func Start(ctx context.Context) error {
 		"--memory=4g",
 		"--cpus=4",
 		"--disk-size=50g",
-		`--addons="dashboard default-storageclass storage-provisioner metrics-server"`,
 		"--driver=docker",
 		fmt.Sprintf("--kubernetes-version=%s", cfg.KuberneterVersion()),
 		"--mount=true",
@@ -37,6 +36,12 @@ func Start(ctx context.Context) error {
 
 	if err := cmd.Run(); err != nil {
 		return err
+	}
+
+	for _, addon := range []string{"metrics-server", "dashboard", "ingress", "default-storageclass", "storage-provisioner"} {
+		if err := EnableAddon(ctx, addon); err != nil {
+			return err
+		}
 	}
 
 	// todo automatic /etc/hosts updater
