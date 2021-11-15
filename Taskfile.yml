@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  platformctl:build:
+    dir: platformctl
+    cmds:
+      - go build -o bin/platformctl cmd/platformctl/main.go

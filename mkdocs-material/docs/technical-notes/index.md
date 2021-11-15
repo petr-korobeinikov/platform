@@ -30,3 +30,15 @@ hack/intellij/run_configuration
 окна `Run/Debug`:
 
 ![Run Configuration](/assets/exported_run_configuration.png)
+
+## Работа с Taskfile
+
+В качестве таск-раннера выбран `Taskfile`[^taskfile].
+
+Пример запуска команды из `Taskfile.yml`:
+
+```shell
+task platformctl:build
+```
+
+[^taskfile]: [https://taskfile.dev/](https://taskfile.dev/)
