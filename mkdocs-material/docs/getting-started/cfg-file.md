@@ -24,6 +24,8 @@ platform:
 
 ```yaml
 go_env_vars:
-  - "GOSUMDB=off"
   - "GONOPROXY=none"
+  - "GOPROXY=https://proxy.yourdevdomain.tld"
+  - "GONOSUMDB=sumdb.yourdevdomain.tld/*"
+  - "GOPRIVATE=*.yourdevdomain.tld"
 ```
