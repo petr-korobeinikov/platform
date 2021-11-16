@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/spf13/viper"
+
 	"platformctl/internal/cfg"
 )
 
@@ -15,13 +17,17 @@ func Start(ctx context.Context) error {
 		return err
 	}
 
+	viper.SetDefault("platform.minikube.memory", "4g")
+	viper.SetDefault("platform.minikube.cpus", "4")
+	viper.SetDefault("platform.minikube.disk-size", "50g")
+
 	args := []string{
 		"minikube",
 		fmt.Sprintf("--profile=%s", cfg.MinikubeProfile()),
 		"start",
-		"--memory=4g",
-		"--cpus=4",
-		"--disk-size=50g",
+		fmt.Sprintf("--memory=%s", viper.GetString("platform.minikube.memory")),
+		fmt.Sprintf("--cpus=%s", viper.GetString("platform.minikube.cpus")),
+		fmt.Sprintf("--disk-size=%s", viper.GetString("platform.minikube.disk-size")),
 		"--driver=docker",
 		fmt.Sprintf("--kubernetes-version=%s", cfg.KuberneterVersion()),
 		"--mount=true",

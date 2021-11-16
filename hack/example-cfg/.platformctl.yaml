@@ -1,3 +1,9 @@
+platform:
+  minikube:
+    memory: "4g"
+    cpus: "4"
+    disk-size: "50g"
+
 go_env_vars:
   - "FOO=foo"
   - "BAR=bar"
