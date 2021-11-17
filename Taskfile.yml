@@ -5,3 +5,8 @@ tasks:
     dir: platformctl
     cmds:
       - go build -o bin/platformctl cmd/platformctl/main.go
+
+  platform:desktop:build:docker:
+    dir: hack/platform-desktop
+    cmds:
+      - docker build -t platform-desktop .
