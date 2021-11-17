@@ -41,4 +41,19 @@ hack/intellij/run_configuration
 task platformctl:build
 ```
 
+## Запуск minikube через hyperkit
+
+Вариант запуска через `hyperkit` доступен только для `macOS`.
+
+```shell
+minikube start \
+    --profile=local \
+    --driver=hyperkit \
+    --memory=16g \
+    --cpus=8 \
+    --disk-size=50g \
+    --nfs-share="${HOME}" \
+    --nfs-shares-root="/"
+```
+
 [^taskfile]: [https://taskfile.dev/](https://taskfile.dev/)
