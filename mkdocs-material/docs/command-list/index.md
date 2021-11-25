@@ -36,6 +36,14 @@ platformctl lib sync
 platformctl lib get library_name
 ```
 
+## lib upgrade
+
+Установка свежих версий зависимых библиотек.
+
+```shell
+platformctl lib upgrade
+```
+
 ## service create
 
 Создание нового сервиса.
