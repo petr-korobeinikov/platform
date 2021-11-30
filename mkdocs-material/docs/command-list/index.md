@@ -29,19 +29,12 @@ platformctl lib sync
 ## lib get
 
 Установка новой зависимой библиотеки.
+Если версия не указана, устанавливается самая свежая.
 
 Скрывает под собой необходимые переменные окружения для похода за зависимостями.
 
 ```shell
-platformctl lib get library_name
-```
-
-## lib upgrade
-
-Установка свежих версий зависимых библиотек.
-
-```shell
-platformctl lib upgrade
+platformctl lib get library_name [version]
 ```
 
 ## service create
