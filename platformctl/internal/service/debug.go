@@ -3,7 +3,10 @@ package service
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/exec"
 
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
@@ -17,5 +20,12 @@ func Debug(ctx context.Context) error {
 
 	fmt.Println("Service name:", spec.Name)
 
-	return nil
+	// Here goes the generation of the `.env.gen` file.
+
+	cmd := exec.CommandContext(ctx, `docker-compose`, `--env-file`, env.File, `up`, `-d`)
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
 }
