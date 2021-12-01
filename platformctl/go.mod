@@ -4,10 +4,13 @@ go 1.17
 
 require (
 	github.com/mitchellh/go-homedir v1.0.0
+	github.com/pkorobeinikov/platform/platform-lib v0.0.0-00010101000000-000000000000
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	gopkg.in/yaml.v2 v2.4.0
 )
+
+replace github.com/pkorobeinikov/platform/platform-lib => ../platform-lib
 
 require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
