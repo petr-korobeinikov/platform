@@ -11,7 +11,7 @@ import (
 	"platformctl/internal/lib"
 )
 
-// libGetCmd gets a new dependent library
+// libGetCmd gets a new dependent library, upgrades, or downgrades the existing one
 var libGetCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Get a new dependent library",
