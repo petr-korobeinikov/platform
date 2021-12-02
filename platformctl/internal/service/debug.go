@@ -24,7 +24,7 @@ func Debug(ctx context.Context) error {
 		return err
 	}
 
-	err = os.WriteFile(deployment.DockerComposeFile, []byte(deploymentSpec), 0644)
+	err = os.WriteFile(deployment.DockerComposeFile, deploymentSpec, 0644)
 	if err != nil {
 		return err
 	}
