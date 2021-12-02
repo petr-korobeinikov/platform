@@ -1,0 +1,32 @@
+name: wordcounter
+
+# v2
+component:
+  - type: postgres
+    enabled: true
+
+  - type: kafka
+    enabled: true
+
+  - type: eventbus
+    enabled: true
+
+  - type: postgres
+    name: postgres-oltp
+    enabled: true
+
+  - type: postgres
+    name: postgres-olap
+    enabled: true
+
+# v1
+postgres:
+  enabled: true
+  shard_count: 1
+  image: registry/postgres-wordcounter:1
+
+kafka:
+  enabled: true
+  request_reply:
+    topic_inbound: ~
+    topic_outbound: ~
