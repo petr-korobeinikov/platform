@@ -1,3 +1,3 @@
 package env
 
-const File = ".env.gen"
+const File = ".platform/env/.env"

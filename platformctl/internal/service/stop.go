@@ -2,24 +2,25 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/exec"
 
-	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 )
 
 func Stop(ctx context.Context) error {
-	fmt.Println("Debug service")
-
-	spec, err := spec.Read()
-	if err != nil {
-		return err
+	args := []string{
+		`docker-compose`,
+		`--file`,
+		deployment.DockerComposeFile,
+		`--env-file`,
+		env.File,
+		`down`,
+		`--remove-orphans`,
 	}
 
-	fmt.Println("Service name:", spec.Name)
-
-	cmd := exec.CommandContext(ctx, `docker-compose`, `down`, `--remove-orphans`)
+	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

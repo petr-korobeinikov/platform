@@ -10,9 +10,29 @@ import (
 
 const File = "service.yaml"
 
-type Spec struct {
-	Name string `yaml:"name"`
+func (s *Spec) EnabledComponent() []string {
+	l := make([]string, 0)
+
+	for _, c := range s.Component {
+		if c.Enabled {
+			l = append(l, c.Type)
+		}
+	}
+
+	return l
 }
+
+type (
+	Spec struct {
+		Name      string      `yaml:"name"`
+		Component []Component `yaml:"component"`
+	}
+
+	Component struct {
+		Type    string `yaml:"type"`
+		Enabled bool   `yaml:"enabled"`
+	}
+)
 
 func Read() (*Spec, error) {
 	if _, err := os.Stat(File); os.IsNotExist(err) {

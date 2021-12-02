@@ -1,0 +1,5 @@
+name: wordcounter
+
+component:
+  - type: postgres
+    enabled: true

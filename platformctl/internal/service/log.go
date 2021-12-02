@@ -2,23 +2,24 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/exec"
 
-	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 )
 
 func Log(ctx context.Context) error {
-	spec, err := spec.Read()
-	if err != nil {
-		return err
+	// We need to support ability for tailing only service log.
+	args := []string{
+		`docker-compose`,
+		`--file`,
+		deployment.DockerComposeFile,
+		`logs`,
+		`--follow`,
+		`--no-log-prefix`,
 	}
 
-	fmt.Println("Service name:", spec.Name)
-
-	// We need to able support for tailing only service log.
-	cmd := exec.CommandContext(ctx, `docker-compose`, `logs`, `--follow`, `--no-log-prefix`)
+	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
