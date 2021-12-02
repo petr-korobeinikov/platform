@@ -61,3 +61,13 @@ platformctl service start
 ```shell
 platformctl service debug
 ```
+
+## service stop
+
+Остановка сервиса в локальном окружении.
+
+Команда останавливает и удаляет все зависимости текущего сервиса из локального окружения.
+
+```shell
+platformctl service stop
+```
