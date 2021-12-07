@@ -1,5 +1,18 @@
 name: wordcounter
 
+environment:
+  # _ is a shared list of env vars used in all deployments
+  _:
+    WORKER_NAP_TIME: 10s
+
+  # `local` overrides some shared env vars only for the local environment and/or adds some specific ones
+  local: ~
+  staging: ~
+  prod: ~
+  prod-russia-moscow: ~
+  prod-russia-vladivostok: ~
+  prod-usa-cupertino: ~
+
 # v2
 component:
   - type: postgres
