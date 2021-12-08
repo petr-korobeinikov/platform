@@ -14,7 +14,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	dcs.Version = "3"
 	dcs.Services = make(map[string]dockerComposeService)
 
-	dcs.Services["app"] = dockerComposeService{
+	dcs.Services["service"] = dockerComposeService{
 		ContainerName: "service",
 		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",
 		Restart:       "always",

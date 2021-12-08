@@ -31,12 +31,6 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 var (
 	expected = []byte(`version: "3"
 services:
-  app:
-    container_name: service
-    image: ${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}
-    restart: always
-    ports:
-    - 9000:9000
   component_postgres_postgres:
     container_name: postgres
     image: postgres:14
@@ -47,5 +41,11 @@ services:
       POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
       POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
       POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
+  service:
+    container_name: service
+    image: ${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}
+    restart: always
+    ports:
+    - 9000:9000
 `)
 )
