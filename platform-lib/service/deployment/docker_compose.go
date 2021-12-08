@@ -15,23 +15,24 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	dcs.Services = make(map[string]dockerComposeService)
 
 	dcs.Services["app"] = dockerComposeService{
-		ContainerName: "app",
+		ContainerName: "service",
 		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",
 		Restart:       "always",
 		Ports:         []string{"9000:9000"},
 	}
 
-	for _, v := range s.Component {
-		if v.Enabled {
-			dcs.Services["postgres"] = dockerComposeService{
+	for _, c := range s.Component {
+		if c.Enabled {
+			dcs.Services[c.ID()] = dockerComposeService{
 				ContainerName: "postgres",
 				Image:         "postgres:14",
 				Restart:       "always",
 				Ports:         []string{"5432:5432"},
+				// add format component env var func
 				Environment: map[string]string{
-					"POSTGRES_USER":     "${POSTGRES_USER}",
-					"POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}",
-					"POSTGRES_DB":       "${POSTGRES_DB}",
+					"POSTGRES_USER":     c.FormatEnvVarName("user"),
+					"POSTGRES_PASSWORD": c.FormatEnvVarName("password"),
+					"POSTGRES_DB":       c.FormatEnvVarName("db"),
 				},
 			}
 		}

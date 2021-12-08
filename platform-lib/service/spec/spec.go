@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -15,21 +16,33 @@ func (s *Spec) EnabledComponent() []string {
 
 	for _, c := range s.Component {
 		if c.Enabled {
-			l = append(l, c.Type)
+			l = append(l, c.ID())
 		}
 	}
 
 	return l
 }
 
+func (c *Component) ID() string {
+	return fmt.Sprintf("component_%s_%s", c.Type, c.Name)
+}
+
+func (c *Component) FormatEnvVarName(v string) string {
+	up := strings.ToUpper(c.ID())
+	uv := strings.ToUpper(v)
+
+	return fmt.Sprintf("${%s_%s}", up, uv)
+}
+
 type (
 	Spec struct {
-		Name      string      `yaml:"name"`
-		Component []Component `yaml:"component"`
+		Name      string       `yaml:"name"`
+		Component []*Component `yaml:"component"`
 	}
 
 	Component struct {
 		Type    string `yaml:"type"`
+		Name    string `yaml:"name"`
 		Enabled bool   `yaml:"enabled"`
 	}
 )

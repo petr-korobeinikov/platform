@@ -11,9 +11,10 @@ import (
 func TestDockerComposeGenerator_Generate(t *testing.T) {
 	given := &Spec{
 		Name: "wordcounter",
-		Component: []Component{
+		Component: []*Component{
 			{
 				Type:    "postgres",
+				Name:    "postgres",
 				Enabled: true,
 			},
 		},
@@ -31,20 +32,20 @@ var (
 	expected = []byte(`version: "3"
 services:
   app:
-    container_name: app
+    container_name: service
     image: ${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}
     restart: always
     ports:
     - 9000:9000
-  postgres:
+  component_postgres_postgres:
     container_name: postgres
     image: postgres:14
     restart: always
     ports:
     - 5432:5432
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
+      POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
+      POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
 `)
 )
