@@ -15,6 +15,11 @@ platformctl service debug
 ### Directly
 
 ```shell
+docker build \
+  --file .platform/docker/Dockerfile \
+  --tag wordcounter:latest \
+  .
+
 docker-compose \
   --file .platform/docker-compose/docker-compose.yaml \
   --env-file .platform/env/.env \

@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"platformctl/internal/cfg"
-	"platformctl/internal/minikube"
 	"platformctl/internal/service"
 )
 
@@ -17,9 +16,10 @@ var serviceStartCmd = &cobra.Command{
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
 
-		if _, err := minikube.IsRunning(ctx); err != nil {
-			return err
-		}
+		// Temporary disable minikube status checking
+		// if _, err := minikube.IsRunning(ctx); err != nil {
+		// 	return err
+		// }
 
 		return service.Start(ctx)
 	},
