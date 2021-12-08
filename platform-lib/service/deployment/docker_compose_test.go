@@ -1,8 +1,9 @@
 package deployment_test
 
 import (
-	"bytes"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	. "github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	. "github.com/pkorobeinikov/platform/platform-lib/service/spec"
@@ -23,9 +24,8 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 	sut := NewDockerComposeGenerator()
 
 	actual, _ := sut.Generate(given)
-	if !bytes.Equal(expected, actual) {
-		t.Errorf("docker compose spec is generated incorrectly")
-	}
+
+	assert.Equal(t, expected, actual)
 }
 
 var (
@@ -47,5 +47,7 @@ services:
     restart: always
     ports:
     - 9000:9000
+    environment:
+      SERVICE: ${SERVICE}
 `)
 )

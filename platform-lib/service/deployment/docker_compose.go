@@ -19,6 +19,9 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",
 		Restart:       "always",
 		Ports:         []string{"9000:9000"},
+		Environment: map[string]string{
+			"SERVICE": "${SERVICE}",
+		},
 	}
 
 	for _, c := range s.Component {
