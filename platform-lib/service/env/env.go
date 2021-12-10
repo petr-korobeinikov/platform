@@ -1,6 +1,11 @@
 package env
 
-import "sync"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"sync"
+)
 
 const File = ".platform/env/.env"
 
@@ -35,6 +40,28 @@ func Registry() *environmentRegistry {
 	})
 
 	return instance
+}
+
+func WriteEnvFile() error {
+	f, err := os.Create(File)
+	if err != nil {
+		return err
+	}
+
+	w := bufio.NewWriter(f)
+	for k, v := range Registry().All() {
+		_, err = w.WriteString(fmt.Sprintf("%s=%s\n", k, v))
+		if err != nil {
+			return err
+		}
+	}
+
+	err = w.Flush()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 type (

@@ -2,6 +2,7 @@ package deployment
 
 import (
 	"errors"
+	"os"
 
 	"gopkg.in/yaml.v2"
 
@@ -59,6 +60,10 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 
 func NewDockerComposeGenerator() *DockerComposeGenerator {
 	return &DockerComposeGenerator{}
+}
+
+func WriteDockerComposeFile(deploymentSpec []byte) error {
+	return os.WriteFile(DockerComposeFile, deploymentSpec, 0644)
 }
 
 func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, err error) {

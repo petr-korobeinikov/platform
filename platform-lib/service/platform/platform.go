@@ -1,10 +1,34 @@
 package platform
 
-import "os"
+import (
+	"os"
+	"path"
+)
 
 const Directory = ".platform"
 
-func CreateDirectory() error {
+func CreateDirectory() (err error) {
 	// Should be better.
-	return os.Mkdir(Directory, os.ModePerm)
+
+	err = os.Mkdir(Directory, os.ModePerm)
+	if err != nil {
+		return
+	}
+
+	err = os.Mkdir(path.Join(Directory, "docker-compose"), os.ModePerm)
+	if err != nil {
+		return
+	}
+
+	err = os.Mkdir(path.Join(Directory, "docker"), os.ModePerm)
+	if err != nil {
+		return
+	}
+
+	err = os.Mkdir(path.Join(Directory, "env"), os.ModePerm)
+	if err != nil {
+		return
+	}
+
+	return
 }

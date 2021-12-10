@@ -13,9 +13,6 @@ import (
 )
 
 func Build(ctx context.Context, s *spec.Spec) error {
-	// Rework mkdir
-	_ = os.Mkdir(path.Join(platform.Directory, "docker"), os.ModePerm)
-
 	err := os.WriteFile(path.Join(platform.Directory, "docker", "Dockerfile"), []byte(dockerfile), 0644)
 	if err != nil {
 		return err
@@ -39,5 +36,6 @@ func Build(ctx context.Context, s *spec.Spec) error {
 	return cmd.Run()
 }
 
+// Move dockerfiles into lib?
 //go:embed dockerfile/go/Dockerfile
 var dockerfile string
