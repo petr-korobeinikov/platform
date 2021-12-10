@@ -2,6 +2,7 @@ package deployment
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -18,21 +19,6 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	dcs.Version = "3"
 	dcs.Services = make(map[string]dockerComposeService)
 
-	dcs.Services["service"] = dockerComposeService{
-		ContainerName: "service",
-		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",
-		Restart:       "always",
-		Ports:         []string{"9000:9000"},
-		Environment: map[string]string{
-			"SERVICE": "${SERVICE}",
-		},
-	}
-
-	env.Registry().
-		Register("SERVICE", s.Name).
-		Register("SERVICE_IMAGE_NAME", s.Name).
-		Register("SERVICE_IMAGE_TAG", "latest")
-
 	for _, c := range s.Component {
 		containerName, image, ports, environment, err := componentContainerSpec(s.Name, c)
 		if err != nil {
@@ -48,6 +34,24 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 				Environment:   environment,
 			}
 		}
+	}
+
+	env.Registry().
+		Register("SERVICE", s.Name).
+		Register("SERVICE_IMAGE_NAME", s.Name).
+		Register("SERVICE_IMAGE_TAG", "latest")
+
+	serviceEnvironment := make(map[string]string)
+	for k := range env.Registry().All() {
+		serviceEnvironment[k] = fmt.Sprintf("${%s}", k)
+	}
+
+	dcs.Services["service"] = dockerComposeService{
+		ContainerName: "service",
+		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",
+		Restart:       "always",
+		Ports:         []string{"9000:9000"},
+		Environment:   serviceEnvironment,
 	}
 
 	b, err := yaml.Marshal(dcs)

@@ -18,9 +18,16 @@ func init() {
 
 func main() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		greeting := fmt.Sprintf("Hello, %s!", service)
+		writer.Header().Add("Content-type", "text/plain")
+
+		greeting := fmt.Sprintf("Hello, %s!\n", service)
 
 		writer.Write([]byte(greeting))
+
+		writer.Write([]byte("\n\nMy environment is:\n"))
+		for _, s := range os.Environ() {
+			writer.Write([]byte(s + "\n"))
+		}
 	})
 
 	http.HandleFunc("/healthz", func(writer http.ResponseWriter, request *http.Request) {
