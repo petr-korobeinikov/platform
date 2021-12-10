@@ -1,6 +1,8 @@
 package deployment
 
 import (
+	"errors"
+
 	"gopkg.in/yaml.v2"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
@@ -25,17 +27,18 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	}
 
 	for _, c := range s.Component {
+		containerName, image, ports, environment, err := componentContainerSpec(c)
+		if err != nil {
+			return nil, err
+		}
+
 		if c.Enabled {
 			dcs.Services[c.ID()] = dockerComposeService{
-				ContainerName: c.ID(),
-				Image:         "postgres:14",
+				ContainerName: containerName,
+				Image:         image,
 				Restart:       "always",
-				Ports:         []string{"5432:5432"},
-				Environment: map[string]string{
-					"POSTGRES_USER":     c.FormatEnvVarName("user"),
-					"POSTGRES_PASSWORD": c.FormatEnvVarName("password"),
-					"POSTGRES_DB":       c.FormatEnvVarName("db"),
-				},
+				Ports:         ports,
+				Environment:   environment,
 			}
 		}
 	}
@@ -50,6 +53,24 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 
 func NewDockerComposeGenerator() *DockerComposeGenerator {
 	return &DockerComposeGenerator{}
+}
+
+func componentContainerSpec(c *spec.Component) (containerName, image string, ports []string, environment map[string]string, err error) {
+	switch c.Type {
+	case "postgres":
+		containerName = c.ID()
+		image = "postgres:14"
+		ports = []string{"5432:5432"}
+		environment = map[string]string{
+			"POSTGRES_USER":     c.FormatEnvVarName("user"),
+			"POSTGRES_PASSWORD": c.FormatEnvVarName("password"),
+			"POSTGRES_DB":       c.FormatEnvVarName("db"),
+		}
+	default:
+		err = ErrUnsupportedComponent
+	}
+
+	return containerName, image, ports, environment, err
 }
 
 type (
@@ -67,4 +88,8 @@ type (
 		Ports         []string          `yaml:"ports,omitempty"`
 		Environment   map[string]string `yaml:"environment,omitempty"`
 	}
+)
+
+var (
+	ErrUnsupportedComponent = errors.New("unsupported component")
 )
