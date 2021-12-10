@@ -7,24 +7,33 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
+	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
 func Debug(ctx context.Context) error {
-	spec, err := spec.Read()
+	s, err := spec.Read()
 	if err != nil {
 		return err
 	}
 
-	// Here goes the generation of the `.env` file.
+	_ = platform.CreateDirectory()
 
 	generator := deployment.NewDockerComposeGenerator()
-	deploymentSpec, err := generator.Generate(spec)
+	deploymentSpec, err := generator.Generate(s)
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile(deployment.DockerComposeFile, deploymentSpec, 0644)
+	err = deployment.WriteDockerComposeFile(deploymentSpec)
+	if err != nil {
+		return err
+	}
+
+	environment := s.EnvironmentFor("local")
+	env.Registry().RegisterMany(environment)
+
+	err = env.WriteEnvFile()
 	if err != nil {
 		return err
 	}
@@ -38,7 +47,7 @@ func Debug(ctx context.Context) error {
 		`up`,
 		`-d`,
 	}
-	args = append(args, spec.EnabledComponent()...)
+	args = append(args, s.EnabledComponent()...)
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
 
