@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -14,6 +15,8 @@ var (
 
 func init() {
 	service = os.Getenv("SERVICE")
+
+	_ = godotenv.Load(".platform/env/.env", ".env")
 }
 
 func main() {
