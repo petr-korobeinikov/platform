@@ -1,5 +1,14 @@
 name: wordcounter
 
+environment:
+  _:
+    WORKER_BATCH_SIZE: 10
+    WORKER_NAP_DURATION: 1s
+  staging:
+    WORKER_NAP_DURATION: 10s
+  prod:
+    WORKER_NAP_DURATION: 30s
+
 component:
   - type: postgres
     name: postgres

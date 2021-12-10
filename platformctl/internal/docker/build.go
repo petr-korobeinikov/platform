@@ -2,14 +2,25 @@ package docker
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 
+	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
 func Build(ctx context.Context, s *spec.Spec) error {
+	// Rework mkdir
+	_ = os.Mkdir(path.Join(platform.Directory, "docker"), os.ModePerm)
+
+	err := os.WriteFile(path.Join(platform.Directory, "docker", "Dockerfile"), []byte(dockerfile), 0644)
+	if err != nil {
+		return err
+	}
+
 	args := []string{
 		"docker",
 		"build",
@@ -27,3 +38,6 @@ func Build(ctx context.Context, s *spec.Spec) error {
 
 	return cmd.Run()
 }
+
+//go:embed dockerfile/go/Dockerfile
+var dockerfile string

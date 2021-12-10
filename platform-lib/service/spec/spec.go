@@ -23,6 +23,24 @@ func (s *Spec) EnabledComponent() []string {
 	return l
 }
 
+func (s *Spec) EnvironmentFor(environmentName string) map[string]string {
+	out := make(map[string]string)
+
+	if global, ok := s.Environment["_"]; ok {
+		for k, v := range global {
+			out[k] = v
+		}
+	}
+
+	if wanted, ok := s.Environment[environmentName]; ok {
+		for k, v := range wanted {
+			out[k] = v
+		}
+	}
+
+	return out
+}
+
 func (c *Component) ID() string {
 	return fmt.Sprintf("component_%s_%s", c.Type, c.Name)
 }
@@ -31,13 +49,18 @@ func (c *Component) FormatEnvVarName(v string) string {
 	up := strings.ToUpper(c.ID())
 	uv := strings.ToUpper(v)
 
-	return fmt.Sprintf("${%s_%s}", up, uv)
+	return fmt.Sprintf("%s_%s", up, uv)
+}
+
+func (c *Component) FormatEnvVarNameEscaped(v string) string {
+	return fmt.Sprintf("${%s}", c.FormatEnvVarName(v))
 }
 
 type (
 	Spec struct {
-		Name      string       `yaml:"name"`
-		Component []*Component `yaml:"component"`
+		Name        string                       `yaml:"name"`
+		Component   []*Component                 `yaml:"component"`
+		Environment map[string]map[string]string `yaml:"environment"`
 	}
 
 	Component struct {

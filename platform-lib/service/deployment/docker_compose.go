@@ -5,6 +5,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
@@ -26,8 +27,13 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		},
 	}
 
+	env.Registry().
+		Register("SERVICE", s.Name).
+		Register("SERVICE_IMAGE_NAME", s.Name).
+		Register("SERVICE_IMAGE_TAG", "latest")
+
 	for _, c := range s.Component {
-		containerName, image, ports, environment, err := componentContainerSpec(c)
+		containerName, image, ports, environment, err := componentContainerSpec(s.Name, c)
 		if err != nil {
 			return nil, err
 		}
@@ -55,17 +61,22 @@ func NewDockerComposeGenerator() *DockerComposeGenerator {
 	return &DockerComposeGenerator{}
 }
 
-func componentContainerSpec(c *spec.Component) (containerName, image string, ports []string, environment map[string]string, err error) {
+func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, err error) {
 	switch c.Type {
 	case "postgres":
 		containerName = c.ID()
 		image = "postgres:14"
 		ports = []string{"5432:5432"}
 		environment = map[string]string{
-			"POSTGRES_USER":     c.FormatEnvVarName("user"),
-			"POSTGRES_PASSWORD": c.FormatEnvVarName("password"),
-			"POSTGRES_DB":       c.FormatEnvVarName("db"),
+			"POSTGRES_USER":     c.FormatEnvVarNameEscaped("user"),
+			"POSTGRES_PASSWORD": c.FormatEnvVarNameEscaped("password"),
+			"POSTGRES_DB":       c.FormatEnvVarNameEscaped("db"),
 		}
+
+		env.Registry().
+			Register(c.FormatEnvVarName("user"), serviceName).
+			Register(c.FormatEnvVarName("password"), "secret").
+			Register(c.FormatEnvVarName("db"), serviceName)
 	default:
 		err = ErrUnsupportedComponent
 	}
