@@ -1,7 +1,7 @@
 version: "3"
 services:
   component_postgres_postgres:
-    container_name: postgres
+    container_name: component_postgres_postgres
     image: postgres:14
     restart: always
     ports:

@@ -25,14 +25,14 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 
 	actual, _ := sut.Generate(given)
 
-	assert.Equal(t, expected, actual)
+	assert.Equal(t, string(expected), string(actual))
 }
 
 var (
 	expected = []byte(`version: "3"
 services:
   component_postgres_postgres:
-    container_name: postgres
+    container_name: component_postgres_postgres
     image: postgres:14
     restart: always
     ports:
