@@ -1,6 +1,6 @@
 # platform
 
-![platform](hack/asset/platform-icon-256.png)
+![platform](platform-hack/asset/platform-icon-256.png)
 
 ## Документация
 

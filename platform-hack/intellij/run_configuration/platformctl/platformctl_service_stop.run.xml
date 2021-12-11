@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="platformctl service log" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="platformctl service stop" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="platform" />
-    <working_directory value="$PROJECT_DIR$/hack/service-showcase/wordcounter" />
-    <parameters value="service log" />
+    <working_directory value="$PROJECT_DIR$/platform-hack/service-showcase/wordcounter" />
+    <parameters value="service stop" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
