@@ -4,17 +4,29 @@ theme:
   logo: assets/platform-icon.svg
   features:
     - toc.integrate
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
 markdown_extensions:
   - footnotes
+  - meta
 nav:
-  - Введение: intro.md
-  - Установка и настройка:
-      - Установка: getting-started/install.md
-      - asdf-vm: getting-started/asdf-vm.md
-      - Запуск и остановка: getting-started/start.md
-      - Конфигурационный файл: getting-started/cfg-file.md
-      - Удаление: getting-started/delete.md
-  - Список команд: command-list/index.md
-  - Шаблон сервиса: service-boilerplate.md
-  - Технические заметки: technical-notes/index.md
-  - Оформление документации: doc-design.md
+  - Документация:
+      - Установка и настройка:
+          - doc/index.md
+          - Установка: doc/getting-started/install.md
+          - asdf-vm: doc/getting-started/asdf-vm.md
+          - Запуск и остановка: doc/getting-started/start.md
+          - Конфигурационный файл: doc/getting-started/cfg-file.md
+          - Удаление: doc/getting-started/delete.md
+      - Список команд: doc/command-list/index.md
+  - Туториалы:
+      - tutorial/index.md
+      - Работа в локальном окружении:
+          - Запуск сервиса в локальном окружении: tutorial/001-service-run-local.md
+          - Отладка сервиса в локальном окружении: tutorial/002-service-debug-local.md
+  - Разработка:
+      - development/index.md
+      - Технические заметки: development/technical-notes/index.md
+      - Шаблон сервиса: development/service-boilerplate.md
+      - Оформление документации: development/doc-design.md
