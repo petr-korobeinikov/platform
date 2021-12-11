@@ -20,6 +20,7 @@ nav:
           - Конфигурационный файл: doc/getting-started/cfg-file.md
           - Удаление: doc/getting-started/delete.md
       - Список команд: doc/command-list/index.md
+      - Манифест сервиса: doc/service-manifest.md
   - Туториалы:
       - tutorial/index.md
       - Работа в локальном окружении:
