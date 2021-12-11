@@ -12,7 +12,7 @@ docker run \
     -it \
     -d \
     -p 8000:8000 \
-    -v ${PWD}/mkdocs-material:/docs \
+    -v ${PWD}/platform-doc:/docs \
     squidfunk/mkdocs-material
 ```
 
