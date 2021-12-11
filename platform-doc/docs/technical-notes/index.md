@@ -9,11 +9,11 @@
 ## Локальная разработка
 
 Для упрощения запуска и отладки конфигурации запуска экспортированы в
-каталог `hack/intellij/run_configuration`.
+каталог `platform-hack/intellij/run_configuration`.
 
 ```shell
-tree hack/intellij/run_configuration
-hack/intellij/run_configuration
+tree platform-hack/intellij/run_configuration
+platform-hack/intellij/run_configuration
 └── platformctl
     ├── platformctl.run.xml
     ├── platformctl_lib_get.run.xml
