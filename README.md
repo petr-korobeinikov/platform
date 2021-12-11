@@ -8,6 +8,7 @@
 
 ```shell
 docker run \
+    --pull always \
     --rm \
     -it \
     -d \

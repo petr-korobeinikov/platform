@@ -9,22 +9,28 @@
 ## Пример манифеста `service.yaml`
 
 ```yaml
-name: wordcounter
+name: wordcounter # (1)
 
-environment:
+environment: # (2)
   _:
     WORKER_BATCH_SIZE: 10
     WORKER_NAP_DURATION: 1s
   staging:
-    WORKER_NAP_DURATION: 10s
+    WORKER_NAP_DURATION: 10s # (4)
   prod:
-    WORKER_NAP_DURATION: 30s
+    WORKER_NAP_DURATION: 30s # (5)
 
-component:
+component: # (3)
   - type: postgres
     name: postgres
     enabled: true
 ```
+
+1. Имя сервиса
+2. Спецификация переменных окружения
+3. Список компонентов сервиса
+4. Переопределение значения `WORKER_NAP_DURATION` для окружения `staging`.
+5. Переопределение значения `WORKER_NAP_DURATION` для окружения `prod`.
 
 ## Структура манифеста
 
