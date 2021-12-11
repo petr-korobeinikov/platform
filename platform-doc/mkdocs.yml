@@ -28,6 +28,7 @@ nav:
           - Отладка сервиса в локальном окружении: tutorial/002-service-debug-local.md
   - Разработка:
       - development/index.md
+      - Структура проекта: development/project-structure.md
       - Технические заметки: development/technical-notes/index.md
       - Шаблон сервиса: development/service-boilerplate.md
       - Оформление документации: development/doc-design.md
