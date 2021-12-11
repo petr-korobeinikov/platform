@@ -17,6 +17,7 @@ func Log(ctx context.Context) error {
 		`logs`,
 		`--follow`,
 		`--no-log-prefix`,
+		`service`,
 	}
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)

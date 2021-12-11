@@ -7,6 +7,9 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"go.uber.org/zap/zapcore"
+
+	"go.uber.org/zap"
 )
 
 var (
@@ -20,7 +23,20 @@ func init() {
 }
 
 func main() {
+	logCfg := zap.NewProductionConfig()
+	logCfg.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
+
+	logger, err := logCfg.Build()
+	if err != nil {
+		panic(err)
+	}
+	defer logger.Sync()
+
+	zap.ReplaceGlobals(logger)
+
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		zap.L().Info("go http request", zap.String("address", "/"))
+
 		writer.Header().Add("Content-type", "text/plain")
 
 		greeting := fmt.Sprintf("Hello, %s!\n", service)
