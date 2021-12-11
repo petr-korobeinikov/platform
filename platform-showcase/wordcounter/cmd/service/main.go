@@ -17,9 +17,9 @@ var (
 )
 
 func init() {
-	service = os.Getenv("SERVICE")
-
 	_ = godotenv.Load(".platform/env/.env", ".env")
+
+	service = os.Getenv("SERVICE")
 }
 
 func main() {
