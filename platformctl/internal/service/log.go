@@ -9,7 +9,6 @@ import (
 )
 
 func Log(ctx context.Context) error {
-	// We need to support ability for tailing only service log.
 	args := []string{
 		`docker-compose`,
 		`--file`,
