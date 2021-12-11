@@ -88,6 +88,12 @@ func Read() (*Spec, error) {
 	return &spec, nil
 }
 
+func ExistInCurrentDirectory() bool {
+	_, err := os.Stat(File)
+
+	return err == nil
+}
+
 var (
 	ErrSpecFileDoesNotExists = errors.New(fmt.Sprintf("%s does not found in project directory", File))
 	ErrSpecReading           = errors.New(fmt.Sprintf("can't read %s", File))

@@ -7,7 +7,6 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
-	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
@@ -16,8 +15,6 @@ func Debug(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	_ = platform.CreateDirectory()
 
 	generator := deployment.NewDockerComposeGenerator()
 	deploymentSpec, err := generator.Generate(s)

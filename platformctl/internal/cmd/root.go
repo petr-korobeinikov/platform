@@ -8,6 +8,9 @@ import (
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
+
+	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
+	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
 var cfgFile string
@@ -20,6 +23,13 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		if spec.ExistInCurrentDirectory() {
+			_ = platform.CreateDirectory()
+		}
+
+		return nil
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

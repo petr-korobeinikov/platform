@@ -7,7 +7,6 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
-	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 
 	"platformctl/internal/docker"
@@ -18,8 +17,6 @@ func Start(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	_ = platform.CreateDirectory()
 
 	if err := docker.Build(ctx, s); err != nil {
 		return err
