@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="platformctl service debug" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="platform" />
-    <working_directory value="$PROJECT_DIR$/platform-hack/service-showcase/wordcounter" />
+    <working_directory value="$PROJECT_DIR$/platform-showcase/wordcounter" />
     <parameters value="service debug" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
