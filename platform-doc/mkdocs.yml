@@ -33,9 +33,13 @@ markdown_extensions:
   - pymdownx.tilde
   - pymdownx.highlight:
       anchor_linenums: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - tables
 nav:
   - Документация:
       - Установка и настройка:
@@ -56,5 +60,6 @@ nav:
       - development/index.md
       - Структура проекта: development/project-structure.md
       - Технические заметки: development/technical-notes/index.md
+      - Матрица фич: development/feature-matrix.md
       - Шаблон сервиса: development/service-boilerplate.md
       - Оформление документации: development/doc-design.md
