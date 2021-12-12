@@ -18,10 +18,11 @@
 | Создание сервиса из шаблона                      |  :red_square:   |  :red_square:  |
 | Локальное развёртывание одиночного сервиса       | :green_square:  |  :red_square:  |
 | Локальное развёртывание нескольких сервисов      | :orange_square: |  :red_square:  |
-| Отладка на хост-машине                           | :green_square:  |  :red_square:  |
+| Остановка сервиса в локальном окружении          | :green_square:  |  :red_square:  |
+| Просмотр логов сервиса в локальном окружении     | :green_square:  |  :red_square:  |
+| Отладка на хост-машине в локальном окружении     | :green_square:  |  :red_square:  |
 | Live reload                                      |  :red_square:   |  :red_square:  |
 | Remote debug                                     |  :red_square:   |  :red_square:  |
-| Просмотр логов сервиса                           | :green_square:  |  :red_square:  |
 | Реестр сервисов                                  |  :red_square:   |  :red_square:  |
 | Реестр русурсов                                  |  :red_square:   |  :red_square:  |
 | Генератор манифестов                             |  :red_square:   |  :red_square:  |
