@@ -36,6 +36,20 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		}
 	}
 
+	dcs.Services["platform_observability_opentelemetry"] = dockerComposeService{
+		ContainerName: "opentelemetry",
+		Image:         "jaegertracing/opentelemetry-all-in-one",
+		Restart:       "always",
+		Ports: []string{
+			"6831:6831",
+			"16686:16686",
+			"14268:14268",
+		},
+	}
+
+	env.Registry().
+		Register("OBSERVABILITY_JAEGER_COLLECTOR_HTTP_ENDPOINT", "http://localhost:14268/api/traces")
+
 	env.Registry().
 		Register("SERVICE", s.Name).
 		Register("SERVICE_IMAGE_NAME", s.Name).

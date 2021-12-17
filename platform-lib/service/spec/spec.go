@@ -20,6 +20,8 @@ func (s *Spec) EnabledComponent() []string {
 		}
 	}
 
+	l = append(l, "platform_observability_opentelemetry")
+
 	return l
 }
 
