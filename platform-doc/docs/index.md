@@ -8,6 +8,8 @@ hide:
 
 # platform
 
-Платформа для разработки, отладки, тестирвоания и развёртывания микросервисов.
+<p align="center">
+    <img src="assets/platform-icon.svg" width="256" height="256" alt="platform" />
+</p>
 
-![platform](assets/platform-icon.svg)
+Платформа для разработки, отладки, тестирвоания и развёртывания микросервисов.
