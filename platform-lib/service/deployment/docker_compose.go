@@ -36,6 +36,62 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		}
 	}
 
+	dcs.Services["platform_kafka_zookeeper"] = dockerComposeService{
+		ContainerName: "kafka-zookeeper",
+		Image:         "confluentinc/cp-zookeeper:5.5.1",
+		Restart:       "always",
+		Environment: map[string]string{
+			"ZOOKEEPER_CLIENT_PORT": "2181",
+			"ZOOKEEPER_TICK_TIME":   "2000",
+			"ALLOW_ANONYMOUS_LOGIN": "yes",
+		},
+	}
+
+	dcs.Services["platform_kafka_broker"] = dockerComposeService{
+		ContainerName: "kafka-broker",
+		Image:         "confluentinc/cp-kafka:5.5.1",
+		DependsOn: []string{
+			"platform_kafka_zookeeper",
+		},
+		Restart: "on-failure",
+		Ports: []string{
+			"9092:9092",
+		},
+		Environment: map[string]string{
+			"KAFKA_REST_HOST_NAME":                           "broker",
+			"KAFKA_BROKER_ID":                                "1",
+			"KAFKA_ZOOKEEPER_CONNECT":                        "kafka-zookeeper:2181",
+			"KAFKA_ADVERTISED_LISTENERS":                     "PLAINTEXT://kafka-broker:29092,PLAINTEXT_HOST://localhost:9092",
+			"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP":           "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT",
+			"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR":         "1",
+			"KAFKA_TRANSACTION_STATE_LOG_MIN_ISR":            "1",
+			"KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR": "1",
+			"KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS":         "0",
+			"KAFKA_JMX_PORT":                                 "9101",
+			"KAFKA_AUTO_CREATE_TOPICS_ENABLE":                "true",
+			"KAFKA_LOG4J_LOGGERS":                            "org.apache.zookeeper=ERROR,org.apache.kafka=ERROR,kafka=ERROR,kafka.cluster=ERROR,kafka.controller=ERROR,kafka.coordinator=ERROR,kafka.log=ERROR,kafka.server=ERROR,kafka.zookeeper=ERROR,state.change.logger=ERROR",
+		},
+	}
+
+	env.Registry().
+		Register("KAFKA_PORT", "9092")
+
+	dcs.Services["platform_kafka_kafdrop"] = dockerComposeService{
+		ContainerName: "kafka-kafdrop",
+		Image:         "obsidiandynamics/kafdrop",
+		DependsOn: []string{
+			"platform_kafka_broker",
+		},
+		Restart: "always",
+		Ports: []string{
+			"9100:9100",
+		},
+		Environment: map[string]string{
+			"KAFKA_BROKERCONNECT": "kafka-broker:29092",
+			"SERVER_PORT":         "9100",
+		},
+	}
+
 	dcs.Services["platform_observability_opentelemetry"] = dockerComposeService{
 		ContainerName: "opentelemetry",
 		Image:         "jaegertracing/opentelemetry-all-in-one",
@@ -119,6 +175,7 @@ type (
 		ContainerName string            `yaml:"container_name"`
 		Image         string            `yaml:"image"`
 		Restart       string            `yaml:"restart"`
+		DependsOn     []string          `yaml:"depends_on,omitempty"`
 		Ports         []string          `yaml:"ports,omitempty"`
 		Environment   map[string]string `yaml:"environment,omitempty"`
 	}

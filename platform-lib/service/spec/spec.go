@@ -20,7 +20,13 @@ func (s *Spec) EnabledComponent() []string {
 		}
 	}
 
-	l = append(l, "platform_observability_opentelemetry")
+	l = append(
+		l,
+		"platform_observability_opentelemetry",
+		"platform_kafka_zookeeper",
+		"platform_kafka_broker",
+		"platform_kafka_kafdrop",
+	)
 
 	return l
 }
