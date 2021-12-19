@@ -9,7 +9,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const File = "service.yaml"
+const File = "platform.yaml"
 
 func (s *Spec) EnabledComponent() []string {
 	l := make([]string, 0)
