@@ -22,6 +22,9 @@ func Start(ctx context.Context) error {
 		return err
 	}
 
+	environment := s.EnvironmentFor("local")
+	env.Registry().RegisterMany(environment)
+
 	generator := deployment.NewDockerComposeGenerator()
 	deploymentSpec, err := generator.Generate(s)
 	if err != nil {
@@ -32,9 +35,6 @@ func Start(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	environment := s.EnvironmentFor("local")
-	env.Registry().RegisterMany(environment)
 
 	err = env.WriteEnvFile()
 	if err != nil {
