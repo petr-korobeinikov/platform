@@ -15,17 +15,27 @@ platform:
     memory: "4g"
     cpus: "4"
     disk-size: "50g"
+
+  ...
+
 ```
 
-## go_env_vars
+## platform.go_env_vars
 
-Параметр `go_env_vars` содержит список переменных окружения, необходимых для
+Параметр `platform.go_env_vars` содержит список переменных окружения, необходимых для
 установки и обновления пакетов `go`.
 
 ```yaml
-go_env_vars:
-  - "GONOPROXY=none"
-  - "GOPROXY=https://proxy.yourdevdomain.tld"
-  - "GONOSUMDB=sumdb.yourdevdomain.tld/*"
-  - "GOPRIVATE=*.yourdevdomain.tld"
+platform:
+
+  ...
+
+  go_env_vars:
+    - "GONOPROXY=none"
+    - "GOPROXY=https://proxy.yourdevdomain.tld"
+    - "GONOSUMDB=sumdb.yourdevdomain.tld/*"
+    - "GOPRIVATE=*.yourdevdomain.tld"
+
+  ...
+
 ```

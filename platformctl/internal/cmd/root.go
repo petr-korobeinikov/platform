@@ -74,3 +74,7 @@ func initConfig() {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
 }
+
+const (
+	cfgKeyGoEnvVars = "platform.go_env_vars"
+)

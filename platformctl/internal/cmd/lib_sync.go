@@ -18,7 +18,7 @@ var libSyncCmd = &cobra.Command{
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
 
-		envs := viper.GetStringSlice("go_env_vars")
+		envs := viper.GetStringSlice(cfgKeyGoEnvVars)
 
 		return lib.Sync(ctx, envs)
 	},
