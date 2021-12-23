@@ -89,6 +89,22 @@ services:
     - 6831:6831
     - 16686:16686
     - 14268:14268
+  platform_service_desktop:
+    container_name: platform_service_desktop
+    image: platform-service-desktop
+    restart: always
+    ports:
+    - 80:80
+    environment:
+      COMPONENT_JAEGERUI_ENABLED: "true"
+      COMPONENT_JAEGERUI_HOST: http://localhost:16686
+      COMPONENT_KAFDROP_ENABLED: "true"
+      COMPONENT_KAFDROP_HOST: http://localhost:9100
+      JAEGER_ENDPOINT: http://localhost:14268/api/traces
+      JAEGER_SAMPLER_PARAM: "0"
+      JAEGER_SAMPLER_TYPE: const
+      JAEGER_SERVICE_NAME: platform-service-desktop
+      LISTEN_ON: :80
   service:
     container_name: service
     image: ${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}

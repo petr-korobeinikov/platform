@@ -124,6 +124,25 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		Environment:   serviceEnvironment,
 	}
 
+	// Hide under feature flag?
+	dcs.Services["platform_service_desktop"] = dockerComposeService{
+		ContainerName: "platform_service_desktop",
+		Image:         "platform-service-desktop",
+		Restart:       "always",
+		Ports:         []string{"80:80"},
+		Environment: map[string]string{
+			"LISTEN_ON":                  ":80",
+			"COMPONENT_JAEGERUI_ENABLED": "true",
+			"COMPONENT_KAFDROP_ENABLED":  "true",
+			"COMPONENT_JAEGERUI_HOST":    "http://localhost:16686",
+			"COMPONENT_KAFDROP_HOST":     "http://localhost:9100",
+			"JAEGER_SERVICE_NAME":        "platform-service-desktop",
+			"JAEGER_ENDPOINT":            "http://localhost:14268/api/traces",
+			"JAEGER_SAMPLER_TYPE":        "const",
+			"JAEGER_SAMPLER_PARAM":       "0",
+		},
+	}
+
 	b, err := yaml.Marshal(dcs)
 	if err != nil {
 		return nil, err
