@@ -26,3 +26,4 @@
 | Реестр сервисов                                  |  :red_square:   |  :red_square:  |
 | Реестр русурсов                                  |  :red_square:   |  :red_square:  |
 | Генератор манифестов                             |  :red_square:   |  :red_square:  |
+| Рабочий стол                                     | :yellow_square: |  :red_square:  |
