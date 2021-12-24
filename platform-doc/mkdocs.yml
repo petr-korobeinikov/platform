@@ -58,6 +58,7 @@ nav:
           - Отладка сервиса в локальном окружении: tutorial/002-service-debug-local.md
   - Разработка:
       - development/index.md
+      - Roadmap: development/roadmap.md
       - Структура проекта: development/project-structure.md
       - Технические заметки: development/technical-notes/index.md
       - Матрица фич: development/feature-matrix.md
