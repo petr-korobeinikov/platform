@@ -23,6 +23,8 @@
     * Материалы:
         * https://docs.gitlab.com/ee/development/integrations/secure.html
 * Общий сканер лицензий зависимых библиотек.
+* Вывод информации о сервисе:
+  * `platformctl service info`
 
 ## `platformctl`
 
