@@ -1,5 +1,22 @@
 # Roadmap
 
+## `platform`
+
+* `platform-service-registry`
+    * Хранит в себе информацию о всех сервисах.
+    * Предоставляет список `endpoint`-ов для сбора `prometheus`-метрик.
+* `platform-service-asset-registry`
+    * Хранит в себе необходимые артефакты для сборки сервисов:
+        * `Dockerfile`
+* Продуман механизм межсервисного взаимодействия:
+    * Единое хранилище `proto`-файлов.
+    * Генератор кода `service-code-generator`.
+        * Название (?):
+            * `service-protoc` :thinking:
+            * `service-api-generator` :thinking:
+            * `service-grpc-generator` :white_check_mark:
+        * Генерирует фиксированной версией `protoc` код по спеке `grpc`.
+
 ## `platformctl`
 
 ### `platformctl service create`
