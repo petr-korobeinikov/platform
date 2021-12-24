@@ -16,6 +16,13 @@
             * `service-api-generator` :thinking:
             * `service-grpc-generator` :white_check_mark:
         * Генерирует фиксированной версией `protoc` код по спеке `grpc`.
+* Общий линтер для всех сервисов с общей конфигурацией.
+* Общий сканер безопасности с общей настройкой.
+    * SAST
+    * DAST
+    * Материалы:
+        * https://docs.gitlab.com/ee/development/integrations/secure.html
+* Общий сканер лицензий зависимых библиотек.
 
 ## `platformctl`
 
