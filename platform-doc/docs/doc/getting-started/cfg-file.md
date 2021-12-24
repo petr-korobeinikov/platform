@@ -16,7 +16,7 @@ platform:
     cpus: "4"
     disk-size: "50g"
 
-  ...
+  # ...
 
 ```
 
@@ -28,7 +28,7 @@ platform:
 ```yaml
 platform:
 
-  ...
+  # ...
 
   go_env_vars:
     - "GONOPROXY=none"
@@ -36,6 +36,6 @@ platform:
     - "GONOSUMDB=sumdb.yourdevdomain.tld/*"
     - "GOPRIVATE=*.yourdevdomain.tld"
 
-  ...
+  # ...
 
 ```
