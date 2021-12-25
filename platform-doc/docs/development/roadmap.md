@@ -34,11 +34,11 @@
 
 На первом этапе разработки:
 
-* ~~Создаёт папку с проектом~~.
-* ~~Создаёт манифест нового сервиса (`platform.yaml`)~~.
-* ~~Создаёт точку входа в сервис (`cmd/service/main.go`)~~.
-* ~~Создаёт `.gitignore`~~.
-* ~~Инициализирует `go modules` сервиса~~.
+* :white_check_mark: Создаёт папку с проектом.
+* :white_check_mark: Создаёт манифест нового сервиса (`platform.yaml`).
+* :white_check_mark: Создаёт точку входа в сервис (`cmd/service/main.go`).
+* :white_check_mark: Создаёт `.gitignore`.
+* :white_check_mark: Инициализирует `go modules` сервиса.
 
 По мере развития проекта:
 
@@ -58,17 +58,17 @@
 
 На первом этапе разработки:
 
-* ~~Сервис создан~~.
-* ~~В качестве http-сервера использован `labstack/echo`~~.
-* ~~Настроено эталонное логгирование~~.
-    * ~~В качестве `middleware`
-      использован [brpaz/echozap](https://github.com/brpaz/echozap)~~.
-* ~~Настроена эталонная отправка трейсов~~.
-    * ~~В качестве основы использован `jaegertracing`~~.
-    * ~~В качестве `middleware`
-      использован https://echo.labstack.com/middleware/jaegertracing/~~.
-* ~~Продемонстрирована группировка ошибок в `sentry`~~.
-* ~~Продемонстрирован экспорт метрик `prometheus`~~.
+* :white_check_mark: Сервис создан.
+* :white_check_mark: В качестве http-сервера использован `labstack/echo`.
+* :white_check_mark: Настроено эталонное логгирование.
+    * :white_check_mark: В качестве `middleware`
+      использован [brpaz/echozap](https://github.com/brpaz/echozap).
+* :white_check_mark: Настроена эталонная отправка трейсов.
+    * :white_check_mark: В качестве основы использован `jaegertracing`.
+    * :white_check_mark: В качестве `middleware`
+      использован https://echo.labstack.com/middleware/jaegertracing/.
+* :white_check_mark: Продемонстрирована группировка ошибок в `sentry`.
+* :white_check_mark: Продемонстрирован экспорт метрик `prometheus`.
 
 По мере развития проекта:
 
