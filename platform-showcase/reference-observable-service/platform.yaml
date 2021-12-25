@@ -3,8 +3,12 @@ name: reference-observable-service
 environment:
   _:
     LISTEN_ON: :80
+
+    SENTRY_DSN: ""
   local:
     LISTEN_ON: :9000
+
+    SENTRY_DSN: ""
 
     JAEGER_SERVICE_NAME: platform-service-desktop
     JAEGER_ENDPOINT: http://localhost:14268/api/traces
