@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strconv"
 
 	"github.com/brpaz/echozap"
 	"github.com/joho/godotenv"
@@ -29,8 +30,14 @@ func main() {
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
 
-	randomGenerator := random.NewGenerator(-3, 10)
-	fibonacciCountingService := fibonacci.NewCountingService(7)
+	// Provide a library to handle env vars: env.E("FOO").AsUint(); env.E("FOO").AsDuration()
+	randomGeneratorMinValue, _ := strconv.Atoi(os.Getenv("RANDOM_GENERATOR_MIN_NUMBER"))
+	randomGeneratorMaxValue, _ := strconv.Atoi(os.Getenv("RANDOM_GENERATOR_MAX_NUMBER"))
+
+	fibonacciCountingServiceMaxFibNumber, _ := strconv.Atoi(os.Getenv("FIBONACCI_COUNTING_SERVICE_MAX_N_NUMBER"))
+
+	randomGenerator := random.NewGenerator(randomGeneratorMinValue, randomGeneratorMaxValue)
+	fibonacciCountingService := fibonacci.NewCountingService(fibonacciCountingServiceMaxFibNumber)
 
 	indexHandler := handler.NewIndexHandler()
 	complexHandler := handler.NewComplexHandler(handler.ComplexHandlerCfg{
