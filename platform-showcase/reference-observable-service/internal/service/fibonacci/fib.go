@@ -25,6 +25,8 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 		promFibonacciCountingServiceCountCounterVec.
 			WithLabelValues(isSussess).
 			Inc()
+
+		promFibonacciCountingServiceCountTotalCounter.Inc()
 	}()
 
 	logger := zap.L().
@@ -118,4 +120,10 @@ var (
 		Name: "app_service_fibonacci_counting_service_count_count",
 		Help: "How many attempts to generate fibonacci number served",
 	}, []string{"success"})
+
+	promFibonacciCountingServiceCountTotalCounter = promauto.NewCounter(prometheus.CounterOpts{
+		// Use service name as prefix (namespace)
+		Name: "app_service_fibonacci_counting_service_count_total",
+		Help: "How many attempts to generate fibonacci number served in total",
+	})
 )
