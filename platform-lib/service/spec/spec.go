@@ -26,7 +26,6 @@ func (s *Spec) EnabledComponent() []string {
 		"platform_kafka_zookeeper",
 		"platform_kafka_broker",
 		"platform_kafka_kafdrop",
-		"platform_service_desktop",
 	)
 
 	return l

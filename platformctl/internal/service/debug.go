@@ -43,6 +43,7 @@ func Debug(ctx context.Context) error {
 		env.File,
 		`up`,
 		`-d`,
+		`--remove-orphans`,
 	}
 	args = append(args, s.EnabledComponent()...)
 

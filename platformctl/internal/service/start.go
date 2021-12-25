@@ -49,6 +49,7 @@ func Start(ctx context.Context) error {
 		env.File,
 		`up`,
 		`-d`,
+		`--remove-orphans`,
 	}
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
