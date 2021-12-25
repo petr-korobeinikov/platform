@@ -10,6 +10,7 @@ import (
 
 	"reference-observable-service/internal/handler"
 	"reference-observable-service/internal/logging"
+	"reference-observable-service/internal/service/fibonacci"
 )
 
 func init() {
@@ -27,8 +28,12 @@ func main() {
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
 
+	fibonacciCountingService := fibonacci.NewCountingService(10)
+
 	indexHandler := handler.NewIndexHandler()
-	complexHandler := handler.NewComplexHandler()
+	complexHandler := handler.NewComplexHandler(handler.ComplexHandlerCfg{
+		FibonacciCountingService: fibonacciCountingService,
+	})
 
 	e.GET("/", indexHandler.HandleRequest)
 	e.GET("/complex", complexHandler.HandleRequest)
