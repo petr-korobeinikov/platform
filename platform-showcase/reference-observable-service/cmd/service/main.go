@@ -7,6 +7,7 @@ import (
 	"github.com/brpaz/echozap"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo-contrib/jaegertracing"
+	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 
 	"reference-observable-service/internal/handler"
@@ -26,6 +27,9 @@ func main() {
 	defer loggerSync()
 
 	e.Use(echozap.ZapLogger(logger))
+
+	p := prometheus.NewPrometheus("echo", nil)
+	p.Use(e)
 
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
