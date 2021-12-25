@@ -25,7 +25,7 @@ func Create(ctx context.Context, serviceName string) (err error) {
 	}
 
 	// region Service Template
-	if err = filesystem.MkDir(path.Join(serviceName, "cmd")); err != nil {
+	if err = filesystem.MkDir(path.Join(serviceName, "cmd", "service")); err != nil {
 		return
 	}
 
@@ -48,6 +48,16 @@ func Create(ctx context.Context, serviceName string) (err error) {
 	if err != nil {
 		return
 	}
+
+	err = filesystem.Touch(
+		path.Join(serviceName, "cmd", "service", "main.go"),
+		filesystem.WithContentsOfString(
+			fmt.Sprintf(entrypoint, serviceName),
+		),
+	)
+	if err != nil {
+		return
+	}
 	// endregion
 
 	return
@@ -65,6 +75,13 @@ environment:
   _: ~
   local: ~
   staging: ~
+`
+
+	entrypoint = `package main
+
+func main() {
+	println("Hello, I am %s!")
+}
 `
 )
 
