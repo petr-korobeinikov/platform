@@ -68,6 +68,7 @@
     * ~~В качестве `middleware`
       использован https://echo.labstack.com/middleware/jaegertracing/~~.
 * ~~Продемонстрирована группировка ошибок в `sentry`~~.
+* ~~Продемонстрирован экспорт метрик `prometheus`~~.
 
 По мере развития проекта:
 
