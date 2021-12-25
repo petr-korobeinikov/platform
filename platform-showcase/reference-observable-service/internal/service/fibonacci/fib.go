@@ -11,11 +11,18 @@ import (
 )
 
 func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
+	var result int
+
 	logger := zap.L().
 		With(
 			zap.Int("n", n),
 			zap.Int("maxFibNumber", s.maxFibNumber),
 		)
+
+	logger.Debug("starting calculation of fibonacci number")
+	defer func() {
+		logger.Debug("completing calculation of fibonacci number", zap.Int("result", result))
+	}()
 
 	span, ctx := opentracing.StartSpanFromContext(ctx, "fibonacci.CountingService_Count")
 	defer span.Finish()
@@ -50,7 +57,9 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 		return 0, err
 	}
 
-	return fib(ctx, n), nil
+	result = fib(ctx, n)
+
+	return result, nil
 }
 
 func NewCountingService(maxFibNumber int) *CountingService {
