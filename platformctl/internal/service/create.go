@@ -58,6 +58,14 @@ func Create(ctx context.Context, serviceName string) (err error) {
 	if err != nil {
 		return
 	}
+
+	err = filesystem.Touch(
+		path.Join(serviceName, ".gitignore"),
+		filesystem.WithContentsOfString(gitignore),
+	)
+	if err != nil {
+		return
+	}
 	// endregion
 
 	return
@@ -82,6 +90,9 @@ environment:
 func main() {
 	println("Hello, I am %s!")
 }
+`
+
+	gitignore = `.platform
 `
 )
 
