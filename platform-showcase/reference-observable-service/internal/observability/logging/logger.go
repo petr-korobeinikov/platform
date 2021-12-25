@@ -18,6 +18,7 @@ func NewLogger() (logger *zap.Logger, syncFunc func(), err error) {
 
 	logCfg := zap.NewProductionConfig()
 	logCfg.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
+	logCfg.Level = zap.NewAtomicLevelAt(zapcore.DebugLevel)
 
 	logger, err = logCfg.Build()
 	if err != nil {
