@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"fmt"
 	"path"
 
 	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
@@ -27,12 +28,26 @@ func Create(ctx context.Context, serviceName string) error {
 		return err
 	}
 
-	// Create do.mod
-	// Create platform.yaml
+	err := filesystem.Touch(
+		path.Join(serviceName, "go.mod"),
+		filesystem.WithContentsOfString(
+			fmt.Sprintf(gomodFmt, serviceName),
+		),
+	)
+	if err != nil {
+		return err
+	}
 	// endregion
 
 	return nil
 }
+
+const (
+	gomodFmt = `module %s
+
+go 1.17
+`
+)
 
 var (
 	errServiceDirectoryAlreadyExists = errors.New("service directory already exists")
