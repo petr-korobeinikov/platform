@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"reference-observable-service/internal/handler"
-	"reference-observable-service/internal/logging"
+	"reference-observable-service/internal/observability/logging"
 	"reference-observable-service/internal/service/fibonacci"
 )
 
