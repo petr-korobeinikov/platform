@@ -1,0 +1,6 @@
+name: reference-observable-service
+
+environment:
+  _: ~
+  local: ~
+  staging: ~
