@@ -7,9 +7,16 @@ import (
 	"time"
 
 	"github.com/opentracing/opentracing-go"
+	"go.uber.org/zap"
 )
 
 func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
+	logger := zap.L().
+		With(
+			zap.Int("n", n),
+			zap.Int("maxFibNumber", s.maxFibNumber),
+		)
+
 	span, ctx := opentracing.StartSpanFromContext(ctx, "fibonacci.CountingService_Count")
 	defer span.Finish()
 
@@ -22,16 +29,25 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 	span.SetBaggageItem("requested_fib_number", strconv.Itoa(n))
 
 	if n > s.maxFibNumber {
-		span.SetTag("error", true)
-		span.SetTag("error.message", ErrFibonacciNumberIsTooDistant)
+		err := ErrFibonacciNumberIsTooDistant
 
-		return 0, ErrFibonacciNumberIsTooDistant
+		logger.Error("failed to calculate fibonacci number", zap.Error(err))
+
+		span.SetTag("error", true)
+		span.SetTag("error.message", err)
+
+		return 0, err
 	}
 
 	if n < 0 {
+		err := ErrFibonacciNumberIsNegative
+
+		logger.Error("failed to calculate fibonacci number", zap.Error(err))
+
 		span.SetTag("error", true)
-		span.SetTag("error.message", ErrFibonacciNumberIsNegative)
-		return 0, ErrFibonacciNumberIsNegative
+		span.SetTag("error.message", err)
+
+		return 0, err
 	}
 
 	return fib(ctx, n), nil
