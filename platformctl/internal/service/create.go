@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"path"
 
 	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
 	"github.com/pkorobeinikov/platform/platform-lib/service/validation"
@@ -21,9 +22,14 @@ func Create(ctx context.Context, serviceName string) error {
 		return err
 	}
 
-	// Create entrypoint cmd/service/main.go
+	// region Service Template
+	if err := filesystem.MkDir(path.Join(serviceName, "cmd")); err != nil {
+		return err
+	}
 
 	// Create do.mod
+	// Create platform.yaml
+	// endregion
 
 	return nil
 }
