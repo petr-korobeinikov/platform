@@ -11,6 +11,7 @@ import (
 	"reference-observable-service/internal/handler"
 	"reference-observable-service/internal/observability/logging"
 	"reference-observable-service/internal/service/fibonacci"
+	"reference-observable-service/internal/service/random"
 )
 
 func init() {
@@ -28,10 +29,12 @@ func main() {
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
 
-	fibonacciCountingService := fibonacci.NewCountingService(10)
+	randomGenerator := random.NewGenerator(-3, 10)
+	fibonacciCountingService := fibonacci.NewCountingService(7)
 
 	indexHandler := handler.NewIndexHandler()
 	complexHandler := handler.NewComplexHandler(handler.ComplexHandlerCfg{
+		RandomGenerator:          randomGenerator,
 		FibonacciCountingService: fibonacciCountingService,
 	})
 

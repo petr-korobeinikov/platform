@@ -10,7 +10,9 @@ import (
 func (h *ComplexHandler) HandleRequest(c echo.Context) error {
 	var r complexHandlerResponse
 
-	r.Fib, r.Error = h.fibonacciCountingService.Count(c.Request().Context(), 10)
+	n := h.randomGenerator.Generate(c.Request().Context())
+
+	r.Fib, r.Error = h.fibonacciCountingService.Count(c.Request().Context(), n)
 	if r.Error != nil {
 		return c.JSONPretty(http.StatusBadRequest, r, "  ")
 	}
@@ -20,21 +22,28 @@ func (h *ComplexHandler) HandleRequest(c echo.Context) error {
 
 func NewComplexHandler(cfg ComplexHandlerCfg) *ComplexHandler {
 	return &ComplexHandler{
+		randomGenerator:          cfg.RandomGenerator,
 		fibonacciCountingService: cfg.FibonacciCountingService,
 	}
 }
 
 type (
 	ComplexHandler struct {
+		randomGenerator          randomGenerator
 		fibonacciCountingService fibonacciCountingService
 	}
 
 	ComplexHandlerCfg struct {
+		RandomGenerator          randomGenerator
 		FibonacciCountingService fibonacciCountingService
 	}
 
 	fibonacciCountingService interface {
 		Count(ctx context.Context, n int) (int, error)
+	}
+
+	randomGenerator interface {
+		Generate(ctx context.Context) int
 	}
 
 	complexHandlerResponse struct {
