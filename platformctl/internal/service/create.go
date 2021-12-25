@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+	"errors"
 
+	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
 	"github.com/pkorobeinikov/platform/platform-lib/service/validation"
 )
 
@@ -11,7 +13,9 @@ func Create(ctx context.Context, serviceName string) error {
 		return err
 	}
 
-	// Validate directory doesn't exists
+	if filesystem.IsDirectoryExists(serviceName) {
+		return errServiceDirectoryAlreadyExists
+	}
 
 	// Create directory
 
@@ -21,3 +25,7 @@ func Create(ctx context.Context, serviceName string) error {
 
 	return nil
 }
+
+var (
+	errServiceDirectoryAlreadyExists = errors.New("service directory already exists")
+)
