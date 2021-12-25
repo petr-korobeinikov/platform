@@ -117,7 +117,7 @@ var (
 
 	promFibonacciCountingServiceCountCounterVec = promauto.NewCounterVec(prometheus.CounterOpts{
 		// Use service name as prefix (namespace)
-		Name: "app_service_fibonacci_counting_service_count_count",
+		Name: "app_service_fibonacci_counting_service_count_by_success_count",
 		Help: "How many attempts to generate fibonacci number served",
 	}, []string{"success"})
 

@@ -51,6 +51,8 @@ nav:
           - Удаление: doc/getting-started/delete.md
       - Список команд: doc/command-list/index.md
       - Манифест сервиса: doc/service-manifest.md
+  - Best Practice:
+      - Observability: best-practice/observability.md
   - Туториалы:
       - tutorial/index.md
       - Работа в локальном окружении:
