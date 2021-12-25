@@ -15,9 +15,11 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 
 	// Tag adds to "Tags" section
 	span.SetTag("max_fib_number", s.maxFibNumber)
+	span.SetTag("requested_fib_number", n)
 
 	// BaggageItem adds to "Log" section. Use "baggage" wisely.
 	span.SetBaggageItem("max_fib_number", strconv.Itoa(s.maxFibNumber))
+	span.SetBaggageItem("requested_fib_number", strconv.Itoa(n))
 
 	if n > s.maxFibNumber {
 		span.SetTag("error", true)
