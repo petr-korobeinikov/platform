@@ -31,6 +31,8 @@ func main() {
 		// zap.L().Info("start processing http request", zap.String("path", c.Path()))
 		// defer zap.L().Info("complete processing http request", zap.String("path", c.Path()))
 
+		// zap.L().Error("sentry error showcase", zap.String("path", c.Path()))
+
 		return c.String(http.StatusOK, "Hello!")
 	})
 
