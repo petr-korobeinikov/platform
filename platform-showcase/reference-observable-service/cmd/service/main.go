@@ -28,8 +28,10 @@ func main() {
 	defer c.Close()
 
 	indexHandler := handler.NewIndexHandler()
+	complexHandler := handler.NewComplexHandler()
 
 	e.GET("/", indexHandler.HandleRequest)
+	e.GET("/complex", complexHandler.HandleRequest)
 
 	e.Logger.Fatal(e.Start(os.Getenv("LISTEN_ON")))
 }
