@@ -8,12 +8,16 @@ import (
 )
 
 func (h *ComplexHandler) HandleRequest(c echo.Context) error {
-	var r complexHandlerResponse
+	var (
+		err error
+		r   complexHandlerResponse
+	)
 
 	n := h.randomGenerator.Generate(c.Request().Context())
 
-	r.Fib, r.Error = h.fibonacciCountingService.Count(c.Request().Context(), n)
-	if r.Error != nil {
+	r.Fib, err = h.fibonacciCountingService.Count(c.Request().Context(), n)
+	if err != nil {
+		r.Error = err.Error()
 		return c.JSONPretty(http.StatusBadRequest, r, "  ")
 	}
 
@@ -47,7 +51,7 @@ type (
 	}
 
 	complexHandlerResponse struct {
-		Error error `json:"error,omitempty"`
-		Fib   int   `json:"fib"`
+		Error string `json:"error,omitempty"`
+		Fib   int    `json:"fib"`
 	}
 )
