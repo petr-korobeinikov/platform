@@ -17,7 +17,9 @@ func Create(ctx context.Context, serviceName string) error {
 		return errServiceDirectoryAlreadyExists
 	}
 
-	// Create directory
+	if err := filesystem.MkDir(serviceName); err != nil {
+		return err
+	}
 
 	// Create entrypoint cmd/service/main.go
 
