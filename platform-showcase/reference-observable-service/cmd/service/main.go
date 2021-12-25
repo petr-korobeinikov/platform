@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/brpaz/echozap"
 	"github.com/joho/godotenv"
@@ -28,7 +29,7 @@ func main() {
 
 	e.Use(echozap.ZapLogger(logger))
 
-	p := prometheus.NewPrometheus("echo", nil)
+	p := prometheus.NewPrometheus(strings.ReplaceAll(os.Getenv("SERVICE"), "-", "_"), nil)
 	p.Use(e)
 
 	c := jaegertracing.New(e, nil)

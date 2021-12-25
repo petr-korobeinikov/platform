@@ -3,15 +3,29 @@ package fibonacci
 import (
 	"context"
 	"errors"
+	"fmt"
 	"strconv"
 	"time"
 
 	"github.com/opentracing/opentracing-go"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"go.uber.org/zap"
 )
 
 func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
-	var result int
+	var (
+		result int
+		err    error
+	)
+
+	defer func() {
+		isSussess := fmt.Sprintf("%t", err == nil)
+
+		promFibonacciCountingServiceCountCounterVec.
+			WithLabelValues(isSussess).
+			Inc()
+	}()
 
 	logger := zap.L().
 		With(
@@ -36,7 +50,7 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 	span.SetBaggageItem("requested_fib_number", strconv.Itoa(n))
 
 	if n > s.maxFibNumber {
-		err := ErrFibonacciNumberIsTooDistant
+		err = ErrFibonacciNumberIsTooDistant
 
 		logger.Error("failed to calculate fibonacci number", zap.Error(err))
 
@@ -47,7 +61,7 @@ func (s *CountingService) Count(ctx context.Context, n int) (int, error) {
 	}
 
 	if n < 0 {
-		err := ErrFibonacciNumberIsNegative
+		err = ErrFibonacciNumberIsNegative
 
 		logger.Error("failed to calculate fibonacci number", zap.Error(err))
 
@@ -98,4 +112,10 @@ func fib(ctx context.Context, n int) int {
 var (
 	ErrFibonacciNumberIsTooDistant = errors.New("fibonacci number is too distant")
 	ErrFibonacciNumberIsNegative   = errors.New("fibonacci number is negative")
+
+	promFibonacciCountingServiceCountCounterVec = promauto.NewCounterVec(prometheus.CounterOpts{
+		// Use service name as prefix (namespace)
+		Name: "app_service_fibonacci_counting_service_count_count",
+		Help: "How many attempts to generate fibonacci number served",
+	}, []string{"success"})
 )
