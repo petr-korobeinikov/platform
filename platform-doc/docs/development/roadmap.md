@@ -24,7 +24,7 @@
         * https://docs.gitlab.com/ee/development/integrations/secure.html
 * Общий сканер лицензий зависимых библиотек.
 * Вывод информации о сервисе:
-  * `platformctl service info`
+    * `platformctl service info`
 
 ## `platformctl`
 
@@ -59,14 +59,15 @@
 На первом этапе разработки:
 
 * ~~Сервис создан~~.
-* В качестве http-сервера использован `labstack/echo`.
+* ~~В качестве http-сервера использован `labstack/echo`~~.
 * Настроено эталонное логгирование.
-    * В качестве `middleware`
-      использован [brpaz/echozap](https://github.com/brpaz/echozap).
+    * ~~В качестве `middleware`
+      использован [brpaz/echozap](https://github.com/brpaz/echozap)~~.
 * Настроена эталонная отправка трейсов.
-    * В качестве основы использован `jaegertracing`.
-    * В качестве `middleware`
-      использован https://echo.labstack.com/middleware/jaegertracing/
+    * ~~В качестве основы использован `jaegertracing`~~.
+    * ~~В качестве `middleware`
+      использован https://echo.labstack.com/middleware/jaegertracing/~~.
+* Продемонстрирована группировка ошибок в `sentry`.
 
 По мере развития проекта:
 
