@@ -1,5 +1,8 @@
 # Observability
 
+Примеры кода можно найти в демонстрационном
+сервисе `reference-observable-service` в каталоге `platform-showcase`.
+
 ## Tracing
 
 * Всегда передавайте первым аргументом `context.Context`. Особенно это важно для
