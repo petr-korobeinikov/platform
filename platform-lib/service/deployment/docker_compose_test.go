@@ -41,6 +41,10 @@ services:
       POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
       POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
       POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
+  platform-sentinel-wordcounter:
+    container_name: platform-sentinel
+    image: kubernetes/pause
+    restart: always
   platform_kafka_broker:
     container_name: kafka-broker
     image: confluentinc/cp-kafka:5.5.1
