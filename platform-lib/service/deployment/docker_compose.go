@@ -116,6 +116,13 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		serviceEnvironment[k] = fmt.Sprintf("${%s}", k)
 	}
 
+	sentinelServiceName := fmt.Sprintf("platform-sentinel-%s", s.Name)
+	dcs.Services[sentinelServiceName] = dockerComposeService{
+		ContainerName: "platform-sentinel",
+		Image:         "kubernetes/pause",
+		Restart:       "always",
+	}
+
 	dcs.Services["service"] = dockerComposeService{
 		ContainerName: "service",
 		Image:         "${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}",

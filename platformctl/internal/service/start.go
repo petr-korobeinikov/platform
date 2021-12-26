@@ -18,10 +18,6 @@ func Start(ctx context.Context) error {
 		return err
 	}
 
-	if err := docker.Build(ctx, s); err != nil {
-		return err
-	}
-
 	environment := s.EnvironmentFor("local")
 	env.Registry().RegisterMany(environment)
 
@@ -38,6 +34,14 @@ func Start(ctx context.Context) error {
 
 	err = env.WriteEnvFile()
 	if err != nil {
+		return err
+	}
+
+	if err := docker.EnsureSentinelNotRunning(ctx, s.Name); err != nil {
+		return err
+	}
+
+	if err := docker.Build(ctx, s); err != nil {
 		return err
 	}
 

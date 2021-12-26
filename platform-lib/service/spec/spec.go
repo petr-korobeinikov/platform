@@ -26,6 +26,7 @@ func (s *Spec) EnabledComponent() []string {
 		"platform_kafka_zookeeper",
 		"platform_kafka_broker",
 		"platform_kafka_kafdrop",
+		fmt.Sprintf("platform-sentinel-%s", s.Name),
 	)
 
 	return l

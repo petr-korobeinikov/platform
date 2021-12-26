@@ -8,6 +8,7 @@ import (
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/docker"
 )
 
 func Debug(ctx context.Context) error {
@@ -32,6 +33,10 @@ func Debug(ctx context.Context) error {
 
 	err = env.WriteEnvFile()
 	if err != nil {
+		return err
+	}
+
+	if err := docker.EnsureSentinelNotRunning(ctx, s.Name); err != nil {
 		return err
 	}
 
