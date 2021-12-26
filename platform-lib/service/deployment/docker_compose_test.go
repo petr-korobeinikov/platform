@@ -31,8 +31,8 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 var (
 	expected = []byte(`version: "3"
 services:
-  component_postgres_postgres:
-    container_name: component_postgres_postgres
+  component-postgres-postgres:
+    container_name: component-postgres-postgres
     image: postgres:14
     restart: always
     ports:
@@ -41,16 +41,12 @@ services:
       POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
       POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
       POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
-  platform-sentinel-wordcounter:
-    container_name: platform-sentinel
-    image: kubernetes/pause
-    restart: always
-  platform_kafka_broker:
+  platform-kafka-broker:
     container_name: kafka-broker
     image: confluentinc/cp-kafka:5.5.1
     restart: on-failure
     depends_on:
-    - platform_kafka_zookeeper
+    - platform-kafka-zookeeper
     ports:
     - 9092:9092
     environment:
@@ -66,18 +62,18 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
       KAFKA_ZOOKEEPER_CONNECT: kafka-zookeeper:2181
-  platform_kafka_kafdrop:
+  platform-kafka-kafdrop:
     container_name: kafka-kafdrop
     image: obsidiandynamics/kafdrop
     restart: always
     depends_on:
-    - platform_kafka_broker
+    - platform-kafka-broker
     ports:
     - 9100:9100
     environment:
       KAFKA_BROKERCONNECT: kafka-broker:29092
       SERVER_PORT: "9100"
-  platform_kafka_zookeeper:
+  platform-kafka-zookeeper:
     container_name: kafka-zookeeper
     image: confluentinc/cp-zookeeper:5.5.1
     restart: always
@@ -85,7 +81,7 @@ services:
       ALLOW_ANONYMOUS_LOGIN: "yes"
       ZOOKEEPER_CLIENT_PORT: "2181"
       ZOOKEEPER_TICK_TIME: "2000"
-  platform_observability_opentelemetry:
+  platform-observability-opentelemetry:
     container_name: opentelemetry
     image: jaegertracing/opentelemetry-all-in-one
     restart: always
@@ -93,6 +89,10 @@ services:
     - 6831:6831
     - 16686:16686
     - 14268:14268
+  platform-sentinel-wordcounter:
+    container_name: platform-sentinel
+    image: kubernetes/pause
+    restart: always
   service:
     container_name: service
     image: ${SERVICE_IMAGE_NAME}:${SERVICE_IMAGE_TAG}

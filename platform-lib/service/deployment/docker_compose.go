@@ -36,7 +36,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		}
 	}
 
-	dcs.Services["platform_kafka_zookeeper"] = dockerComposeService{
+	dcs.Services["platform-kafka-zookeeper"] = dockerComposeService{
 		ContainerName: "kafka-zookeeper",
 		Image:         "confluentinc/cp-zookeeper:5.5.1",
 		Restart:       "always",
@@ -47,11 +47,11 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		},
 	}
 
-	dcs.Services["platform_kafka_broker"] = dockerComposeService{
+	dcs.Services["platform-kafka-broker"] = dockerComposeService{
 		ContainerName: "kafka-broker",
 		Image:         "confluentinc/cp-kafka:5.5.1",
 		DependsOn: []string{
-			"platform_kafka_zookeeper",
+			"platform-kafka-zookeeper",
 		},
 		Restart: "on-failure",
 		Ports: []string{
@@ -76,11 +76,11 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	env.Registry().
 		Register("KAFKA_PORT", "9092")
 
-	dcs.Services["platform_kafka_kafdrop"] = dockerComposeService{
+	dcs.Services["platform-kafka-kafdrop"] = dockerComposeService{
 		ContainerName: "kafka-kafdrop",
 		Image:         "obsidiandynamics/kafdrop",
 		DependsOn: []string{
-			"platform_kafka_broker",
+			"platform-kafka-broker",
 		},
 		Restart: "always",
 		Ports: []string{
@@ -92,7 +92,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 		},
 	}
 
-	dcs.Services["platform_observability_opentelemetry"] = dockerComposeService{
+	dcs.Services["platform-observability-opentelemetry"] = dockerComposeService{
 		ContainerName: "opentelemetry",
 		Image:         "jaegertracing/opentelemetry-all-in-one",
 		Restart:       "always",

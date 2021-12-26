@@ -22,10 +22,10 @@ func (s *Spec) EnabledComponent() []string {
 
 	l = append(
 		l,
-		"platform_observability_opentelemetry",
-		"platform_kafka_zookeeper",
-		"platform_kafka_broker",
-		"platform_kafka_kafdrop",
+		"platform-observability-opentelemetry",
+		"platform-kafka-zookeeper",
+		"platform-kafka-broker",
+		"platform-kafka-kafdrop",
 		fmt.Sprintf("platform-sentinel-%s", s.Name),
 	)
 
@@ -51,14 +51,18 @@ func (s *Spec) EnvironmentFor(environmentName string) map[string]string {
 }
 
 func (c *Component) ID() string {
-	return fmt.Sprintf("component_%s_%s", c.Type, c.Name)
+	return fmt.Sprintf("component-%s-%s", c.Type, c.Name)
 }
 
 func (c *Component) FormatEnvVarName(v string) string {
 	up := strings.ToUpper(c.ID())
 	uv := strings.ToUpper(v)
 
-	return fmt.Sprintf("%s_%s", up, uv)
+	return strings.ReplaceAll(
+		fmt.Sprintf("%s_%s", up, uv),
+		"-",
+		"_",
+	)
 }
 
 func (c *Component) FormatEnvVarNameEscaped(v string) string {
