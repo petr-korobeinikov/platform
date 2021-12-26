@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-	"strconv"
 	"strings"
 
 	"github.com/brpaz/echozap"
@@ -10,6 +8,8 @@ import (
 	"github.com/labstack/echo-contrib/jaegertracing"
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
+	"github.com/pkorobeinikov/environ"
+	"go.uber.org/zap"
 
 	"reference-observable-service/internal/handler"
 	"reference-observable-service/internal/observability/logging"
@@ -29,17 +29,23 @@ func main() {
 
 	e.Use(echozap.ZapLogger(logger))
 
-	p := prometheus.NewPrometheus(strings.ReplaceAll(os.Getenv("SERVICE"), "-", "_"), nil)
+	serviceName, err := environ.E("SERVICE").AsString()
+	if err != nil {
+		logger.Fatal("service name not provided", zap.Error(err))
+	}
+
+	p := prometheus.NewPrometheus(strings.ReplaceAll(serviceName, "-", "_"), nil)
 	p.Use(e)
 
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
 
-	// Provide a library to handle env vars: env.E("FOO").AsUint(); env.E("FOO").AsDuration()
-	randomGeneratorMinValue, _ := strconv.Atoi(os.Getenv("RANDOM_GENERATOR_MIN_NUMBER"))
-	randomGeneratorMaxValue, _ := strconv.Atoi(os.Getenv("RANDOM_GENERATOR_MAX_NUMBER"))
+	randomGeneratorMinValue, _ := environ.E("RANDOM_GENERATOR_MIN_NUMBER").Default(-3).AsInt()
+	randomGeneratorMaxValue, _ := environ.E("RANDOM_GENERATOR_MAX_NUMBER").Default(10).AsInt()
 
-	fibonacciCountingServiceMaxFibNumber, _ := strconv.Atoi(os.Getenv("FIBONACCI_COUNTING_SERVICE_MAX_N_NUMBER"))
+	fibonacciCountingServiceMaxFibNumber, _ := environ.E("FIBONACCI_COUNTING_SERVICE_MAX_N_NUMBER").
+		Default(7).
+		AsInt()
 
 	randomGenerator := random.NewGenerator(randomGeneratorMinValue, randomGeneratorMaxValue)
 	fibonacciCountingService := fibonacci.NewCountingService(fibonacciCountingServiceMaxFibNumber)
@@ -53,5 +59,6 @@ func main() {
 	e.GET("/", indexHandler.HandleRequest)
 	e.GET("/complex", complexHandler.HandleRequest)
 
-	e.Logger.Fatal(e.Start(os.Getenv("LISTEN_ON")))
+	listenOn, _ := environ.E("LISTEN_ON").Default(":9000").AsString()
+	e.Logger.Fatal(e.Start(listenOn))
 }
