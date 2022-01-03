@@ -3,15 +3,15 @@ package cfg
 import "time"
 
 func TimeoutDefault() time.Duration {
-	return timeout
+	return time.Minute
 }
 
 func TimeoutMediumOperation() time.Duration {
-	return timeout * 6
+	return 3 * time.Minute
 }
 
 func TimeoutHeavyOperation() time.Duration {
-	return timeout * 15
+	return 10 * time.Minute
 }
 
 func KuberneterVersion() string {
@@ -23,8 +23,6 @@ func MinikubeProfile() string {
 }
 
 const (
-	timeout = 10 * time.Second
-
 	kubernetesVersion = "v1.22.2"
 
 	minikubeProfile = "platform"
