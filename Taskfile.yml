@@ -2,6 +2,7 @@ version: '3'
 
 tasks:
   platformctl:build:
+    desc: Build platformctl binary
     dir: platformctl
     cmds:
       - go build -o bin/platformctl cmd/platformctl/main.go
