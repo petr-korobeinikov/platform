@@ -53,6 +53,7 @@ nav:
       - Манифест сервиса: doc/service-manifest.md
   - Best Practice:
       - Observability: best-practice/observability.md
+      - Postgres: best-practice/postgres.md
   - Туториалы:
       - tutorial/index.md
       - Работа в локальном окружении:
