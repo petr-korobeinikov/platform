@@ -11,14 +11,7 @@
 Запуск контейнера с документацией для локального просмотра:
 
 ```shell
-docker run \
-    --pull always \
-    --rm \
-    -it \
-    -d \
-    -p 8000:8000 \
-    -v ${PWD}/platform-doc:/docs \
-    squidfunk/mkdocs-material
+task doc:run
 ```
 
 Для оформления документации используется

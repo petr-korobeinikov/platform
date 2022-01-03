@@ -6,3 +6,15 @@ tasks:
     dir: platformctl
     cmds:
       - go build -o bin/platformctl cmd/platformctl/main.go
+
+  doc:run:
+    desc: Run documentation locally
+    cmds:
+      - |
+        docker run \
+          --pull always \
+          --rm \
+          -it \
+          -p 8000:8000 \
+          -v ${PWD}/platform-doc:/docs \
+          squidfunk/mkdocs-material
