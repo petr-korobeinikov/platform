@@ -1,0 +1,11 @@
+name: platform-service-registry
+
+environment:
+  _: ~
+  local: ~
+  staging: ~
+
+component:
+  - type: postgres
+    name: master
+    enabled: true
