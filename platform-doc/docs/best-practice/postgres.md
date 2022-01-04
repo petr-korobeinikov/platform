@@ -62,6 +62,48 @@ Name, Surname string
 }
 ```
 
+## Не используйте `if not exists`
+
+Чаще всего конструкцию `if not exists` используют в миграциях для обхода
+конфликтных ситуаций.
+
+Наличие конструкции `if not exists` сигнализирует о проблемах в пайплайне
+применения миграций:
+
+* отсутствует должный контроль над применением миграций;
+* отсутствует трекинг применённых изменений.
+
+Предаставим ситуацию, в которой `if not exists` создаёт большую проблему, чем
+попытка обеспечить идемпотентность изменений.
+
+В базе данных создана таблица вида:
+
+```postgresql
+create table person (
+    id      bigserial primary key,
+    name    text,
+    surname text
+);
+```
+
+Миграция содержит следующие изменения:
+
+```postgresql
+create type person_initial as (
+    name    text,
+    surname text
+);
+
+create table if not exists person (
+    id         uuid primary key,
+    created_at timestamp      not null,
+    initial    person_initial not null
+);
+```
+
+В итоге мы имеем две совершенно разные таблицы, к определению которых код
+приложения не готов.
+
 ## Используйте `text` вместо `varchar`
 
 1. `text` короче, чем `varchar`.
