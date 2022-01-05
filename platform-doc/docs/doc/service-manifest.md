@@ -24,6 +24,10 @@ component: # (3)
   - type: postgres
     name: postgres
     enabled: true
+
+  - type: vault
+    name: vault
+    enabled: true
 ```
 
 1. Имя сервиса

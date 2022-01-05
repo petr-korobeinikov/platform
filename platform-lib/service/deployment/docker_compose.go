@@ -20,7 +20,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	dcs.Services = make(map[string]dockerComposeService)
 
 	for _, c := range s.Component {
-		containerName, image, ports, environment, err := componentContainerSpec(s.Name, c)
+		containerName, image, ports, environment, capAdd, err := componentContainerSpec(s.Name, c)
 		if err != nil {
 			return nil, err
 		}
@@ -32,6 +32,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 				Restart:       "always",
 				Ports:         ports,
 				Environment:   environment,
+				CapAdd:        capAdd,
 			}
 		}
 	}
@@ -147,7 +148,7 @@ func WriteDockerComposeFile(deploymentSpec []byte) error {
 	return os.WriteFile(DockerComposeFile, deploymentSpec, 0644)
 }
 
-func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, err error) {
+func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, capAdd []string, err error) {
 	switch c.Type {
 	case "postgres":
 		containerName = c.ID()
@@ -163,11 +164,24 @@ func componentContainerSpec(serviceName string, c *spec.Component) (containerNam
 			Register(c.FormatEnvVarName("user"), serviceName).
 			Register(c.FormatEnvVarName("password"), "secret").
 			Register(c.FormatEnvVarName("db"), serviceName)
+	case "vault":
+		containerName = c.ID()
+		image = "vault:1.9.2"
+		ports = []string{"8200:8200"}
+		environment = map[string]string{
+			"VAULT_DEV_LISTEN_ADDRESS": c.FormatEnvVarNameEscaped("VAULT_DEV_LISTEN_ADDRESS"),
+			"VAULT_DEV_ROOT_TOKEN_ID":  c.FormatEnvVarNameEscaped("VAULT_DEV_ROOT_TOKEN_ID"),
+		}
+		capAdd = []string{"IPC_LOCK"}
+
+		env.Registry().
+			Register(c.FormatEnvVarName("VAULT_DEV_LISTEN_ADDRESS"), "0.0.0.0:8200").
+			Register(c.FormatEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"), "secret")
 	default:
 		err = ErrUnsupportedComponent
 	}
 
-	return containerName, image, ports, environment, err
+	return
 }
 
 type (
@@ -185,6 +199,7 @@ type (
 		DependsOn     []string          `yaml:"depends_on,omitempty"`
 		Ports         []string          `yaml:"ports,omitempty"`
 		Environment   map[string]string `yaml:"environment,omitempty"`
+		CapAdd        []string          `yaml:"cap_add,omitempty"`
 	}
 )
 

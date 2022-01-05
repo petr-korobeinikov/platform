@@ -18,6 +18,11 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 				Name:    "postgres",
 				Enabled: true,
 			},
+			{
+				Type:    "vault",
+				Name:    "vault",
+				Enabled: true,
+			},
 		},
 	}
 
@@ -41,6 +46,17 @@ services:
       POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
       POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
       POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
+  component-vault-vault:
+    container_name: component-vault-vault
+    image: vault:1.9.2
+    restart: always
+    ports:
+    - 8200:8200
+    environment:
+      VAULT_DEV_LISTEN_ADDRESS: ${COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS}
+      VAULT_DEV_ROOT_TOKEN_ID: ${COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID}
+    cap_add:
+    - IPC_LOCK
   platform-kafka-broker:
     container_name: kafka-broker
     image: confluentinc/cp-kafka:5.5.1
@@ -103,6 +119,8 @@ services:
       COMPONENT_POSTGRES_POSTGRES_DB: ${COMPONENT_POSTGRES_POSTGRES_DB}
       COMPONENT_POSTGRES_POSTGRES_PASSWORD: ${COMPONENT_POSTGRES_POSTGRES_PASSWORD}
       COMPONENT_POSTGRES_POSTGRES_USER: ${COMPONENT_POSTGRES_POSTGRES_USER}
+      COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS: ${COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS}
+      COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID: ${COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID}
       KAFKA_PORT: ${KAFKA_PORT}
       OBSERVABILITY_JAEGER_COLLECTOR_HTTP_ENDPOINT: ${OBSERVABILITY_JAEGER_COLLECTOR_HTTP_ENDPOINT}
       SERVICE: ${SERVICE}
