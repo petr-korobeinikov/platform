@@ -1,0 +1,11 @@
+name: vault-integrated-service
+
+environment:
+  _: ~
+  local: ~
+  staging: ~
+
+component:
+  - type: vault
+    name: vault
+    enabled: true
