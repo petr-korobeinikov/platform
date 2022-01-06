@@ -6,6 +6,7 @@ import (
 	"os/exec"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 )
 
 func Log(ctx context.Context) error {
@@ -13,6 +14,8 @@ func Log(ctx context.Context) error {
 		`docker`, `compose`,
 		`--file`,
 		deployment.DockerComposeFile,
+		`--env-file`,
+		env.File,
 		`logs`,
 		`--follow`,
 		`--no-log-prefix`,
