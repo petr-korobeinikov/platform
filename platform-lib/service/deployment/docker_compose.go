@@ -148,6 +148,20 @@ func WriteDockerComposeFile(deploymentSpec []byte) error {
 	return os.WriteFile(DockerComposeFile, deploymentSpec, 0644)
 }
 
+func DockerComposeArgs(projectName string, args ...string) []string {
+	predefined := []string{
+		`docker`, `compose`,
+		`--project-name`,
+		projectName,
+		`--file`,
+		DockerComposeFile,
+		`--env-file`,
+		env.File,
+	}
+
+	return append(predefined, args...)
+}
+
 func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, capAdd []string, err error) {
 	switch c.Type {
 	case "postgres":

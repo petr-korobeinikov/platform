@@ -39,16 +39,7 @@ func Debug(ctx context.Context) error {
 	// 	return err
 	// }
 
-	args := []string{
-		`docker`, `compose`,
-		`--file`,
-		deployment.DockerComposeFile,
-		`--env-file`,
-		env.File,
-		`up`,
-		`-d`,
-		`--remove-orphans`,
-	}
+	args := deployment.DockerComposeArgs(s.Name, `up`, `-d`, `--remove-orphans`)
 	args = append(args, s.EnabledComponent()...)
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
