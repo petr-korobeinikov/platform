@@ -37,16 +37,16 @@ func Start(ctx context.Context) error {
 		return err
 	}
 
-	if err := docker.EnsureSentinelNotRunning(ctx, s.Name); err != nil {
-		return err
-	}
+	// if err := docker.EnsureSentinelNotRunning(ctx, s.Name); err != nil {
+	// 	return err
+	// }
 
 	if err := docker.Build(ctx, s); err != nil {
 		return err
 	}
 
 	args := []string{
-		`docker-compose`,
+		`docker`, `compose`,
 		`--file`,
 		deployment.DockerComposeFile,
 		`--env-file`,

@@ -11,7 +11,7 @@ import (
 
 func Stop(ctx context.Context) error {
 	args := []string{
-		`docker-compose`,
+		`docker`, `compose`,
 		`--file`,
 		deployment.DockerComposeFile,
 		`--env-file`,

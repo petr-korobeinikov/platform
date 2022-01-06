@@ -20,7 +20,7 @@ docker build \
   --tag wordcounter:latest \
   .
 
-docker-compose \
+docker compose \
   --file .platform/docker-compose/docker-compose.yaml \
   --env-file .platform/env/.env \
   up -d
@@ -37,7 +37,7 @@ platformctl service stop
 ### Directly
 
 ```shell
-docker-compose \
+docker compose \
   --file .platform/docker-compose/docker-compose.yaml \
   --env-file .platform/env/.env \
   down --remove-orphans

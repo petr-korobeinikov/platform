@@ -7,8 +7,10 @@ import (
 	"os/exec"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 )
 
+// EnsureSentinelNotRunning needs to be rethought.
 func EnsureSentinelNotRunning(ctx context.Context, serviceName string) error {
 	var (
 		cmd  *exec.Cmd
@@ -16,9 +18,11 @@ func EnsureSentinelNotRunning(ctx context.Context, serviceName string) error {
 	)
 
 	args = []string{
-		"docker-compose",
+		"docker", "compose",
 		"--file",
 		deployment.DockerComposeFile,
+		"--env-file",
+		env.File,
 		"ps",
 		"--quiet",
 		fmt.Sprintf("platform-sentinel-%s", serviceName),
