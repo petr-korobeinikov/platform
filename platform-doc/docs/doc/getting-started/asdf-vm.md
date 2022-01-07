@@ -117,3 +117,9 @@ asdf shell golang 1.16
 ```
 ~/.asdf/installs/golang/1.15.6/go
 ```
+
+---
+
+## Полезные ссылки
+
+* [https://dev.to/burhanuddinbhopalwala/one-of-the-most-powerful-software-development-tool-2-mins-read-24li](https://dev.to/burhanuddinbhopalwala/one-of-the-most-powerful-software-development-tool-2-mins-read-24li)
