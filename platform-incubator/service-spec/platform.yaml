@@ -51,3 +51,6 @@ component:
   - type: minio
     name: minio
     enabled: true
+
+tradeoff:
+  use_custom_docker_file: true
