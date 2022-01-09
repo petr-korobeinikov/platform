@@ -36,15 +36,3 @@ component:
   - type: postgres
     name: postgres-olap
     enabled: true
-
-# v1
-postgres:
-  enabled: true
-  shard_count: 1
-  image: registry/postgres-wordcounter:1
-
-kafka:
-  enabled: true
-  request_reply:
-    topic_inbound: ~
-    topic_outbound: ~
