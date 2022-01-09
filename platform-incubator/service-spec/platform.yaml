@@ -21,12 +21,19 @@ environment:
 # v2
 component:
   - type: postgres
+    name: postgres
     enabled: true
 
   - type: kafka
+    name: kafka
+    enabled: true
+
+  - type: kafka
+    name: kafka-log
     enabled: true
 
   - type: eventbus
+    name: eventbus
     enabled: true
 
   - type: postgres
@@ -35,4 +42,12 @@ component:
 
   - type: postgres
     name: postgres-olap
+    enabled: true
+
+  - type: vault
+    name: vault
+    enabled: true
+
+  - type: minio
+    name: minio
     enabled: true
