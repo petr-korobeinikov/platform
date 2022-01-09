@@ -1,5 +1,10 @@
 name: wordcounter
 
+# `namespace` is used for:
+# - gitlab/github group/organization
+# - k8s namespace
+namespace: showcase
+
 environment:
   # _ is a shared list of env vars used in all deployments
   _:
