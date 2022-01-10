@@ -10,6 +10,8 @@ RUN go build -v -o /build/bin/service cmd/service/main.go
 
 FROM alpine:3.14.2
 
+ENV TZ=UTC
+
 RUN addgroup --gid=1000 service && \
     adduser --ingroup service --uid=1000 --shell=nologin --disabled-password --no-create-home service
 
