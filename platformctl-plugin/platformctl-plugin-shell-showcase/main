@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo Hello, I am example shell plugin!
+echo Given args: "$@"
