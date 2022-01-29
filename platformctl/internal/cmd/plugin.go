@@ -50,33 +50,35 @@ func addPluginCommand(parent *cobra.Command) {
 		return nil
 	})
 
-	for _, plugin := range plugins {
-		var concretePluginCmd = &cobra.Command{
-			Use:                plugin.name,
-			Short:              fmt.Sprintf("See %s --help for details", plugin.name),
-			Args:               cobra.ArbitraryArgs,
-			DisableFlagParsing: true,
-			RunE: func(cmd *cobra.Command, args []string) error {
-				var err error
+	for _, p := range plugins {
+		func(p plugin) {
+			var concretePluginCmd = &cobra.Command{
+				Use:                p.name,
+				Short:              fmt.Sprintf("See %s --help for details", p.name),
+				Args:               cobra.ArbitraryArgs,
+				DisableFlagParsing: true,
+				RunE: func(cmd *cobra.Command, args []string) error {
+					var err error
 
-				pe := path.Join(plugin.path, "main")
+					pe := path.Join(p.path, "main")
 
-				e, err := homedir.Expand(pe)
-				if err != nil {
-					return err
-				}
+					e, err := homedir.Expand(pe)
+					if err != nil {
+						return err
+					}
 
-				bypassedArgs := os.Args[3:]
-				c := exec.CommandContext(cmd.Context(), e, bypassedArgs...)
+					bypassedArgs := os.Args[3:]
+					c := exec.CommandContext(cmd.Context(), e, bypassedArgs...)
 
-				c.Stdout = os.Stdout
-				c.Stderr = os.Stderr
+					c.Stdout = os.Stdout
+					c.Stderr = os.Stderr
 
-				return c.Run()
-			},
-		}
+					return c.Run()
+				},
+			}
 
-		pluginCmd.AddCommand(concretePluginCmd)
+			pluginCmd.AddCommand(concretePluginCmd)
+		}(p)
 	}
 
 	parent.AddCommand(pluginCmd)
