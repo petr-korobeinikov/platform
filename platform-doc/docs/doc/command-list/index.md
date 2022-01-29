@@ -79,3 +79,11 @@ platformctl service stop
 ```shell
 platformctl service log
 ```
+
+## service component
+
+Список компонентов сервиса и платформы с адресами доступа.
+
+```shell
+platformctl service component
+```
