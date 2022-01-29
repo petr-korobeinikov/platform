@@ -12,4 +12,5 @@ cp -R ../platformctl-plugin-shell-showcase ~/.platformctl/plugin
 ```shell
 platformctl plugin shell-showcase
 platformctl plugin shell-showcase custom plugin args goes here
+FOO=foo BAR=bar platformctl plugin shell-showcase custom plugin args goes here
 ```
