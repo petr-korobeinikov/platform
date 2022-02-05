@@ -103,3 +103,21 @@ eval $(platformctl service env --service-env local)
 eval $(platformctl service env --service-env staging)
 eval $(platformctl service env --service-env production)
 ```
+
+## service doc
+
+Запуск документации сервиса для локального просмотра и редактирования.
+
+После успешного запуска контейнера с документацией, она будет открыта в
+браузере.
+
+```shell
+platformctl service doc
+```
+
+Документация должна быть размещена в каталоге `doc` в соответствии с шаблоном
+сервиса (см. паттерн `Service Template` [^service-boilerplate]).
+
+На данный момент поддерживается только документация в формате `mkdocs-material`.
+
+[^service-boilerplate]: [Шаблон сервиса](/development/service-boilerplate)
