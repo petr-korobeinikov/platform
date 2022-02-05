@@ -87,3 +87,19 @@ platformctl service log
 ```shell
 platformctl service component
 ```
+
+## service env
+
+Вывод переменных окружения сервиса для просмотра и экспорта.
+
+```shell
+platformctl service env
+platformctl service env --service-env local
+platformctl service env --service-env staging
+platformctl service env --service-env production
+
+eval $(platformctl service env)
+eval $(platformctl service env --service-env local)
+eval $(platformctl service env --service-env staging)
+eval $(platformctl service env --service-env production)
+```
