@@ -28,6 +28,10 @@ component: # (3)
   - type: vault
     name: vault
     enabled: true
+
+  - type: minio
+    name: minio
+    enabled: true
 ```
 
 1. Имя сервиса

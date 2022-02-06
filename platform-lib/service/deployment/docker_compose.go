@@ -20,7 +20,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 	dcs.Services = make(map[string]dockerComposeService)
 
 	for _, c := range s.Component {
-		containerName, image, ports, environment, capAdd, err := componentContainerSpec(s.Name, c)
+		containerName, image, ports, environment, capAdd, command, err := componentContainerSpec(s.Name, c)
 		if err != nil {
 			return nil, err
 		}
@@ -33,6 +33,7 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 				Ports:         ports,
 				Environment:   environment,
 				CapAdd:        capAdd,
+				Command:       command,
 			}
 		}
 	}
@@ -162,7 +163,7 @@ func DockerComposeArgs(projectName string, args ...string) []string {
 	return append(predefined, args...)
 }
 
-func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, capAdd []string, err error) {
+func componentContainerSpec(serviceName string, c *spec.Component) (containerName, image string, ports []string, environment map[string]string, capAdd []string, command string, err error) {
 	switch c.Type {
 	case "postgres":
 		containerName = c.ID()
@@ -191,6 +192,22 @@ func componentContainerSpec(serviceName string, c *spec.Component) (containerNam
 		env.Registry().
 			Register(c.FormatEnvVarName("VAULT_DEV_LISTEN_ADDRESS"), "0.0.0.0:8200").
 			Register(c.FormatEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"), "secret")
+	case "minio":
+		containerName = c.ID()
+		image = "quay.io/minio/minio:latest"
+		ports = []string{
+			"9500:9500",
+			"9501:9501",
+		}
+		environment = map[string]string{
+			"MINIO_ROOT_USER":     c.FormatEnvVarNameEscaped("MINIO_ROOT_USER"),
+			"MINIO_ROOT_PASSWORD": c.FormatEnvVarNameEscaped("MINIO_ROOT_PASSWORD"),
+		}
+		command = `server /data --address ":9500" --console-address ":9501"`
+
+		env.Registry().
+			Register(c.FormatEnvVarName("MINIO_ROOT_USER"), "minio").
+			Register(c.FormatEnvVarName("MINIO_ROOT_PASSWORD"), "miniosecret")
 	default:
 		err = ErrUnsupportedComponent
 	}
@@ -214,6 +231,7 @@ type (
 		Ports         []string          `yaml:"ports,omitempty"`
 		Environment   map[string]string `yaml:"environment,omitempty"`
 		CapAdd        []string          `yaml:"cap_add,omitempty"`
+		Command       string            `yaml:"command,omitempty"`
 	}
 )
 

@@ -1,0 +1,14 @@
+name: minio-integrated-service
+
+environment:
+  _: ~
+  local:
+    MINIO_ENDPOINT: 127.0.0.1:9500
+    MINIO_ROOT_USER: minio
+    MINIO_ROOT_PASSWORD: miniosecret
+  staging: ~
+
+component:
+  - type: minio
+    name: minio
+    enabled: true

@@ -12,6 +12,8 @@ func Component(ctx context.Context) error {
 
 	data := [][]string{
 		{"postgresql", "postgresql://localhost:5432", "Postgresql", "Service component"},
+		{"minio", "localhost:9500", "Minio", "Service component"},
+		{"minio-console", "http://localhost:9501", "Minio Console", "Service component"},
 		{"kafdrop", "http://localhost:9100", "Kafdrop", "Platform component"},
 		{"jaeger-ui", "http://localhost:16686", "Jaeger UI", "Platform component"},
 	}
