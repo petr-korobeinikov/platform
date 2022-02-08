@@ -6,12 +6,10 @@ hide:
 
 ---
 
-# platform
-
 <p align="center">
+
     <img src="asset/platform-icon.svg" width="256" height="256" alt="platform" />
-</p>
+    <br />
 
-<p align="center">
     Платформа для разработки, отладки, тестирования и развёртывания микросервисов.
 </p>

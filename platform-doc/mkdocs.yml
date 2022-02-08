@@ -1,7 +1,7 @@
 site_name: platform
 theme:
   name: material
-  logo: assets/platform-icon.svg
+  logo: asset/platform-icon.svg
   palette:
     - scheme: default
       primary: red
@@ -11,7 +11,7 @@ theme:
         icon: material/lightbulb-outline
         name: Тёмная тема
     - scheme: slate
-      primary: grey
+      primary: red
       accent: grey
       media: "(prefers-color-scheme: dark)"
       toggle:
@@ -26,6 +26,7 @@ theme:
 markdown_extensions:
   - footnotes
   - meta
+  - admonition
   - pymdownx.critic
   - pymdownx.caret
   - pymdownx.keys
@@ -41,29 +42,54 @@ markdown_extensions:
   - pymdownx.superfences
   - tables
 nav:
-  - Документация:
-      - Установка и настройка:
-          - doc/index.md
-          - Установка: doc/getting-started/install.md
-          - asdf-vm: doc/getting-started/asdf-vm.md
-          - Запуск и остановка: doc/getting-started/start.md
-          - Конфигурационный файл: doc/getting-started/cfg-file.md
-          - Удаление: doc/getting-started/delete.md
-      - Список команд: doc/command-list/index.md
-      - Манифест сервиса: doc/service-manifest.md
-  - Best Practice:
-      - Observability: best-practice/observability.md
+  - Для разработчиков сервисов:
+      - Установка:
+          - Установка platformctl: service-developer/install/platformctl.md
+          - Варианты установки: service-developer/install/installation-option.md
+      - Настройка:
+          - Настройка вручную: service-developer/bootstrap/manual.md
+      - Список команд:
+          - Работа с сервисом: service-developer/command-list/service.md
+          - Работа с библиотеками: service-developer/command-list/lib.md
+          - Работа с плагинами: service-developer/command-list/plugin.md
+      - Работа с сервисами:
+          - Манифест сервиса: service-developer/service/manifest.md
+          - Создание сервиса: service-developer/service/create.md
+          - Запуск сервиса: service-developer/service/run.md
+      - Компоненты:
+          - Компоненты платформы: service-developer/component/platform.md
+          - Компоненты сервиса: service-developer/component/service.md
+#  - Для devops: devops/index.md
+#  - Для разработчиков платформы: platform-developer/index.md
+  - Образцовые подходы:
       - Postgres: best-practice/postgres.md
-  - Туториалы:
-      - tutorial/index.md
-      - Работа в локальном окружении:
-          - Запуск сервиса в локальном окружении: tutorial/001-service-run-local.md
-          - Отладка сервиса в локальном окружении: tutorial/002-service-debug-local.md
-  - Разработка:
-      - development/index.md
-      - Roadmap: development/roadmap.md
-      - Структура проекта: development/project-structure.md
-      - Технические заметки: development/technical-notes/index.md
-      - Матрица фич: development/feature-matrix.md
-      - Шаблон сервиса: development/service-boilerplate.md
-      - Оформление документации: development/doc-design.md
+      - Observability: best-practice/observability.md
+
+#  - Для devops:
+#  - Для разработчиков платформы:
+#  - Документация:
+#      - Установка и настройка:
+#          - doc/index.md
+#          - Установка: doc/getting-started/install.md
+#          - asdf-vm: doc/getting-started/asdf-vm.md
+#          - Запуск и остановка: doc/getting-started/start.md
+#          - Конфигурационный файл: doc/getting-started/cfg-file.md
+#          - Удаление: doc/getting-started/delete.md
+#      - Список команд: doc/command-list/index.md
+#      - Манифест сервиса: doc/service-manifest.md
+#  - Best Practice:
+#      - Observability: best-practice/observability.md
+#      - Postgres: best-practice/postgres.md
+#  - Туториалы:
+#      - tutorial/index.md
+#      - Работа в локальном окружении:
+#          - Запуск сервиса в локальном окружении: tutorial/001-service-run-local.md
+#          - Отладка сервиса в локальном окружении: tutorial/002-service-debug-local.md
+#  - Разработка:
+#      - development/index.md
+#      - Roadmap: development/roadmap.md
+#      - Структура проекта: development/project-structure.md
+#      - Технические заметки: development/technical-notes/index.md
+#      - Матрица фич: development/feature-matrix.md
+#      - Шаблон сервиса: development/service-boilerplate.md
+#      - Оформление документации: development/doc-design.md

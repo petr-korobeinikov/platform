@@ -9,12 +9,12 @@ tasks:
 
   doc:run:
     desc: Run documentation locally
+    dir: platform-doc
     cmds:
       - |
         docker run \
           --pull always \
           --rm \
-          -it \
           -p 8000:8000 \
-          -v ${PWD}/platform-doc:/docs \
+          -v ${PWD}:/docs \
           squidfunk/mkdocs-material

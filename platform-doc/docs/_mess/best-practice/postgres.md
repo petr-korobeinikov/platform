@@ -15,6 +15,7 @@ create schema app;
 
 ```postgresql
 create extension "uuid-ossp" with schema uuid;
+
 create extension intarray with schema intarray;
 ```
 
@@ -31,19 +32,19 @@ create schema maintenance;
 
 ## Используйте единственное число
 
-<!-- @formatter:off -->
 ```postgresql
-create table person ();
-create table item ();
-create table request ();
+create table person (
+);
+create table item (
+);
+create table request (
+);
 ```
-<!-- @formatter:on -->
 
 Заводя таблицы в `postgres`, Вы, фактически, создаёете тип данных.
 
 ```postgresql
-create table person
-(
+create table person (
     name    text,
     surname text
 );
@@ -78,8 +79,7 @@ Name, Surname string
 В базе данных создана таблица вида:
 
 ```postgresql
-create table person
-(
+create table person (
     id      bigserial primary key,
     name    text,
     surname text
@@ -89,14 +89,12 @@ create table person
 Миграция содержит следующие изменения:
 
 ```postgresql
-create type person_initial as
-(
+create type person_initial as (
     name    text,
     surname text
 );
 
-create table if not exists person
-(
+create table if not exists person (
     id         uuid primary key,
     created_at timestamp      not null,
     initial    person_initial not null
