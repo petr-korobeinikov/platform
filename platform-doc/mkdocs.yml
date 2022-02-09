@@ -59,6 +59,8 @@ nav:
       - Компоненты:
           - Компоненты платформы: service-developer/component/platform.md
           - Компоненты сервиса: service-developer/component/service.md
+      - Расширение платформы:
+          - Разработка плагинов: service-developer/extension/plugin.md
 #  - Для devops: devops/index.md
 #  - Для разработчиков платформы: platform-developer/index.md
   - Образцовые подходы:
