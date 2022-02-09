@@ -73,6 +73,7 @@ nav:
   - Для devops:
       - Введение: devops/index.md
   - Образцовые подходы:
+      - Введение: best-practice/index.md
       - Postgres: best-practice/postgres.md
       - Observability: best-practice/observability.md
 
