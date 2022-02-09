@@ -18,6 +18,23 @@ environment:
   prod-russia-vladivostok: ~
   prod-usa-cupertino: ~
 
+task:
+  - name: db migrate
+    description: Запуск миграций БД
+    image: platform/liquibase
+    command: migrate
+
+  - name: db migrate
+    ref: platform/task/liquibase
+
+  - name: db migrate
+    ref: platform/task/gomigrate
+
+  - name: db seed
+    description: Наполнение БД сидами
+    image: platform/seeder
+    command: seed
+
 # v2
 component:
   - type: postgres
