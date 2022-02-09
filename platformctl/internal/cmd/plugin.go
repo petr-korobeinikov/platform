@@ -11,6 +11,8 @@ import (
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+
+	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 )
 
 var pluginCmd = &cobra.Command{
@@ -60,6 +62,11 @@ func addPluginCommand(parent *cobra.Command) {
 				RunE: func(cmd *cobra.Command, args []string) error {
 					var err error
 
+					s, err := spec.Read()
+					if err != nil {
+						return err
+					}
+
 					pe := path.Join(p.path, "main")
 
 					e, err := homedir.Expand(pe)
@@ -69,6 +76,9 @@ func addPluginCommand(parent *cobra.Command) {
 
 					bypassedArgs := os.Args[3:]
 					c := exec.CommandContext(cmd.Context(), e, bypassedArgs...)
+
+					envs := s.ShellEnvironmentFor("local")
+					c.Env = append(os.Environ(), envs...)
 
 					c.Stdout = os.Stdout
 					c.Stderr = os.Stderr

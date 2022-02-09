@@ -50,6 +50,17 @@ func (s *Spec) EnvironmentFor(environmentName string) map[string]string {
 	return out
 }
 
+func (s *Spec) ShellEnvironmentFor(environmentName string) []string {
+	var out []string
+
+	envmap := s.EnvironmentFor(environmentName)
+	for k, v := range envmap {
+		out = append(out, fmt.Sprintf("%s=%s", k, v))
+	}
+
+	return out
+}
+
 func (c *Component) ID() string {
 	return fmt.Sprintf("component-%s-%s", c.Type, c.Name)
 }
