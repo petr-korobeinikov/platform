@@ -43,6 +43,7 @@ markdown_extensions:
   - tables
 nav:
   - Для разработчиков сервисов:
+      - Введение: service-developer/index.md
       - Установка:
           - Установка platformctl: service-developer/install/platformctl.md
           - Варианты установки: service-developer/install/installation-option.md
@@ -61,7 +62,6 @@ nav:
           - Компоненты сервиса: service-developer/component/service.md
       - Расширение платформы:
           - Разработка плагинов: service-developer/extension/plugin.md
-  #  - Для devops: devops/index.md
   - Для разработчиков платформы:
       - Введение: platform-developer/index.md
       - ADR:
@@ -70,6 +70,8 @@ nav:
           - 3. Dockerfile is not a part of project repository: platform-developer/adr/0003-dockerfile-is-not-a-part-of-project-repository.md
           - 4. UTC is the only timezone: platform-developer/adr/0004-utc-is-the-only-timezone.md
           - 5. Plugin is a binary: platform-developer/adr/0005-plugin-is-a-binary.md
+  - Для devops:
+      - Введение: devops/index.md
   - Образцовые подходы:
       - Postgres: best-practice/postgres.md
       - Observability: best-practice/observability.md
