@@ -18,6 +18,16 @@ environment:
   prod-russia-vladivostok: ~
   prod-usa-cupertino: ~
 
+# Service discovery draft:
+# 1. Zero trust
+service-discovery:
+  - namespace: foo-ns
+    service: foo-svc
+  - namespace: bar-ns
+    service: bar-svc
+  - service: external-svc
+    url: https://external-svc.dmz
+
 task:
   - name: db migrate
     description: Запуск миграций БД
