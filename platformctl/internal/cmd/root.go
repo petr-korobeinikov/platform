@@ -12,6 +12,7 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/cfg"
 )
 
 var cfgFile string
@@ -47,10 +48,11 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.platformctl/platformctl.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfg.ServiceEnv, "service-env", "", "local", "service environment name")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.

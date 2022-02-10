@@ -27,3 +27,7 @@ const (
 
 	minikubeProfile = "platform"
 )
+
+var (
+	ServiceEnv string
+)

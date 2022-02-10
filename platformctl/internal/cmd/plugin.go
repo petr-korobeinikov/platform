@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/cfg"
 )
 
 var pluginCmd = &cobra.Command{
@@ -55,10 +56,9 @@ func addPluginCommand(parent *cobra.Command) {
 	for _, p := range plugins {
 		func(p plugin) {
 			var concretePluginCmd = &cobra.Command{
-				Use:                p.name,
-				Short:              fmt.Sprintf("See %s --help for details", p.name),
-				Args:               cobra.ArbitraryArgs,
-				DisableFlagParsing: true,
+				Use:   p.name,
+				Short: fmt.Sprintf("See %s --help for details", p.name),
+				Args:  cobra.ArbitraryArgs,
 				RunE: func(cmd *cobra.Command, args []string) error {
 					var err error
 
@@ -77,7 +77,7 @@ func addPluginCommand(parent *cobra.Command) {
 					bypassedArgs := os.Args[3:]
 					c := exec.CommandContext(cmd.Context(), e, bypassedArgs...)
 
-					envs := s.ShellEnvironmentFor("local")
+					envs := s.ShellEnvironmentFor(cfg.ServiceEnv)
 					c.Env = append(os.Environ(), envs...)
 
 					c.Stdout = os.Stdout

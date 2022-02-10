@@ -5,3 +5,5 @@ set -euo pipefail
 echo Hello, I am example shell plugin!
 echo Current PWD: ${PWD}
 echo Given args: "$@"
+
+env | grep -i worker

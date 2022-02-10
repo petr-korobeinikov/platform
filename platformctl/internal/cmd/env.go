@@ -16,16 +16,14 @@ var envCmd = &cobra.Command{
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutDefault())
 		defer cancel()
 
-		return service.Env(ctx, serviceEnv)
+		return service.Env(ctx, cfg.ServiceEnv)
 	},
 }
 
 func init() {
 	serviceCmd.AddCommand(envCmd)
-
-	envCmd.Flags().StringVarP(&serviceEnv, "service-env", "", "local", "Override default environment")
 }
 
 var (
-	serviceEnv string
+	ServiceEnv string
 )
