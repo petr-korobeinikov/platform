@@ -1,6 +1,33 @@
 # Работа с плагинами
 
+Плагины используются для более сложной автоматизации платформенных задач.
+
+Их следует разрабатывать и применять только в том случае, если задачу невозможно
+автоматизировать и решить через `platformctl task`.
+
 ## plugin
+
+Вывод списка установленных плагинов.
+
+```shell
+platformctl plugin
+```
+
+Пример вывода:
+
+```shell
+platformctl plugin
+Execute plugins
+
+Usage:
+  platformctl plugin [command]
+
+Available Commands:
+  shell-showcase See shell-showcase --help for details
+...
+```
+
+## plugin name
 
 Вызов плагина.
 
