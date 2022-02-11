@@ -17,4 +17,4 @@ tasks:
           --rm \
           -p 8000:8000 \
           -v ${PWD}:/docs \
-          squidfunk/mkdocs-material
+          squidfunk/mkdocs-material serve --dev-addr=0.0.0.0:8000 --watch-theme

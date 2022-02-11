@@ -1,6 +1,7 @@
 site_name: platform
 theme:
   name: material
+  custom_dir: overrides
   logo: asset/platform-icon.svg
   palette:
     - scheme: default
