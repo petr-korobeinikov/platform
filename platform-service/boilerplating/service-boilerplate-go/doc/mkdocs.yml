@@ -1,0 +1,9 @@
+site_name: service-boilerplate-go
+theme:
+  name: material
+nav:
+  - Описание сервиса: index.md
+  - Архитектура сервиса: architecture.md
+  - Runbook: runbook.md
+  - FAQ: faq.md
+  - API: api.md
