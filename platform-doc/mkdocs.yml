@@ -52,6 +52,7 @@ nav:
       - Список команд:
           - Работа с сервисом: service-developer/command-list/service.md
           - Работа с библиотеками: service-developer/command-list/lib.md
+          - Работа с задачами: service-developer/command-list/task.md
           - Работа с плагинами: service-developer/command-list/plugin.md
       - Работа с сервисами:
           - Манифест сервиса: service-developer/service/manifest.md

@@ -61,6 +61,16 @@ func (s *Spec) ShellEnvironmentFor(environmentName string) []string {
 	return out
 }
 
+func (s *Spec) TaskByName(name string) (*Task, error) {
+	for _, t := range s.Task {
+		if t.Name == name {
+			return t, nil
+		}
+	}
+
+	return nil, ErrTaskNotDefined
+}
+
 func (c *Component) ID() string {
 	return fmt.Sprintf("component-%s-%s", c.Type, c.Name)
 }
@@ -85,12 +95,18 @@ type (
 		Name        string                       `yaml:"name"`
 		Component   []*Component                 `yaml:"component"`
 		Environment map[string]map[string]string `yaml:"environment"`
+		Task        []*Task                      `yaml:"task"`
 	}
 
 	Component struct {
 		Type    string `yaml:"type"`
 		Name    string `yaml:"name"`
 		Enabled bool   `yaml:"enabled"`
+	}
+
+	Task struct {
+		Name  string `yaml:"name"`
+		Image string `yaml:"image"`
 	}
 )
 
@@ -122,4 +138,5 @@ var (
 	ErrSpecFileDoesNotExists = errors.New(fmt.Sprintf("%s does not found in project directory", File))
 	ErrSpecReading           = errors.New(fmt.Sprintf("can't read %s", File))
 	ErrSpecInvalid           = errors.New(fmt.Sprintf("%s contains errors", File))
+	ErrTaskNotDefined        = errors.New(fmt.Sprintf("task not defined in file %s", File))
 )

@@ -1,0 +1,10 @@
+name: task-providing-service
+
+environment:
+  _: ~
+  local: ~
+  staging: ~
+
+task:
+  - name: hello
+    image: hello-world
