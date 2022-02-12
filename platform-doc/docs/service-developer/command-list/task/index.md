@@ -19,7 +19,7 @@
 ```yaml
 task:
   - name: lint
-    image: platform/golangci-lint
+    image: platform/task/golangci-lint
 ```
 <!-- @formatter:on -->
 
@@ -39,7 +39,7 @@ platformctl task lint
 ```yaml
 task:
   - name: db migrate master
-    image: platform/golang-migrate
+    image: platform/task/golang-migrate
     argument:
       workdir: /service/db/changelog/postgres/master
       command: >

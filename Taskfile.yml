@@ -19,20 +19,27 @@ tasks:
           -v ${PWD}:/docs \
           squidfunk/mkdocs-material serve --dev-addr=0.0.0.0:8000 --watch-theme
 
-  platform-image:platform:directory-lister:build:
+  platform-image:task:all:build:
+    desc: Build all platform/task images
+    cmds:
+      - task: platform-image:task:directory-lister:build
+      - task: platform-image:task:golangci-lint:build
+      - task: platform-image:task:golang-migrate:build
+
+  platform-image:task:directory-lister:build:
     desc: Build platform/directory-lister image
-    dir: platform-image/platform/directory-lister
+    dir: platform-image/task/directory-lister
     cmds:
-      - docker build --tag platform/directory-lister .
+      - docker build --tag platform/task/directory-lister .
 
-  platform-image:platform:golangci-lint:build:
+  platform-image:task:golangci-lint:build:
     desc: Build platform/golangci-lint image
-    dir: platform-image/platform/golangci-lint
+    dir: platform-image/task/golangci-lint
     cmds:
-      - docker build --tag platform/golangci-lint .
+      - docker build --tag platform/task/golangci-lint .
 
-  platform-image:platform:golang-migrate:build:
+  platform-image:task:golang-migrate:build:
     desc: Build platform/golang-migrate image
-    dir: platform-image/platform/golang-migrate
+    dir: platform-image/task/golang-migrate
     cmds:
-      - docker build --tag platform/golang-migrate .
+      - docker build --tag platform/task/golang-migrate .

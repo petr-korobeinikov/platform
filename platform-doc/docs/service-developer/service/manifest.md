@@ -36,7 +36,7 @@ component: # (3)
 
 task: # (6)
   - name: lint
-    image: platform/golangci-lint
+    image: platform/task/golangci-lint
 
   - name: db migrate
     image: platform/specific-database-migrator
@@ -128,10 +128,10 @@ component:
 ```yaml
 task:
   - name: lint
-    image: platform/golangci-lint
+    image: platform/task/golangci-lint
 
   - name: db migrate
-    image: platform/specific-database-migrator
+    image: platform/task/specific-database-migrator
 
   - name: db seed
     image: platform/seeder

@@ -76,6 +76,8 @@ nav:
           - 5. Plugin is a binary: platform-developer/adr/0005-plugin-is-a-binary.md
       - Шаблон сервиса:
           - Требования к шаблону: platform-developer/service-boilerplate/requirement.md
+      - Сборка:
+          - Сборка образов библиотеки задач: platform-developer/build/platform-image.md
   - Для devops:
       - Введение: devops/index.md
   - Образцовые подходы:

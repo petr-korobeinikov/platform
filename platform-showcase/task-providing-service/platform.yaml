@@ -18,13 +18,13 @@ task:
     image: hello-world
 
   - name: ls
-    image: platform/directory-lister
+    image: platform/task/directory-lister
 
   - name: lint
-    image: platform/golangci-lint
+    image: platform/task/golangci-lint
 
   - name: db migrate master
-    image: platform/golang-migrate
+    image: platform/task/golang-migrate
     argument:
       workdir: /service/db/changelog/postgres/master
       command: >
