@@ -41,6 +41,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - tables
 nav:
   - В начало: index.md
@@ -78,6 +80,9 @@ nav:
           - Требования к шаблону: platform-developer/service-boilerplate/requirement.md
       - Сборка:
           - Сборка образов библиотеки задач: platform-developer/build/platform-image.md
+      - План развития:
+          - Обратная связь от разработчиков: platform-developer/evolution/feedback-developer.md
+          - Обратная связь от devops: platform-developer/evolution/feedback-devops.md
   - Для devops:
       - Введение: devops/index.md
   - Образцовые подходы:
