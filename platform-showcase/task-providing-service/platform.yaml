@@ -31,3 +31,15 @@ task:
         -path task-providing-service
         -database postgres://${PG_USER}:${PG_PASSWORD}@localhost:5432/${PG_DATABASE}?x-migrations-table="changelog"&x-migrations-table-quoted=true&sslmode=disable
         up
+
+  - name: db migrate olap
+    image: liquibase/liquibase
+    argument:
+      workdir: /service/db/changelog/postgres/olap/task-providing-service
+      command: >
+        --url=jdbc:postgresql://localhost:5432/${PG_DATABASE}
+        --username=${PG_USER}
+        --password=${PG_PASSWORD}
+        --changeLogFile=master.changelog.sql
+        --log-level=info
+        update
