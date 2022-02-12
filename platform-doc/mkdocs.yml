@@ -48,7 +48,7 @@ nav:
       - Введение: service-developer/index.md
       - Установка:
           - Установка platformctl: service-developer/install/platformctl.md
-          - Варианты установки: service-developer/install/installation-option.md
+          - Установка среды исполнения контейнеров: service-developer/install/container-runtime.md
       - Настройка:
           - Настройка вручную: service-developer/bootstrap/manual.md
       - Список команд:
