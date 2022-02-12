@@ -8,6 +8,7 @@
 
 ## Пример манифеста `platform.yaml`
 
+<!-- @formatter:off -->
 ```yaml
 name: wordcounter # (1)
 
@@ -32,13 +33,28 @@ component: # (3)
   - type: minio
     name: minio
     enabled: true
+
+task: # (6)
+  - name: lint
+    image: platform/golangci-lint
+
+  - name: db migrate
+    image: platform/specific-database-migrator
+
+  - name: db seed
+    image: platform/seeder
+
+  - name: some task you need
+    image: platform/some-task-you-need
 ```
+<!-- @formatter:on -->
 
 1. Имя сервиса
 2. Спецификация переменных окружения
 3. Список компонентов сервиса
 4. Переопределение значения `WORKER_NAP_DURATION` для окружения `staging`.
 5. Переопределение значения `WORKER_NAP_DURATION` для окружения `prod`.
+6. Определение задач сборки сервиса.
 
 ## Структура манифеста
 
@@ -46,9 +62,11 @@ component: # (3)
 
 Имя сервиса уникально в рамках инсталляции платформы.
 
+<!-- @formatter:off -->
 ```yaml
 name: wordcounter
 ```
+<!-- @formatter:on -->
 
 ### environment
 
@@ -61,6 +79,7 @@ name: wordcounter
 Согласно "12 факторам"[^1] вся конфигурация сервиса происходит только через
 переменные окружения.
 
+<!-- @formatter:off -->
 ```yaml
 environment:
   _:
@@ -71,6 +90,7 @@ environment:
   prod:
     WORKER_NAP_DURATION: 30s
 ```
+<!-- @formatter:on -->
 
 ### component
 
@@ -83,11 +103,42 @@ environment:
 подключено несколько компонентов одного типа. Например, это могут быть `OLTP`-
 и `OLAP`-база одного типа.
 
+<!-- @formatter:off -->
 ```yaml
 component:
   - type: postgres
     name: postgres
     enabled: true
 ```
+<!-- @formatter:on -->
+
+### task
+
+Определение задач сборки сервиса.
+
+Важным фактором, определяющим успех микросервисной платформы, является набор
+единообразных и переносимых между сервисами задач сборки.
+
+Такие задачи можно запускать на локальной машине разработчика и на CI
+единообразно — с помощью команды `platformctl task`.
+
+Пример декларации задач сборки сервиса:
+
+<!-- @formatter:off -->
+```yaml
+task:
+  - name: lint
+    image: platform/golangci-lint
+
+  - name: db migrate
+    image: platform/specific-database-migrator
+
+  - name: db seed
+    image: platform/seeder
+
+  - name: some task you need
+    image: platform/some-task-you-need
+```
+<!-- @formatter:on -->
 
 [^1]: [III. Конфигурация](https://12factor.net/ru/config)
