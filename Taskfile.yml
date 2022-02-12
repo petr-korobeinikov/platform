@@ -18,3 +18,9 @@ tasks:
           -p 8000:8000 \
           -v ${PWD}:/docs \
           squidfunk/mkdocs-material serve --dev-addr=0.0.0.0:8000 --watch-theme
+
+  platform-image:platform:directory-lister:build:
+    desc: Build platform/directory-lister image
+    dir: platform-image/platform/directory-lister
+    cmds:
+      - docker build --tag platform/directory-lister .

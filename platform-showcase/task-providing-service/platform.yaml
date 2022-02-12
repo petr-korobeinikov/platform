@@ -8,3 +8,5 @@ environment:
 task:
   - name: hello
     image: hello-world
+  - name: ls
+    image: platform/directory-lister
