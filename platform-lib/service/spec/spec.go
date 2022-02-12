@@ -61,6 +61,15 @@ func (s *Spec) ShellEnvironmentFor(environmentName string) []string {
 	return out
 }
 
+func (s *Spec) SetEnvironmentFor(environmentName string) error {
+	for k, v := range s.EnvironmentFor(environmentName) {
+		if err := os.Setenv(k, v); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (s *Spec) TaskByName(name string) (*Task, error) {
 	for _, t := range s.Task {
 		if t.Name == name {
@@ -105,8 +114,14 @@ type (
 	}
 
 	Task struct {
-		Name  string `yaml:"name"`
-		Image string `yaml:"image"`
+		Name     string       `yaml:"name"`
+		Image    string       `yaml:"image"`
+		Argument TaskArgument `yaml:"argument"`
+	}
+
+	TaskArgument struct {
+		Workdir string `yaml:"workdir"`
+		Command string `yaml:"command"`
 	}
 )
 

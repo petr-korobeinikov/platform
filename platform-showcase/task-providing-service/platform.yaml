@@ -2,13 +2,32 @@ name: task-providing-service
 
 environment:
   _: ~
-  local: ~
+  local:
+    PG_USER: task-providing-service
+    PG_PASSWORD: secret
+    PG_DATABASE: task-providing-service
   staging: ~
+
+component:
+  - type: postgres
+    name: master
+    enabled: true
 
 task:
   - name: hello
     image: hello-world
+
   - name: ls
     image: platform/directory-lister
+
   - name: lint
     image: platform/golangci-lint
+
+  - name: db migrate master
+    image: platform/golang-migrate
+    argument:
+      workdir: /service/db/changelog/postgres/master
+      command: >
+        -path task-providing-service
+        -database postgres://${PG_USER}:${PG_PASSWORD}@localhost:5432/${PG_DATABASE}?x-migrations-table="changelog"&x-migrations-table-quoted=true&sslmode=disable
+        up

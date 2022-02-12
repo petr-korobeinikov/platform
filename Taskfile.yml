@@ -30,3 +30,9 @@ tasks:
     dir: platform-image/platform/golangci-lint
     cmds:
       - docker build --tag platform/golangci-lint .
+
+  platform-image:platform:golang-migrate:build:
+    desc: Build platform/golang-migrate image
+    dir: platform-image/platform/golang-migrate
+    cmds:
+      - docker build --tag platform/golang-migrate .

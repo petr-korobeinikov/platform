@@ -3,6 +3,7 @@ module platformctl
 go 1.17
 
 require (
+	github.com/drone/envsubst v1.0.3
 	github.com/mitchellh/go-homedir v1.0.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
