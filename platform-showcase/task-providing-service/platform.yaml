@@ -10,3 +10,5 @@ task:
     image: hello-world
   - name: ls
     image: platform/directory-lister
+  - name: lint
+    image: platform/golangci-lint

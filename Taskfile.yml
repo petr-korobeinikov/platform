@@ -24,3 +24,9 @@ tasks:
     dir: platform-image/platform/directory-lister
     cmds:
       - docker build --tag platform/directory-lister .
+
+  platform-image:platform:golangci-lint:build:
+    desc: Build platform/golangci-lint image
+    dir: platform-image/platform/golangci-lint
+    cmds:
+      - docker build --tag platform/golangci-lint .
