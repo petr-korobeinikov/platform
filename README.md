@@ -16,3 +16,7 @@ task doc:run
 
 Для оформления документации используется
 соглашение [Semantic Line Breaks](https://sembr.org/).
+
+---
+
+This project is licensed under the terms of the GNU GPLv3 license.
