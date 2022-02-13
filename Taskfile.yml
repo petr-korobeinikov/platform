@@ -12,7 +12,9 @@ tasks:
     dir: platform-doc
     cmds:
       - |
-        docker run \
+        NERDCTL=$(command -v nerdctl)
+        DOCKER=$(command -v docker)
+        ${NERDCTL:-$DOCKER} run \
           --pull always \
           --rm \
           -p 8000:8000 \
