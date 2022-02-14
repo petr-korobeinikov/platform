@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/labstack/echo-contrib/jaegertracing"
 	"github.com/labstack/echo/v4"
 	"github.com/pkorobeinikov/environ"
 
@@ -28,6 +29,9 @@ func main() {
 	}
 
 	e := echo.New()
+
+	c := jaegertracing.New(e, nil)
+	defer c.Close()
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, fmt.Sprintf("Hello, I am %s!", service))
