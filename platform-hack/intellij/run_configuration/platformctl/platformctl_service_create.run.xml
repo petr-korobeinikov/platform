@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="platformctl service create" type="GoApplicationRunConfiguration" factoryName="Go Application" editBeforeRun="true">
+  <configuration default="false" name="platformctl service create" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="platformctl" editBeforeRun="true">
     <module name="platform" />
     <working_directory value="$PROJECT_DIR$/platform-showcase" />
     <parameters value="service create" />

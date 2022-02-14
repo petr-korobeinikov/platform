@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="platformctl lib get foobar" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="platformctl lib get foobar" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="platformctl">
     <module name="platform" />
     <working_directory value="$PROJECT_DIR$/platformctl" />
     <parameters value="lib get foobar" />
