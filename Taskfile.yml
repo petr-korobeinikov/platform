@@ -24,24 +24,31 @@ tasks:
   platform-image:task:all:build:
     desc: Build all platform/task images
     cmds:
-      - task: platform-image:task:directory-lister:build
+      - task: platform-image:task:debugging:directory-lister:build
+      - task: platform-image:task:debugging:environ-printer:build
       - task: platform-image:task:golangci-lint:build
       - task: platform-image:task:golang-migrate:build
 
-  platform-image:task:directory-lister:build:
-    desc: Build platform/directory-lister image
-    dir: platform-image/task/directory-lister
+  platform-image:task:debugging:directory-lister:build:
+    desc: Build platform/task/debugging/directory-lister image
+    dir: platform-image/task/debugging/directory-lister
     cmds:
-      - docker build --tag platform/task/directory-lister .
+      - docker build --tag platform/task/debugging/directory-lister .
+
+  platform-image:task:debugging:environ-printer:build:
+    desc: Build platform/task/debugging/environ-printer image
+    dir: platform-image/task/debugging/environ-printer
+    cmds:
+      - docker build --tag platform/task/debugging/environ-printer .
 
   platform-image:task:golangci-lint:build:
-    desc: Build platform/golangci-lint image
+    desc: Build platform/task/golangci-lint image
     dir: platform-image/task/golangci-lint
     cmds:
       - docker build --tag platform/task/golangci-lint .
 
   platform-image:task:golang-migrate:build:
-    desc: Build platform/golang-migrate image
+    desc: Build platform/task/golang-migrate image
     dir: platform-image/task/golang-migrate
     cmds:
       - docker build --tag platform/task/golang-migrate .

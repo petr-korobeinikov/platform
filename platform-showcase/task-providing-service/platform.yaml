@@ -18,7 +18,10 @@ task:
     image: hello-world
 
   - name: ls
-    image: platform/task/directory-lister
+    image: platform/task/debugging/directory-lister
+
+  - name: printenv
+    image: platform/task/debugging/environ-printer
 
   - name: lint
     image: platform/task/golangci-lint
