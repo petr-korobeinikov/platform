@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/labstack/echo-contrib/jaegertracing"
 	"github.com/labstack/echo-contrib/prometheus"
@@ -31,7 +32,7 @@ func main() {
 
 	e := echo.New()
 
-	p := prometheus.NewPrometheus("echo", nil)
+	p := prometheus.NewPrometheus(strings.ReplaceAll(service, "-", "_"), nil)
 	p.Use(e)
 
 	c := jaegertracing.New(e, nil)
