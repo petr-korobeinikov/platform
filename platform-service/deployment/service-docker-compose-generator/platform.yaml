@@ -1,0 +1,7 @@
+name: service-docker-compose-generator
+namespace: platform
+
+environment:
+  _: ~
+  local: ~
+  staging: ~
