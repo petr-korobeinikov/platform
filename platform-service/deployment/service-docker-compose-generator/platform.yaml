@@ -2,6 +2,8 @@ name: service-docker-compose-generator
 namespace: platform
 
 environment:
-  _: ~
+  _:
+    HTTP_API_PORT: 9000
+    GRPC_API_PORT: 9001
   local: ~
   staging: ~
