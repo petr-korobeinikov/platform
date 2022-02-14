@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo-contrib/jaegertracing"
+	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/pkorobeinikov/environ"
 
@@ -29,6 +30,9 @@ func main() {
 	}
 
 	e := echo.New()
+
+	p := prometheus.NewPrometheus("echo", nil)
+	p.Use(e)
 
 	c := jaegertracing.New(e, nil)
 	defer c.Close()
