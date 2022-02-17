@@ -28,6 +28,7 @@ tasks:
       - task: platform-image:task:debugging:environ-printer:build
       - task: platform-image:task:golangci-lint:build
       - task: platform-image:task:golang-migrate:build
+      - task: platform-image:task:seeder:build
 
   platform-image:task:debugging:directory-lister:build:
     desc: Build platform/task/debugging/directory-lister image
@@ -52,3 +53,9 @@ tasks:
     dir: platform-image/task/golang-migrate
     cmds:
       - docker build --tag platform/task/golang-migrate .
+
+  platform-image:task:seeder:build:
+    desc: Build platform/task/seeder image
+    dir: platform-image/task/seeder
+    cmds:
+      - docker build --tag platform/task/seeder .

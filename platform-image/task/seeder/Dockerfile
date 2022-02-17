@@ -1,0 +1,3 @@
+FROM seeder
+
+WORKDIR /service
