@@ -29,6 +29,35 @@ service-discovery:
     url: https://external-svc.dmz
 
 task:
+  # region run configuration
+  - name: db migrate
+    image: platform/migrator
+    run:
+      - debug
+      - start
+      - deploy
+
+  - name: db migrate
+    image: platform/migrator
+    run: always
+
+  - name: db migrate
+    image: platform/migrator
+    run: manually
+
+  - name: db migrate
+    image: platform/migrator
+    run: disabled
+
+  - name: db migrate
+    image: platform/migrator
+    run: never
+
+  - name: db migrate
+    image: platform/migrator
+    run: auto
+  # endregion
+
   - name: db migrate
     description: Запуск миграций БД
     image: platform/liquibase
