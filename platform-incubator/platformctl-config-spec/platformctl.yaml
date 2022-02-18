@@ -1,6 +1,6 @@
 platform:
   flavor:
-    container-runtime: docker|containerd
+    container-runtime: docker|containerd|cri-o
     container-runtime-ctl: docker|nerdctl
     container-runtime-vm: docker-desktop|rancher-desktop|minikube
 
