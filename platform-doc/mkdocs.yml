@@ -76,6 +76,7 @@ nav:
           - 3. Dockerfile is not a part of project repository: platform-developer/adr/0003-dockerfile-is-not-a-part-of-project-repository.md
           - 4. UTC is the only timezone: platform-developer/adr/0004-utc-is-the-only-timezone.md
           - 5. Plugin is a binary: platform-developer/adr/0005-plugin-is-a-binary.md
+          - 6. Use minikube as a primary k8s local provider: platform-developer/adr/0006-use-minikube-as-a-primary-k8s-local-provider.md
       - Шаблон сервиса:
           - Требования к шаблону: platform-developer/service-boilerplate/requirement.md
       - Сборка:

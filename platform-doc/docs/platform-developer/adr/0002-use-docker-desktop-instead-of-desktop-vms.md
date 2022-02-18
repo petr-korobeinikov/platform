@@ -4,7 +4,7 @@ Date: 2021-11-05
 
 ## Status
 
-Accepted
+Superceded by [6. Use minikube as a primary k8s local provider](0006-use-minikube-as-a-primary-k8s-local-provider.md)
 
 ## Context
 
