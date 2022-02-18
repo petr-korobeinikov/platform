@@ -1,0 +1,16 @@
+platform:
+  flavor:
+    container-runtime: docker|containerd
+    container-runtime-ctl: docker|nerdctl
+    container-runtime-vm: docker-desktop|rancher-desktop|minikube
+
+  minikube:
+    memory: "4g"
+    cpus: "4"
+    disk-size: "50g"
+
+  go_env_vars:
+    - "GONOPROXY=none"
+    - "GOPROXY=https://proxy.yourdevdomain.tld"
+    - "GONOSUMDB=sumdb.yourdevdomain.tld/*"
+    - "GOPRIVATE=*.yourdevdomain.tld"
