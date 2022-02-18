@@ -1,4 +1,9 @@
 platform:
+  flavor:
+    container-runtime: docker
+    container-runtime-ctl: docker
+    container-runtime-vm: docker-desktop
+
   minikube:
     memory: "4g"
     cpus: "4"

@@ -7,6 +7,7 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/cfg"
 )
 
 func Stop(ctx context.Context) error {
@@ -15,7 +16,8 @@ func Stop(ctx context.Context) error {
 		return err
 	}
 
-	args := deployment.DockerComposeArgs(s.Name, `down`, `--remove-orphans`)
+	//args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `down`, `--remove-orphans`)
+	args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `down`)
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
 

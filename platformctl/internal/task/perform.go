@@ -39,7 +39,7 @@ func Perform(ctx context.Context, args []string) error {
 	envs := s.ShellEnvironmentFor(cfg.ServiceEnv)
 
 	containerArgs := []string{
-		"docker",
+		cfg.PlatformFlavorContainerRuntimeCtl,
 		"run",
 		"--network", "host",
 		"--rm",

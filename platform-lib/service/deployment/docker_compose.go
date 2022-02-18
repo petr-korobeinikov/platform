@@ -149,9 +149,9 @@ func WriteDockerComposeFile(deploymentSpec []byte) error {
 	return os.WriteFile(DockerComposeFile, deploymentSpec, 0644)
 }
 
-func DockerComposeArgs(projectName string, args ...string) []string {
+func DockerComposeArgs(containerRuntimeCtl, projectName string, args ...string) []string {
 	predefined := []string{
-		`docker`, `compose`,
+		containerRuntimeCtl, `compose`,
 		`--project-name`,
 		projectName,
 		`--file`,

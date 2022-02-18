@@ -13,6 +13,7 @@ import (
 	"github.com/pkg/browser"
 
 	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
+	"platformctl/internal/cfg"
 )
 
 func Doc(ctx context.Context) error {
@@ -45,7 +46,7 @@ func Doc(ctx context.Context) error {
 		}()
 
 		args := []string{
-			"docker",
+			cfg.PlatformFlavorContainerRuntimeCtl,
 			"run",
 			"--pull", "always",
 			"--rm",

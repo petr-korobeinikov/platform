@@ -7,6 +7,8 @@ import (
 	"errors"
 	"os"
 	"os/exec"
+
+	"platformctl/internal/cfg"
 )
 
 func IsConformsToMinimalRequirements(ctx context.Context) (bool, error) {
@@ -16,7 +18,7 @@ func IsConformsToMinimalRequirements(ctx context.Context) (bool, error) {
 	)
 
 	args := []string{
-		"docker",
+		cfg.PlatformFlavorContainerRuntimeCtl,
 		"info",
 		`--format={{ json . }}`,
 	}

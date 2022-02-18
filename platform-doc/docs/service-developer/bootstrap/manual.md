@@ -11,6 +11,11 @@ mkdir -p ~/.platformctl
 ```shell
 cat <<EOF > ~/.platformctl/platformctl.yaml
 platform:
+  flavor:
+    container-runtime: docker
+    container-runtime-ctl: docker
+    container-runtime-vm: docker-desktop
+
   minikube:
     memory: "8g"
     cpus: "8"

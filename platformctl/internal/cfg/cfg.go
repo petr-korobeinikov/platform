@@ -30,4 +30,6 @@ const (
 
 var (
 	ServiceEnv string
+
+	PlatformFlavorContainerRuntimeCtl string
 )

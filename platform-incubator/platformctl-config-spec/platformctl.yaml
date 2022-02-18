@@ -5,6 +5,7 @@ platform:
     container-runtime-vm: docker-desktop|rancher-desktop|minikube
 
   minikube:
+    profile: "platform"
     memory: "4g"
     cpus: "4"
     disk-size: "50g"

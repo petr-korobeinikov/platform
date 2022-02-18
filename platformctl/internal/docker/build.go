@@ -10,6 +10,7 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/cfg"
 )
 
 func Build(ctx context.Context, s *spec.Spec) error {
@@ -19,7 +20,7 @@ func Build(ctx context.Context, s *spec.Spec) error {
 	}
 
 	args := []string{
-		"docker",
+		cfg.PlatformFlavorContainerRuntimeCtl,
 		"build",
 		"--file",
 		".platform/docker/Dockerfile",

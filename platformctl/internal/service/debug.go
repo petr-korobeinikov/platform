@@ -8,6 +8,7 @@ import (
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"platformctl/internal/cfg"
 )
 
 func Debug(ctx context.Context) error {
@@ -39,7 +40,8 @@ func Debug(ctx context.Context) error {
 	// 	return err
 	// }
 
-	args := deployment.DockerComposeArgs(s.Name, `up`, `-d`, `--remove-orphans`)
+	//args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `up`, `-d`, `--remove-orphans`)
+	args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `up`, `-d`)
 	args = append(args, s.EnabledComponent()...)
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)

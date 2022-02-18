@@ -75,6 +75,9 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+
+	viper.SetDefault("platform.flavor.container-runtime-ctl", "foobar")
+	cfg.PlatformFlavorContainerRuntimeCtl = viper.GetString("platform.flavor.container-runtime-ctl")
 }
 
 const (

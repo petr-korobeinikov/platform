@@ -8,6 +8,7 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/deployment"
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
+	"platformctl/internal/cfg"
 )
 
 // EnsureSentinelNotRunning needs to be rethought.
@@ -18,7 +19,7 @@ func EnsureSentinelNotRunning(ctx context.Context, serviceName string) error {
 	)
 
 	args = []string{
-		"docker", "compose",
+		cfg.PlatformFlavorContainerRuntimeCtl, "compose",
 		"--file",
 		deployment.DockerComposeFile,
 		"--env-file",
@@ -38,7 +39,7 @@ func EnsureSentinelNotRunning(ctx context.Context, serviceName string) error {
 	}
 
 	args = []string{
-		"docker",
+		cfg.PlatformFlavorContainerRuntimeCtl,
 		"container",
 		"ls",
 		"--all",
