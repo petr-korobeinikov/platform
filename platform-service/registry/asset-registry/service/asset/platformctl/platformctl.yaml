@@ -1,0 +1,18 @@
+platform:
+  flavor:
+    container-runtime: docker
+    container-runtime-ctl: docker
+    container-runtime-vm: minikube
+
+  minikube:
+    version: "v1.25.1"
+    profile: "platform"
+    memory: "4g"
+    cpus: "4"
+    disk-size: "50g"
+    driver: "virtualbox"
+
+  kubernetes:
+    version: "v1.22.2"
+
+  go_env_vars: ~
