@@ -10,6 +10,7 @@ platform:
     memory: "4g"
     cpus: "4"
     disk-size: "50g"
+    driver: "virtualbox" # "hyperkit|virtualbox|parallels"
 
   kubernetes:
     version: "v1.22.2"
