@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asset-registry
+  namespace: platform
+  labels:
+    app: asset-registry
+spec:
+  selector:
+    matchLabels:
+      app: asset-registry
+  template:
+    metadata:
+      labels:
+        app: asset-registry
+    spec:
+      containers:
+        - name: asset-registry
+          image: asset-registry
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: asset-registry
+  namespace: platform
+spec:
+  selector:
+    app: asset-registry
+  ports:
+    - port: 9000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: asset-registry
+  namespace: platform
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /platform/asset-registry(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: asset-registry
+                port:
+                  number: 9000
