@@ -15,6 +15,8 @@ func (b *minikubeBridge) Start(ctx context.Context) error {
 	diskSize := viper.GetString("platform.minikube.disk-size")
 	driver := viper.GetString("platform.minikube.driver")
 
+	containerRuntime := viper.GetString("platform.flavor.container-runtime")
+
 	kubernetesVersion := viper.GetString("platform.kubernetes.version")
 
 	args := []string{
@@ -25,6 +27,7 @@ func (b *minikubeBridge) Start(ctx context.Context) error {
 		"--cpus", cpus,
 		"--disk-size", diskSize,
 		"--driver", driver,
+		"--container-runtime", containerRuntime,
 		"--kubernetes-version", kubernetesVersion,
 		"--delete-on-failure=true",
 	}
