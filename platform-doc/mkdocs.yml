@@ -52,6 +52,7 @@ nav:
           - Установка platformctl: service-developer/install/platformctl.md
           - Установка среды исполнения контейнеров: service-developer/install/container-runtime.md
       - Настройка:
+          - Автоматическая настройка: service-developer/bootstrap/bootstrap.md
           - Настройка вручную: service-developer/bootstrap/manual.md
       - Список команд:
           - Работа с сервисом: service-developer/command-list/service.md
