@@ -23,7 +23,3 @@ var envCmd = &cobra.Command{
 func init() {
 	serviceCmd.AddCommand(envCmd)
 }
-
-var (
-	ServiceEnv string
-)
