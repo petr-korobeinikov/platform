@@ -14,20 +14,6 @@ func TimeoutHeavyOperation() time.Duration {
 	return 10 * time.Minute
 }
 
-func KuberneterVersion() string {
-	return kubernetesVersion
-}
-
-func MinikubeProfile() string {
-	return minikubeProfile
-}
-
-const (
-	kubernetesVersion = "v1.22.2"
-
-	minikubeProfile = "platform"
-)
-
 var (
 	ServiceEnv string
 
