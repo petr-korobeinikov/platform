@@ -1,0 +1,15 @@
+name: quick-start-guide
+namespace: platform
+
+environment:
+  _:
+    ASSET_URL_PLATFORMCTL: https://releases.internal/platformctl
+    ASSET_URL_PLATFORMCTL_YAML: http://minikube/platform/asset-registry/asset/platformctl/platformctl.yaml
+
+task:
+  - name: template
+    image: hairyhenderson/gomplate:stable
+    argument:
+      workdir: /service
+      command: >
+        --file src/index.html.tmpl --out static/index.html
