@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: asset-registry
-          image: asset-registry
+          image: platform/asset-registry
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9000

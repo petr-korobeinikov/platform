@@ -1,5 +1,5 @@
 FROM bitnami/nginx:latest
 
-COPY service /service
+COPY static /service/static
 
-COPY nginx.asset.conf /opt/bitnami/nginx/conf/server_blocks/nginx.asset.conf
+COPY nginx.static.conf /opt/bitnami/nginx/conf/server_blocks/nginx.static.conf

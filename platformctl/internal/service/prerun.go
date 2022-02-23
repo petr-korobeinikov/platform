@@ -6,6 +6,8 @@ import (
 
 func PersistentPreRunE(cmd *cobra.Command, args []string) error {
 	// Ensure platform started
+	// Parse service spec
+	// Create .env
 
 	return nil
 }

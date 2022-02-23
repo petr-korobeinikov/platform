@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: quick-start-guide
-          image: platform-service/aux/quick-start-guide
+          image: platform/quick-start-guide
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9000
