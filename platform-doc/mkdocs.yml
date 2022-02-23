@@ -88,6 +88,7 @@ nav:
           - Запланированные улучшения: platform-developer/evolution/plan.md
   - Для devops:
       - Введение: devops/index.md
+      - Развёртывание платформы: devops/deployment.md
   - Образцовые подходы:
       - Введение: best-practice/index.md
       - Postgres: best-practice/postgres.md
