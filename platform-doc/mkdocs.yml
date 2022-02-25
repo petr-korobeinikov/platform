@@ -55,6 +55,7 @@ nav:
           - Автоматическая настройка: service-developer/bootstrap/bootstrap.md
           - Настройка вручную: service-developer/bootstrap/manual.md
       - Список команд:
+          - Основные команды: service-developer/command-list/root.md
           - Работа с сервисом: service-developer/command-list/service.md
           - Работа с библиотеками: service-developer/command-list/lib.md
           - Работа с задачами: service-developer/command-list/task.md

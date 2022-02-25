@@ -14,7 +14,7 @@ platform:
   flavor:
     container-runtime: docker
     container-runtime-ctl: docker
-    container-runtime-vm: docker-desktop
+    container-runtime-vm: minikube
 
   minikube:
     memory: "8g"

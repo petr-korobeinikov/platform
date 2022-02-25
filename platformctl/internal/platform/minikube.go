@@ -30,6 +30,7 @@ func (b *minikubeBridge) Start(ctx context.Context) error {
 		"--container-runtime", containerRuntime,
 		"--kubernetes-version", kubernetesVersion,
 		"--delete-on-failure=true",
+		"--addons=ingress",
 	}
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)

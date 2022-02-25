@@ -4,6 +4,51 @@
 
 Выберите **один**, который подходит вам.
 
+!!! note
+
+    Рекомендуемый и основной поддерживаемый — `minikube`.
+
+## minikube
+
+`asdf-vm` — наиболее удобный способ установки `minikube`.
+
+Выполните следующие команды:
+
+```shell
+asdf plugin add minikube
+asdf install minikube latest
+```
+
+В последующих версиях возможна автоматизация установки `minikube` с указанием
+точной версии.
+
+Поддержка различных виртуальных машин на данный момент находится в проработке.
+Из-за невозможности исследовать работу на процессорах M1, основной вариант
+— `VirtualBox`.
+
+### Установка `VirtualBox` на `macOS`
+
+```shell
+brew install --cask virtualbox
+```
+
+После завершения установки разрешите использование плагина ядра
+в [Security & Privacy](x-apple.systempreferences:com.apple.preference.security)
+и перезагрузите компьютер.
+
+Если ссылка не работает, выполните команду:
+
+```shell
+open "x-apple.systempreferences:com.apple.preference.security"
+```
+
+Или зайдите в настройки безопасности.
+
+### Почему не `hyperkit`?
+
+К сожалению, `hyperkit` не работает на M1. Его поддержка проста, он
+легче `VirtualBox`, но на данный момент не может быть поддержан.
+
 ## Docker Desktop
 
 Преимущества:
@@ -73,9 +118,5 @@ brew cleanup
 ```shell
 brew install --cask rancher
 ```
-
-## minikube
-
-В данный момент не доступен. Решение в проработке.
 
 [^docker-compose-setup]: [Настройка команды `docker compose`](https://docs.docker.com/compose/cli-command/#install-on-linux)
