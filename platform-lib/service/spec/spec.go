@@ -1,15 +1,33 @@
 package spec
 
 import (
-	"errors"
 	"fmt"
 	"os"
-	"strings"
 
 	"gopkg.in/yaml.v2"
 )
 
 const File = "platform.yaml"
+
+type (
+	Spec struct {
+		Name        string                       `yaml:"name"`
+		Component   []*Component                 `yaml:"component"`
+		Environment map[string]map[string]string `yaml:"environment"`
+		Task        []*Task                      `yaml:"task"`
+	}
+
+	Task struct {
+		Name     string       `yaml:"name"`
+		Image    string       `yaml:"image"`
+		Argument TaskArgument `yaml:"argument"`
+	}
+
+	TaskArgument struct {
+		Workdir string `yaml:"workdir"`
+		Command string `yaml:"command"`
+	}
+)
 
 func (s *Spec) EnabledComponent() []string {
 	l := make([]string, 0)
@@ -80,51 +98,6 @@ func (s *Spec) TaskByName(name string) (*Task, error) {
 	return nil, ErrTaskNotDefined
 }
 
-func (c *Component) ID() string {
-	return fmt.Sprintf("component-%s-%s", c.Type, c.Name)
-}
-
-func (c *Component) FormatEnvVarName(v string) string {
-	up := strings.ToUpper(c.ID())
-	uv := strings.ToUpper(v)
-
-	return strings.ReplaceAll(
-		fmt.Sprintf("%s_%s", up, uv),
-		"-",
-		"_",
-	)
-}
-
-func (c *Component) FormatEnvVarNameEscaped(v string) string {
-	return fmt.Sprintf("${%s}", c.FormatEnvVarName(v))
-}
-
-type (
-	Spec struct {
-		Name        string                       `yaml:"name"`
-		Component   []*Component                 `yaml:"component"`
-		Environment map[string]map[string]string `yaml:"environment"`
-		Task        []*Task                      `yaml:"task"`
-	}
-
-	Component struct {
-		Type    string `yaml:"type"`
-		Name    string `yaml:"name"`
-		Enabled bool   `yaml:"enabled"`
-	}
-
-	Task struct {
-		Name     string       `yaml:"name"`
-		Image    string       `yaml:"image"`
-		Argument TaskArgument `yaml:"argument"`
-	}
-
-	TaskArgument struct {
-		Workdir string `yaml:"workdir"`
-		Command string `yaml:"command"`
-	}
-)
-
 func Read() (*Spec, error) {
 	if _, err := os.Stat(File); os.IsNotExist(err) {
 		return nil, ErrSpecFileDoesNotExists
@@ -148,10 +121,3 @@ func ExistInCurrentDirectory() bool {
 
 	return err == nil
 }
-
-var (
-	ErrSpecFileDoesNotExists = errors.New(fmt.Sprintf("%s does not found in project directory", File))
-	ErrSpecReading           = errors.New(fmt.Sprintf("can't read %s", File))
-	ErrSpecInvalid           = errors.New(fmt.Sprintf("%s contains errors", File))
-	ErrTaskNotDefined        = errors.New(fmt.Sprintf("task not defined in file %s", File))
-)
