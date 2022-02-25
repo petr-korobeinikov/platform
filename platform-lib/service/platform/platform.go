@@ -1,8 +1,9 @@
 package platform
 
 import (
-	"os"
 	"path"
+
+	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
 )
 
 const Directory = ".platform"
@@ -16,7 +17,7 @@ func CreateDirectory() error {
 	}
 
 	for _, d := range dp {
-		if err := os.MkdirAll(d, os.ModePerm); err != nil {
+		if err := filesystem.MkDir(d); err != nil {
 			return err
 		}
 	}
