@@ -7,28 +7,19 @@ import (
 
 const Directory = ".platform"
 
-func CreateDirectory() (err error) {
-	// Should be better.
-
-	err = os.Mkdir(Directory, os.ModePerm)
-	if err != nil {
-		return
+func CreateDirectory() error {
+	dp := []string{
+		Directory,
+		path.Join(Directory, "docker-compose"),
+		path.Join(Directory, "docker"),
+		path.Join(Directory, "env"),
 	}
 
-	err = os.Mkdir(path.Join(Directory, "docker-compose"), os.ModePerm)
-	if err != nil {
-		return
+	for _, d := range dp {
+		if err := os.MkdirAll(d, os.ModePerm); err != nil {
+			return err
+		}
 	}
 
-	err = os.Mkdir(path.Join(Directory, "docker"), os.ModePerm)
-	if err != nil {
-		return
-	}
-
-	err = os.Mkdir(path.Join(Directory, "env"), os.ModePerm)
-	if err != nil {
-		return
-	}
-
-	return
+	return nil
 }
