@@ -9,7 +9,7 @@
     API вызова может измениться.
     Не забывайте сверяться с документацией.
 
-## lint
+## task lint
 
 Запуск линтера `golangci-lint` на исходном коде сервиса.
 
@@ -29,7 +29,7 @@ task:
 platformctl task lint
 ```
 
-## db migrate master
+## task db migrate master
 
 Запуск миграций `golang-migrate` для главной базы данных сервиса.
 
