@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/carlmjohnson/requests v0.22.1
 	github.com/drone/envsubst v1.0.3
+	github.com/joho/godotenv v1.4.0
 	github.com/mitchellh/go-homedir v1.0.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8

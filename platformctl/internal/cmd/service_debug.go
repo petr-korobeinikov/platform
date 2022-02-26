@@ -13,7 +13,7 @@ var serviceDebugCmd = &cobra.Command{
 	Use:   "debug",
 	Short: "Debug a service",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
+		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutHeavyOperation())
 		defer cancel()
 
 		return service.Debug(ctx)

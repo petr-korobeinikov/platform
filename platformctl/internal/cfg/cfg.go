@@ -17,5 +17,9 @@ func TimeoutHeavyOperation() time.Duration {
 var (
 	ServiceEnv string
 
+	PlatformFlavorContainerRuntime    string
 	PlatformFlavorContainerRuntimeCtl string
+	PlatformFlavorContainerRuntimeVM  string
+
+	PlatformMinikubeProfile string
 )

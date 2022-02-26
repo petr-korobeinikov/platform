@@ -3,9 +3,9 @@ package platform
 import (
 	"context"
 
-	"github.com/spf13/viper"
+	"platformctl/internal/cfg"
 )
 
 func Stop(ctx context.Context) error {
-	return dispatch(viper.GetString("platform.flavor.container-runtime-vm")).Stop(ctx)
+	return dispatch(cfg.PlatformFlavorContainerRuntimeVM).Stop(ctx)
 }

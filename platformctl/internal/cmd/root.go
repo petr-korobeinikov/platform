@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"bytes"
+	"context"
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -28,6 +32,34 @@ var rootCmd = &cobra.Command{
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		if spec.ExistInCurrentDirectory() {
 			_ = platform.CreateDirectory()
+
+			if "minikube" == cfg.PlatformFlavorContainerRuntimeVM {
+				runtimeEnvCmdName := fmt.Sprintf("%s-env", cfg.PlatformFlavorContainerRuntime)
+
+				runtimeEnvCmdArgs := []string{
+					"minikube",
+					"--profile",
+					cfg.PlatformMinikubeProfile,
+					runtimeEnvCmdName,
+				}
+
+				mde := exec.CommandContext(context.TODO(), runtimeEnvCmdArgs[0], runtimeEnvCmdArgs[1:]...)
+				env, err := mde.Output()
+				if err != nil {
+					return err
+				}
+
+				parsed, err := godotenv.Parse(bytes.NewBuffer(env))
+				if err != nil {
+					return err
+				}
+
+				for k, v := range parsed {
+					if err := os.Setenv(k, v); err != nil {
+						return os.Setenv(k, v)
+					}
+				}
+			}
 		}
 
 		return nil
@@ -76,8 +108,17 @@ func initConfig() {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
 
-	viper.SetDefault("platform.flavor.container-runtime-ctl", "foobar")
+	viper.SetDefault("platform.flavor.container-runtime", "docker")
+	cfg.PlatformFlavorContainerRuntime = viper.GetString("platform.flavor.container-runtime")
+
+	viper.SetDefault("platform.flavor.container-runtime-ctl", "docker")
 	cfg.PlatformFlavorContainerRuntimeCtl = viper.GetString("platform.flavor.container-runtime-ctl")
+
+	viper.SetDefault("platform.flavor.container-runtime-vm", "docker-desktop")
+	cfg.PlatformFlavorContainerRuntimeVM = viper.GetString("platform.flavor.container-runtime-vm")
+
+	viper.SetDefault("", "platform.minikube.profile")
+	cfg.PlatformMinikubeProfile = viper.GetString("platform.minikube.profile")
 }
 
 const (
