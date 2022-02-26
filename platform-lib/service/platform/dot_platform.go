@@ -8,7 +8,7 @@ import (
 
 const Directory = ".platform"
 
-func CreateDirectory() error {
+func CreateDotPlatformDirectory() error {
 	dp := []string{
 		Directory,
 		path.Join(Directory, "docker-compose"),

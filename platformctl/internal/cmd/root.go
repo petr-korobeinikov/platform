@@ -31,7 +31,7 @@ var rootCmd = &cobra.Command{
 	// Run: func(cmd *cobra.Command, args []string) { },
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		if spec.ExistInCurrentDirectory() {
-			_ = platform.CreateDirectory()
+			_ = platform.CreateDotPlatformDirectory()
 
 			if "minikube" == cfg.PlatformFlavorContainerRuntimeVM {
 				runtimeEnvCmdName := fmt.Sprintf("%s-env", cfg.PlatformFlavorContainerRuntime)
