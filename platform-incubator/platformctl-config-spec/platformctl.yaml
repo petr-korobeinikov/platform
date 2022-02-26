@@ -15,6 +15,24 @@ platform:
   kubernetes:
     version: "v1.22.2"
 
+  # Список общих и обязательных компонентов, необходимых в данной конкретной инсталляции платформы.
+  # Он может варьироваться в зависимости от задач компании и используемых технологий.
+  component:
+    - name: kafka
+      type: kafka
+
+    - name: logging-kafka
+      type: kafka
+
+    - name: event-kafka
+      type: kafka
+
+    - name: observability
+      type: opentelemetry
+
+    - name: sentry
+      type: sentry
+
   go_env_vars:
     - "GONOPROXY=none"
     - "GOPROXY=https://proxy.yourdevdomain.tld"
