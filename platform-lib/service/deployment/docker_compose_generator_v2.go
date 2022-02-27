@@ -16,13 +16,26 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 
 	spec.Services = make(map[string]dockerComposeServiceV2)
 
-	for _, serviceComponent := range request.ServiceComponentList {
-		dcs, err := serviceComponent.dockerComposeServiceSpec()
+	for _, platformComponent := range request.PlatformComponentList {
+		dcsList, err := platformComponent.dockerComposeServiceSpecList()
 		if err != nil {
 			return response, err
 		}
 
-		spec.Services[serviceComponent.containerName()] = dcs
+		for _, dcs := range dcsList {
+			spec.Services[dcs.ContainerName] = dcs
+		}
+	}
+
+	for _, serviceComponent := range request.ServiceComponentList {
+		dcsList, err := serviceComponent.dockerComposeServiceSpecList()
+		if err != nil {
+			return response, err
+		}
+
+		for _, dcs := range dcsList {
+			spec.Services[dcs.ContainerName] = dcs
+		}
 	}
 
 	ye := yaml.NewEncoder(&b)
