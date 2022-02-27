@@ -22,7 +22,7 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 			return response, err
 		}
 
-		spec.Services[serviceComponent.ContainerName()] = dcs
+		spec.Services[serviceComponent.containerName()] = dcs
 	}
 
 	ye := yaml.NewEncoder(&b)

@@ -20,7 +20,7 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
 	})
 
-	t.Run(`complex`, func(t *testing.T) {
+	t.Run(`multiple service component`, func(t *testing.T) {
 		expected := `services:
   service-component-postgres-master:
     container_name: service-component-postgres-master

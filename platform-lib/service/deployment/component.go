@@ -10,7 +10,7 @@ type PlatformComponent struct {
 	Type string
 }
 
-func (c *PlatformComponent) ContainerName() string {
+func (c *PlatformComponent) containerName() string {
 	return fmt.Sprintf("platform-component-%s-%s", c.Type, c.Name)
 }
 
@@ -19,7 +19,7 @@ type ServiceComponent struct {
 	Type string
 }
 
-func (s *ServiceComponent) ContainerName() string {
+func (s *ServiceComponent) containerName() string {
 	return fmt.Sprintf("service-component-%s-%s", s.Type, s.Name)
 }
 
@@ -33,7 +33,7 @@ func (s *ServiceComponent) dockerComposeServiceSpec() (dockerComposeServiceV2, e
 		dcs.Image = "postgres:13"
 	}
 
-	dcs.ContainerName = s.ContainerName()
+	dcs.ContainerName = s.containerName()
 
 	return dcs, nil
 }
