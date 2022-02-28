@@ -14,29 +14,29 @@ func (c *PlatformComponent) containerName() string {
 	return fmt.Sprintf("platform-component-%s-%s", c.Type, c.Name)
 }
 
-func (s *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
-	switch s.Type {
+func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
+	switch c.Type {
 	default:
 		return nil, ErrUnsupportedPlatformComponentType
 	case "kafka":
 		dcsList = append(
 			dcsList,
 			dockerComposeServiceV2{
-				ContainerName: s.containerName() + "-broker",
+				ContainerName: c.containerName() + "-broker",
 				Image:         "kafka-broker",
 			},
 			dockerComposeServiceV2{
-				ContainerName: s.containerName() + "-zookeeper",
+				ContainerName: c.containerName() + "-zookeeper",
 				Image:         "kafka-zookeeper",
 			},
 			dockerComposeServiceV2{
-				ContainerName: s.containerName() + "-kafdrop",
+				ContainerName: c.containerName() + "-kafdrop",
 				Image:         "kafdrop",
 			},
 		)
 	case "opentracing":
 		dcsList = append(dcsList, dockerComposeServiceV2{
-			ContainerName: s.containerName(),
+			ContainerName: c.containerName(),
 			Image:         "opentracing",
 		})
 	}
@@ -49,17 +49,17 @@ type ServiceComponent struct {
 	Type string
 }
 
-func (s *ServiceComponent) containerName() string {
-	return fmt.Sprintf("service-component-%s-%s", s.Type, s.Name)
+func (c *ServiceComponent) containerName() string {
+	return fmt.Sprintf("service-component-%c-%c", c.Type, c.Name)
 }
 
-func (s *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
-	switch s.Type {
+func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
+	switch c.Type {
 	default:
 		return nil, ErrUnsupportedServiceComponentType
 	case "postgres":
 		dcsList = append(dcsList, dockerComposeServiceV2{
-			ContainerName: s.containerName(),
+			ContainerName: c.containerName(),
 			Image:         "postgres:13",
 		})
 	}
