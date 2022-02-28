@@ -50,7 +50,7 @@ type ServiceComponent struct {
 }
 
 func (c *ServiceComponent) containerName() string {
-	return fmt.Sprintf("service-component-%c-%c", c.Type, c.Name)
+	return fmt.Sprintf("service-component-%s-%s", c.Type, c.Name)
 }
 
 func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
@@ -61,6 +61,11 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "postgres:13",
+		})
+	case "minio":
+		dcsList = append(dcsList, dockerComposeServiceV2{
+			ContainerName: c.containerName(),
+			Image:         "quay.io/minio/minio:latest",
 		})
 	}
 

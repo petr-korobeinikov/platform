@@ -99,4 +99,37 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
 	})
+
+	t.Run(`full service component`, func(t *testing.T) {
+		expected := `services:
+  service-component-minio-minio:
+    container_name: service-component-minio-minio
+    image: quay.io/minio/minio:latest
+  service-component-postgres-master:
+    container_name: service-component-postgres-master
+    image: postgres:13
+`
+		given := SpecGenerationRequest{
+			ServiceName:      "wordcounter-svc",
+			ServiceNamespace: "wordcounter-ns",
+			ServiceComponentList: []*ServiceComponent{
+				{
+					Name: "master",
+					Type: "postgres",
+				},
+				{
+					Name: "minio",
+					Type: "minio",
+				},
+			},
+			PlatformComponentList: nil,
+		}
+
+		sut := NewDockerComposeGeneratorV2()
+
+		actual, err := sut.Generate(given)
+
+		assert.NoError(t, err)
+		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
+	})
 }
