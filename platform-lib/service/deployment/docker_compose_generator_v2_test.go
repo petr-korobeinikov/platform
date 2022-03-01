@@ -82,16 +82,16 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
 		expected := `services:
   platform-component-kafka-kafka-broker:
     container_name: platform-component-kafka-kafka-broker
-    image: kafka-broker
+    image: confluentinc/cp-kafka:5.5.1
   platform-component-kafka-kafka-kafdrop:
     container_name: platform-component-kafka-kafka-kafdrop
-    image: kafdrop
+    image: obsidiandynamics/kafdrop
   platform-component-kafka-kafka-zookeeper:
     container_name: platform-component-kafka-kafka-zookeeper
-    image: kafka-zookeeper
+    image: confluentinc/cp-zookeeper:5.5.1
   platform-component-opentracing-opentracing:
     container_name: platform-component-opentracing-opentracing
-    image: opentracing
+    image: jaegertracing/opentelemetry-all-in-one
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
@@ -232,19 +232,19 @@ FOO="foo"`
 		expected := `services:
   platform-component-kafka-kafka-broker:
     container_name: platform-component-kafka-kafka-broker
-    image: kafka-broker
+    image: confluentinc/cp-kafka:5.5.1
   platform-component-kafka-kafka-kafdrop:
     container_name: platform-component-kafka-kafka-kafdrop
-    image: kafdrop
+    image: obsidiandynamics/kafdrop
   platform-component-kafka-kafka-zookeeper:
     container_name: platform-component-kafka-kafka-zookeeper
-    image: kafka-zookeeper
+    image: confluentinc/cp-zookeeper:5.5.1
   platform-component-minio-minio:
     container_name: platform-component-minio-minio
-    image: minio
+    image: quay.io/minio/minio:latest
   platform-component-opentracing-opentracing:
     container_name: platform-component-opentracing-opentracing
-    image: opentracing
+    image: jaegertracing/opentelemetry-all-in-one
 `
 
 		expectedEnv := ""

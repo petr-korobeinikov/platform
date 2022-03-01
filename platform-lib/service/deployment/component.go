@@ -26,26 +26,26 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 			dcsList,
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-broker",
-				Image:         "kafka-broker",
+				Image:         "confluentinc/cp-kafka:5.5.1",
 			},
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-zookeeper",
-				Image:         "kafka-zookeeper",
+				Image:         "confluentinc/cp-zookeeper:5.5.1",
 			},
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-kafdrop",
-				Image:         "kafdrop",
+				Image:         "obsidiandynamics/kafdrop",
 			},
 		)
 	case "opentracing":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
-			Image:         "opentracing",
+			Image:         "jaegertracing/opentelemetry-all-in-one",
 		})
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
-			Image:         "minio",
+			Image:         "quay.io/minio/minio:latest",
 		})
 	}
 
