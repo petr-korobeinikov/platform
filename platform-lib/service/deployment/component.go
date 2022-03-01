@@ -101,8 +101,16 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "vault:1.9.2",
-			CapAdd:        []string{"IPC_LOCK"},
+			Environment: map[string]string{
+				"VAULT_DEV_LISTEN_ADDRESS": c.dockerComposeServiceEnvVarName("VAULT_DEV_LISTEN_ADDRESS"),
+				"VAULT_DEV_ROOT_TOKEN_ID":  c.dockerComposeServiceEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"),
+			},
+			CapAdd: []string{"IPC_LOCK"},
 		})
+
+		env.Registry().
+			Register(c.componentEnvVarName("VAULT_DEV_LISTEN_ADDRESS"), "0.0.0.0:8200").
+			Register(c.componentEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"), "vault_secret")
 	}
 
 	return
