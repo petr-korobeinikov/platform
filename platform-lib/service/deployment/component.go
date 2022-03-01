@@ -84,7 +84,15 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "quay.io/minio/minio:latest",
+			Environment: map[string]string{
+				"MINIO_ROOT_USER":     c.dockerComposeServiceEnvVarName("MINIO_ROOT_USER"),
+				"MINIO_ROOT_PASSWORD": c.dockerComposeServiceEnvVarName("MINIO_ROOT_PASSWORD"),
+			},
 		})
+
+		env.Registry().
+			Register(c.componentEnvVarName("MINIO_ROOT_USER"), "minio").
+			Register(c.componentEnvVarName("MINIO_ROOT_PASSWORD"), "minio_secret")
 	case "vault":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),

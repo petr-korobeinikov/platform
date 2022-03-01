@@ -142,6 +142,9 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service"`
   service-component-minio-minio:
     container_name: service-component-minio-minio
     image: quay.io/minio/minio:latest
+    environment:
+      MINIO_ROOT_PASSWORD: ${SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD}
+      MINIO_ROOT_USER: ${SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER}
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
@@ -156,7 +159,9 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service"`
     - IPC_LOCK
 `
 
-		expectedEnv := `SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+		expectedEnv := `SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD="minio_secret"
+SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER="minio"
+SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service"`
 
