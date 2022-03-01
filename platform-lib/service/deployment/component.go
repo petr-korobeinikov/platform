@@ -3,6 +3,9 @@ package deployment
 import (
 	"errors"
 	"fmt"
+	"strings"
+
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 )
 
 type PlatformComponent struct {
@@ -61,7 +64,22 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "postgres:13",
+			// Префикс "service_" обозначает именно "сервисного" пользователя,
+			// под которым выполняется приложение.
+			// Для запуска миграций должен быть добавлен отдельный пользователь
+			// с правами на создание и изменение структуры таблиц.
+			// Суффикс "_rw" означает read/write — именно те права, которыми наделён сервисный пользователь.
+			Environment: map[string]string{
+				"POSTGRES_USER":     c.dockerComposeServiceEnvVarName("service_user_rw"),
+				"POSTGRES_PASSWORD": c.dockerComposeServiceEnvVarName("service_password_rw"),
+				"POSTGRES_DB":       c.dockerComposeServiceEnvVarName("database"),
+			},
 		})
+
+		env.Registry().
+			Register(c.componentEnvVarName("service_user_rw"), "service").
+			Register(c.componentEnvVarName("service_password_rw"), "secret").
+			Register(c.componentEnvVarName("database"), "service")
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
@@ -71,10 +89,42 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "vault:1.9.2",
+			CapAdd:        []string{"IPC_LOCK"},
 		})
 	}
 
 	return
+}
+
+func (c *ServiceComponent) componentEnvVarName(s string) string {
+	return strings.ToUpper(
+		strings.ReplaceAll(
+			fmt.Sprintf(
+				"%s_%s",
+				c.containerName(),
+				s,
+			),
+			"-",
+			"_",
+		),
+	)
+}
+
+func (c *ServiceComponent) dockerComposeServiceEnvVarName(s string) string {
+	return fmt.Sprintf(
+		"${%s}",
+		strings.ToUpper(
+			strings.ReplaceAll(
+				fmt.Sprintf(
+					"%s_%s",
+					c.containerName(),
+					s,
+				),
+				"-",
+				"_",
+			),
+		),
+	)
 }
 
 var (

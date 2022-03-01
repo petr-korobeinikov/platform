@@ -3,7 +3,10 @@ package deployment
 import (
 	"bytes"
 
+	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
+
+	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 )
 
 func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (SpecGenerationResponse, error) {
@@ -44,8 +47,14 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 		return response, err
 	}
 
+	envFileContent, err := godotenv.Marshal(env.Registry().All())
+	if err != nil {
+		return response, err
+	}
+
 	response.FileList = map[string]string{
 		DockerComposeFile: b.String(),
+		env.File:          envFileContent,
 	}
 
 	return response, nil

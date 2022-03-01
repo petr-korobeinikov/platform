@@ -33,6 +33,15 @@ func (r *environmentRegistry) All() map[string]string {
 	return r.elts
 }
 
+func (r *environmentRegistry) Clear() *environmentRegistry {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	r.elts = make(map[string]string)
+
+	return r
+}
+
 func Registry() *environmentRegistry {
 	once.Do(func() {
 		instance = &environmentRegistry{}
