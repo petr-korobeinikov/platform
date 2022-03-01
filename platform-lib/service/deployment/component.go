@@ -76,9 +76,13 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 			},
 		})
 
+		// Потребуется продумать систему суффиксов ролей:
+		// - rw (read/write)  = operational
+		// - fa (full access) = maintenance
+		// - ro (read only)   = reader
 		env.Registry().
-			Register(c.componentEnvVarName("service_user_rw"), "service").
-			Register(c.componentEnvVarName("service_password_rw"), "secret").
+			Register(c.componentEnvVarName("service_user_rw"), "service_rw").
+			Register(c.componentEnvVarName("service_password_rw"), "postgres_secret").
 			Register(c.componentEnvVarName("database"), "service")
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
