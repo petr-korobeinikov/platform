@@ -31,6 +31,7 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}
@@ -38,6 +39,7 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
   service-component-postgres-olap:
     container_name: service-component-postgres-olap
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_OLAP_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_PASSWORD_RW}
@@ -83,18 +85,23 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
   platform-component-kafka-kafka-broker:
     container_name: platform-component-kafka-kafka-broker
     image: confluentinc/cp-kafka:5.5.1
+    restart: always
   platform-component-kafka-kafka-kafdrop:
     container_name: platform-component-kafka-kafka-kafdrop
     image: obsidiandynamics/kafdrop
+    restart: always
   platform-component-kafka-kafka-zookeeper:
     container_name: platform-component-kafka-kafka-zookeeper
     image: confluentinc/cp-zookeeper:5.5.1
+    restart: always
   platform-component-opentracing-opentracing:
     container_name: platform-component-opentracing-opentracing
     image: jaegertracing/opentelemetry-all-in-one
+    restart: always
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}
@@ -142,6 +149,7 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
   service-component-minio-minio:
     container_name: service-component-minio-minio
     image: quay.io/minio/minio:latest
+    restart: always
     ports:
     - 9500:9500
     - 9501:9501
@@ -152,6 +160,7 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}
@@ -159,6 +168,7 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
   service-component-vault-vault:
     container_name: service-component-vault-vault
     image: vault:1.9.2
+    restart: always
     environment:
       VAULT_DEV_LISTEN_ADDRESS: ${SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS}
       VAULT_DEV_ROOT_TOKEN_ID: ${SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID}
@@ -233,18 +243,23 @@ FOO="foo"`
   platform-component-kafka-kafka-broker:
     container_name: platform-component-kafka-kafka-broker
     image: confluentinc/cp-kafka:5.5.1
+    restart: always
   platform-component-kafka-kafka-kafdrop:
     container_name: platform-component-kafka-kafka-kafdrop
     image: obsidiandynamics/kafdrop
+    restart: always
   platform-component-kafka-kafka-zookeeper:
     container_name: platform-component-kafka-kafka-zookeeper
     image: confluentinc/cp-zookeeper:5.5.1
+    restart: always
   platform-component-minio-minio:
     container_name: platform-component-minio-minio
     image: quay.io/minio/minio:latest
+    restart: always
   platform-component-opentracing-opentracing:
     container_name: platform-component-opentracing-opentracing
     image: jaegertracing/opentelemetry-all-in-one
+    restart: always
 `
 
 		expectedEnv := ""

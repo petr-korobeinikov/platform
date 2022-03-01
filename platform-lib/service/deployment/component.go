@@ -27,25 +27,30 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-broker",
 				Image:         "confluentinc/cp-kafka:5.5.1",
+				Restart:       "always",
 			},
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-zookeeper",
 				Image:         "confluentinc/cp-zookeeper:5.5.1",
+				Restart:       "always",
 			},
 			dockerComposeServiceV2{
 				ContainerName: c.containerName() + "-kafdrop",
 				Image:         "obsidiandynamics/kafdrop",
+				Restart:       "always",
 			},
 		)
 	case "opentracing":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "jaegertracing/opentelemetry-all-in-one",
+			Restart:       "always",
 		})
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "quay.io/minio/minio:latest",
+			Restart:       "always",
 		})
 	}
 
@@ -69,6 +74,7 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "postgres:13",
+			Restart:       "always",
 			// Префикс "service_" обозначает именно "сервисного" пользователя,
 			// под которым выполняется приложение.
 			// Для запуска миграций должен быть добавлен отдельный пользователь
@@ -93,6 +99,7 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "quay.io/minio/minio:latest",
+			Restart:       "always",
 			Environment: map[string]string{
 				"MINIO_ROOT_USER":     c.dockerComposeServiceEnvVarName("MINIO_ROOT_USER"),
 				"MINIO_ROOT_PASSWORD": c.dockerComposeServiceEnvVarName("MINIO_ROOT_PASSWORD"),
@@ -111,6 +118,7 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
 			Image:         "vault:1.9.2",
+			Restart:       "always",
 			Environment: map[string]string{
 				"VAULT_DEV_LISTEN_ADDRESS": c.dockerComposeServiceEnvVarName("VAULT_DEV_LISTEN_ADDRESS"),
 				"VAULT_DEV_ROOT_TOKEN_ID":  c.dockerComposeServiceEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"),
