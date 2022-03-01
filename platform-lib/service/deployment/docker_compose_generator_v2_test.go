@@ -142,9 +142,13 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
   service-component-minio-minio:
     container_name: service-component-minio-minio
     image: quay.io/minio/minio:latest
+    ports:
+    - 9500:9500
+    - 9501:9501
     environment:
       MINIO_ROOT_PASSWORD: ${SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD}
       MINIO_ROOT_USER: ${SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER}
+    command: server /data --address ":9500" --console-address ":9501"
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13

@@ -92,6 +92,11 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 				"MINIO_ROOT_USER":     c.dockerComposeServiceEnvVarName("MINIO_ROOT_USER"),
 				"MINIO_ROOT_PASSWORD": c.dockerComposeServiceEnvVarName("MINIO_ROOT_PASSWORD"),
 			},
+			Ports: []string{
+				"9500:9500",
+				"9501:9501",
+			},
+			Command: `server /data --address ":9500" --console-address ":9501"`,
 		})
 
 		env.Registry().
