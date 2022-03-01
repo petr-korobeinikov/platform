@@ -67,6 +67,11 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 			ContainerName: c.containerName(),
 			Image:         "quay.io/minio/minio:latest",
 		})
+	case "vault":
+		dcsList = append(dcsList, dockerComposeServiceV2{
+			ContainerName: c.containerName(),
+			Image:         "vault:1.9.2",
+		})
 	}
 
 	return

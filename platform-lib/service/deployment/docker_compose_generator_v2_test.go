@@ -108,6 +108,9 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
+  service-component-vault-vault:
+    container_name: service-component-vault-vault
+    image: vault:1.9.2
 `
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
@@ -120,6 +123,10 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 				{
 					Name: "minio",
 					Type: "minio",
+				},
+				{
+					Name: "vault",
+					Type: "vault",
 				},
 			},
 			PlatformComponentList: nil,
