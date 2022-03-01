@@ -202,4 +202,25 @@ SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID="vault_secret"`
 		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
 		assert.Equal(t, expectedEnv, actual.FileList[env.File])
 	})
+
+	t.Run(`custom environment`, func(t *testing.T) {
+		expectedEnv := `BAR="bar"
+FOO="foo"`
+
+		given := SpecGenerationRequest{
+			ServiceName:      "wordcounter-svc",
+			ServiceNamespace: "wordcounter-ns",
+			Environment: map[string]string{
+				"FOO": "foo",
+				"BAR": "bar",
+			},
+		}
+
+		sut := NewDockerComposeGeneratorV2()
+
+		actual, err := sut.Generate(given)
+
+		assert.NoError(t, err)
+		assert.Equal(t, expectedEnv, actual.FileList[env.File])
+	})
 }

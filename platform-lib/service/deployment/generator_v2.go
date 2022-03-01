@@ -12,6 +12,7 @@ type (
 	SpecGenerationRequest struct {
 		ServiceName           string
 		ServiceNamespace      string
+		Environment           map[string]string
 		ServiceComponentList  []*ServiceComponent
 		PlatformComponentList []*PlatformComponent
 	}

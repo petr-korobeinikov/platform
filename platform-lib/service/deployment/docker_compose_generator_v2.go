@@ -47,6 +47,8 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 		return response, err
 	}
 
+	env.Registry().RegisterMany(request.Environment)
+
 	envFileContent, err := godotenv.Marshal(env.Registry().All())
 	if err != nil {
 		return response, err
