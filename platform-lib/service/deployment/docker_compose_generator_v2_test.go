@@ -204,6 +204,8 @@ SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID="vault_secret"`
 	})
 
 	t.Run(`custom environment`, func(t *testing.T) {
+		defer env.Registry().Clear()
+
 		expectedEnv := `BAR="bar"
 FOO="foo"`
 
@@ -221,6 +223,57 @@ FOO="foo"`
 		actual, err := sut.Generate(given)
 
 		assert.NoError(t, err)
+		assert.Equal(t, expectedEnv, actual.FileList[env.File])
+	})
+
+	t.Run(`platform component`, func(t *testing.T) {
+		defer env.Registry().Clear()
+
+		expected := `services:
+  platform-component-kafka-kafka-broker:
+    container_name: platform-component-kafka-kafka-broker
+    image: kafka-broker
+  platform-component-kafka-kafka-kafdrop:
+    container_name: platform-component-kafka-kafka-kafdrop
+    image: kafdrop
+  platform-component-kafka-kafka-zookeeper:
+    container_name: platform-component-kafka-kafka-zookeeper
+    image: kafka-zookeeper
+  platform-component-minio-minio:
+    container_name: platform-component-minio-minio
+    image: minio
+  platform-component-opentracing-opentracing:
+    container_name: platform-component-opentracing-opentracing
+    image: opentracing
+`
+
+		expectedEnv := ""
+
+		given := SpecGenerationRequest{
+			ServiceName:      "wordcounter-svc",
+			ServiceNamespace: "wordcounter-ns",
+			PlatformComponentList: []*PlatformComponent{
+				{
+					Name: "kafka",
+					Type: "kafka",
+				},
+				{
+					Name: "opentracing",
+					Type: "opentracing",
+				},
+				{
+					Name: "minio",
+					Type: "minio",
+				},
+			},
+		}
+
+		sut := NewDockerComposeGeneratorV2()
+
+		actual, err := sut.Generate(given)
+
+		assert.NoError(t, err)
+		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
 		assert.Equal(t, expectedEnv, actual.FileList[env.File])
 	})
 }

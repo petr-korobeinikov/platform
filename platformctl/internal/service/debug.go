@@ -17,32 +17,56 @@ func Debug(ctx context.Context) error {
 		return err
 	}
 
-	generator := deployment.NewDockerComposeGenerator()
-	deploymentSpec, err := generator.Generate(s)
+	generator := deployment.NewDockerComposeGeneratorV2()
+
+	var serviceComponentList []*deployment.ServiceComponent
+	for _, serviceComponent := range s.Component {
+		serviceComponentList = append(serviceComponentList, &deployment.ServiceComponent{
+			Name: serviceComponent.Name,
+			Type: serviceComponent.Type,
+		})
+	}
+
+	// Need to be extracted from the config
+	platformComponentList := []*deployment.PlatformComponent{
+		{
+			Name: "kafka",
+			Type: "kafka",
+		},
+		{
+			Name: "opentracing",
+			Type: "opentracing",
+		},
+		{
+			Name: "minio",
+			Type: "minio",
+		},
+	}
+
+	deploymentSpec, err := generator.Generate(deployment.SpecGenerationRequest{
+		ServiceName:           s.Name,
+		ServiceNamespace:      "default",
+		Environment:           s.EnvironmentFor(cfg.ServiceEnv),
+		ServiceComponentList:  serviceComponentList,
+		PlatformComponentList: platformComponentList,
+	})
 	if err != nil {
 		return err
 	}
 
-	err = deployment.WriteDockerComposeFile(deploymentSpec)
+	// Needs rework with filesystem.WriteFile()
+	err = deployment.WriteDockerComposeFile([]byte(deploymentSpec.FileList[deployment.DockerComposeFile]))
 	if err != nil {
 		return err
 	}
 
-	environment := s.EnvironmentFor("local")
-	env.Registry().RegisterMany(environment)
-
-	err = env.WriteEnvFile()
+	// Needs rework with filesystem.WriteFile()
+	err = os.WriteFile(env.File, []byte(deploymentSpec.FileList[env.File]), 0644)
 	if err != nil {
 		return err
 	}
 
-	// if err := docker.EnsureSentinelNotRunning(ctx, s.Name); err != nil {
-	// 	return err
-	// }
-
-	//args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `up`, `-d`, `--remove-orphans`)
 	args := deployment.DockerComposeArgs(cfg.PlatformFlavorContainerRuntimeCtl, s.Name, `up`, `-d`)
-	args = append(args, s.EnabledComponent()...)
 
 	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
 

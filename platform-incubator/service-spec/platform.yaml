@@ -78,35 +78,35 @@ task:
 component:
   - type: postgres
     name: postgres
-    enabled: true
+    #enabled: true
 
   - type: kafka
     name: kafka
-    enabled: true
+    #enabled: true
 
   - type: kafka
     name: kafka-log
-    enabled: true
+    #enabled: true
 
   - type: eventbus
     name: eventbus
-    enabled: true
+    #enabled: true
 
   - type: postgres
     name: postgres-oltp
-    enabled: true
+    #enabled: true
 
   - type: postgres
     name: postgres-olap
-    enabled: true
+    #enabled: true
 
   - type: vault
     name: vault
-    enabled: true
+    #enabled: true
 
   - type: minio
     name: minio
-    enabled: true
+    #enabled: true
 
 tradeoff:
   use_custom_docker_file: true

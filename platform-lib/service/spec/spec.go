@@ -29,27 +29,6 @@ type (
 	}
 )
 
-func (s *Spec) EnabledComponent() []string {
-	l := make([]string, 0)
-
-	for _, c := range s.Component {
-		if c.Enabled {
-			l = append(l, c.ID())
-		}
-	}
-
-	l = append(
-		l,
-		"platform-observability-opentelemetry",
-		"platform-kafka-zookeeper",
-		"platform-kafka-broker",
-		"platform-kafka-kafdrop",
-		fmt.Sprintf("platform-sentinel-%s", s.Name),
-	)
-
-	return l
-}
-
 func (s *Spec) EnvironmentFor(environmentName string) map[string]string {
 	out := make(map[string]string)
 

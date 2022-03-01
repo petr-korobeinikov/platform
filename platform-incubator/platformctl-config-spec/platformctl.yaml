@@ -37,6 +37,12 @@ platform:
     - name: sentry
       type: sentry
 
+    - name: object-storage
+      type: minio
+
+    - name: secret-storage
+      type: vault
+
   go_env_vars:
     - "GONOPROXY=none"
     - "GOPROXY=https://proxy.yourdevdomain.tld"

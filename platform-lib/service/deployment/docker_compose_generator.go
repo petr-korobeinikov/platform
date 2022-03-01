@@ -25,16 +25,14 @@ func (g *DockerComposeGenerator) Generate(s *spec.Spec) ([]byte, error) {
 			return nil, err
 		}
 
-		if c.Enabled {
-			dcs.Services[c.ID()] = dockerComposeService{
-				ContainerName: containerName,
-				Image:         image,
-				Restart:       "always",
-				Ports:         ports,
-				Environment:   environment,
-				CapAdd:        capAdd,
-				Command:       command,
-			}
+		dcs.Services[c.ID()] = dockerComposeService{
+			ContainerName: containerName,
+			Image:         image,
+			Restart:       "always",
+			Ports:         ports,
+			Environment:   environment,
+			CapAdd:        capAdd,
+			Command:       command,
 		}
 	}
 

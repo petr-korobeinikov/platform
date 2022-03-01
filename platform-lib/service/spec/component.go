@@ -6,9 +6,8 @@ import (
 )
 
 type Component struct {
-	Type    string `yaml:"type"`
-	Name    string `yaml:"name"`
-	Enabled bool   `yaml:"enabled"`
+	Type string `yaml:"type"`
+	Name string `yaml:"name"`
 }
 
 func (c *Component) ID() string {

@@ -42,6 +42,11 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 			ContainerName: c.containerName(),
 			Image:         "opentracing",
 		})
+	case "minio":
+		dcsList = append(dcsList, dockerComposeServiceV2{
+			ContainerName: c.containerName(),
+			Image:         "minio",
+		})
 	}
 
 	return

@@ -14,14 +14,12 @@ func TestDockerComposeGenerator_Generate(t *testing.T) {
 		Name: "wordcounter",
 		Component: []*Component{
 			{
-				Type:    "postgres",
-				Name:    "postgres",
-				Enabled: true,
+				Type: "postgres",
+				Name: "postgres",
 			},
 			{
-				Type:    "vault",
-				Name:    "vault",
-				Enabled: true,
+				Type: "vault",
+				Name: "vault",
 			},
 		},
 	}

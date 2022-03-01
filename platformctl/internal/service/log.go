@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"os"
 	"os/exec"
 
@@ -11,6 +12,8 @@ import (
 )
 
 func Log(ctx context.Context) error {
+	return ErrLogCommandUnimplemented
+
 	s, err := spec.Read()
 	if err != nil {
 		return err
@@ -25,3 +28,5 @@ func Log(ctx context.Context) error {
 
 	return cmd.Run()
 }
+
+var ErrLogCommandUnimplemented = errors.New("log command not implemented")

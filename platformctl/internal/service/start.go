@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"os"
 	"os/exec"
 
@@ -14,6 +15,8 @@ import (
 )
 
 func Start(ctx context.Context) error {
+	return ErrStartCommandNotImplemented
+
 	s, err := spec.Read()
 	if err != nil {
 		return err
@@ -56,3 +59,5 @@ func Start(ctx context.Context) error {
 
 	return cmd.Run()
 }
+
+var ErrStartCommandNotImplemented = errors.New("start command not implemented")
