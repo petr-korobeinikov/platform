@@ -204,6 +204,8 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
     container_name: service-component-vault-vault
     image: vault:1.9.2
     restart: always
+    ports:
+    - 8200:8200
     environment:
       VAULT_DEV_LISTEN_ADDRESS: ${SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS}
       VAULT_DEV_ROOT_TOKEN_ID: ${SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID}

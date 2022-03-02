@@ -167,6 +167,9 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 				"VAULT_DEV_LISTEN_ADDRESS": c.dockerComposeServiceEnvVarName("VAULT_DEV_LISTEN_ADDRESS"),
 				"VAULT_DEV_ROOT_TOKEN_ID":  c.dockerComposeServiceEnvVarName("VAULT_DEV_ROOT_TOKEN_ID"),
 			},
+			Ports: []string{
+				"8200:8200",
+			},
 			CapAdd: []string{"IPC_LOCK"},
 		})
 
