@@ -156,6 +156,8 @@ func (c *ServiceComponent) dockerComposeServiceSpecList(request SpecGenerationRe
 		// - ro (read only)   = reader
 		env.Registry().
 			Register(c.componentEnvVarName("ip"), request.IP).
+			Register(c.componentEnvVarName("host"), request.IP).
+			Register(c.componentEnvVarName("port"), "5432").
 			Register(c.componentEnvVarName("service_user_rw"), "service_rw").
 			Register(c.componentEnvVarName("service_password_rw"), "postgres_secret").
 			Register(c.componentEnvVarName("database"), "service")
