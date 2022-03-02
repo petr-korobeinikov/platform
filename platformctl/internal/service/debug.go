@@ -53,6 +53,7 @@ func Debug(ctx context.Context) error {
 		ServiceName:           s.Name,
 		ServiceNamespace:      "default",
 		IP:                    ip,
+		DeploymentType:        deployment.TypePartial,
 		Environment:           s.EnvironmentFor(cfg.ServiceEnv),
 		ServiceComponentList:  serviceComponentList,
 		PlatformComponentList: platformComponentList,
