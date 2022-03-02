@@ -129,6 +129,10 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
     container_name: platform-component-opentracing-opentracing
     image: jaegertracing/opentelemetry-all-in-one
     restart: always
+    ports:
+    - 6831:6831
+    - 16686:16686
+    - 14268:14268
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
@@ -323,6 +327,10 @@ FOO="foo"`
     container_name: platform-component-opentracing-opentracing
     image: jaegertracing/opentelemetry-all-in-one
     restart: always
+    ports:
+    - 6831:6831
+    - 16686:16686
+    - 14268:14268
 `
 
 		expectedEnv := ""

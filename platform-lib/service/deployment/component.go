@@ -83,6 +83,11 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 			ContainerName: c.containerName(),
 			Image:         "jaegertracing/opentelemetry-all-in-one",
 			Restart:       "always",
+			Ports: []string{
+				"6831:6831",
+				"16686:16686",
+				"14268:14268",
+			},
 		})
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
