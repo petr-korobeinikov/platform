@@ -5,12 +5,16 @@ import (
 	"errors"
 )
 
-func (b *unsupportedBridge) Start(ctx context.Context) error {
+func (b *unsupportedBridge) Start(context.Context) error {
 	return ErrUnsupportedVirturalMachine
 }
 
-func (b *unsupportedBridge) Stop(ctx context.Context) error {
+func (b *unsupportedBridge) Stop(context.Context) error {
 	return ErrUnsupportedVirturalMachine
+}
+
+func (b *unsupportedBridge) IP(context.Context) (string, error) {
+	return "", ErrUnsupportedVirturalMachine
 }
 
 func newUnsupportedBridge() *unsupportedBridge {

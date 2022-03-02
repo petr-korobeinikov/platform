@@ -5,12 +5,16 @@ import (
 	"errors"
 )
 
-func (b *unstartableBridge) Start(ctx context.Context) error {
+func (b *unstartableBridge) Start(context.Context) error {
 	return ErrUnstartableVirturalMachine
 }
 
-func (b *unstartableBridge) Stop(ctx context.Context) error {
+func (b *unstartableBridge) Stop(context.Context) error {
 	return ErrUnstartableVirturalMachine
+}
+
+func (b *unstartableBridge) IP(context.Context) (string, error) {
+	return "127.0.0.1", nil
 }
 
 func newUnstartableBridge() *unstartableBridge {

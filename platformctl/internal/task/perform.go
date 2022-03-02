@@ -11,6 +11,7 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
+	"github.com/pkorobeinikov/platform/platform-lib/str"
 
 	"platformctl/internal/cfg"
 )
@@ -47,13 +48,13 @@ func Perform(ctx context.Context, args []string) error {
 		"-v", fmt.Sprintf("%s:/service", pwd),
 	}
 
-	if workdir := trim(task.Argument.Workdir); workdir != "" {
+	if workdir := str.Trim(task.Argument.Workdir); workdir != "" {
 		containerArgs = append(containerArgs, "--workdir", workdir)
 	}
 
 	containerArgs = append(containerArgs, task.Image)
 
-	if command := trim(task.Argument.Command); command != "" {
+	if command := str.Trim(task.Argument.Command); command != "" {
 		subst, err := envsubst.EvalEnv(command)
 		if err != nil {
 			return err
@@ -71,10 +72,4 @@ func Perform(ctx context.Context, args []string) error {
 	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
-}
-
-func trim(s string) string {
-	return strings.TrimSpace(
-		strings.ReplaceAll(s, "\n", ""),
-	)
 }

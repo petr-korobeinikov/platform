@@ -1,11 +1,14 @@
 package platform
 
 import (
+	"bytes"
 	"context"
 	"os"
 	"os/exec"
 
 	"github.com/spf13/viper"
+
+	"github.com/pkorobeinikov/platform/platform-lib/str"
 )
 
 func (b *minikubeBridge) Start(ctx context.Context) error {
@@ -56,6 +59,29 @@ func (b *minikubeBridge) Stop(ctx context.Context) error {
 	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
+}
+
+func (b *minikubeBridge) IP(ctx context.Context) (string, error) {
+	var buf bytes.Buffer
+
+	profile := viper.GetString("platform.minikube.profile")
+
+	args := []string{
+		"minikube",
+		"--profile", profile,
+		"ip",
+	}
+
+	cmd := exec.CommandContext(ctx, args[0], args[1:]...)
+
+	cmd.Stdout = &buf
+	cmd.Stderr = os.Stderr
+
+	if err := cmd.Run(); err != nil {
+		return "", err
+	}
+
+	return str.Trim(buf.String()), nil
 }
 
 func newMinikubeBridge() *minikubeBridge {

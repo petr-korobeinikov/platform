@@ -9,10 +9,16 @@ import (
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
 	"platformctl/internal/cfg"
+	"platformctl/internal/platform"
 )
 
 func Debug(ctx context.Context) error {
 	s, err := spec.Read()
+	if err != nil {
+		return err
+	}
+
+	ip, err := platform.IP(ctx)
 	if err != nil {
 		return err
 	}
@@ -46,6 +52,7 @@ func Debug(ctx context.Context) error {
 	deploymentSpec, err := generator.Generate(deployment.SpecGenerationRequest{
 		ServiceName:           s.Name,
 		ServiceNamespace:      "default",
+		IP:                    ip,
 		Environment:           s.EnvironmentFor(cfg.ServiceEnv),
 		ServiceComponentList:  serviceComponentList,
 		PlatformComponentList: platformComponentList,
