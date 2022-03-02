@@ -133,6 +133,9 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		// - fa (full access) = maintenance
 		// - ro (read only)   = reader
 		env.Registry().
+			// !!! Добавить ip/хост виртуальной машины
+			//Register(c.componentEnvVarName("IP"), os.Getenv("DOCKER_HOST")).
+			//Register(c.componentEnvVarName("HOST"), os.Getenv("DOCKER_HOST")).
 			Register(c.componentEnvVarName("service_user_rw"), "service_rw").
 			Register(c.componentEnvVarName("service_password_rw"), "postgres_secret").
 			Register(c.componentEnvVarName("database"), "service")
