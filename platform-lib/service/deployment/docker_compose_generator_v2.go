@@ -20,7 +20,7 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 	spec.Services = make(map[string]dockerComposeServiceV2)
 
 	for _, platformComponent := range request.PlatformComponentList {
-		dcsList, err := platformComponent.dockerComposeServiceSpecList()
+		dcsList, err := platformComponent.dockerComposeServiceSpecList(request)
 		if err != nil {
 			return response, err
 		}
@@ -31,7 +31,7 @@ func (d *dockerComposeGeneratorV2) Generate(request SpecGenerationRequest) (Spec
 	}
 
 	for _, serviceComponent := range request.ServiceComponentList {
-		dcsList, err := serviceComponent.dockerComposeServiceSpecList()
+		dcsList, err := serviceComponent.dockerComposeServiceSpecList(request)
 		if err != nil {
 			return response, err
 		}

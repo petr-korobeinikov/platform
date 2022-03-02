@@ -54,15 +54,18 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 
 		expectedEnv := `SERVICE="wordcounter-svc"
 SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+SERVICE_COMPONENT_POSTGRES_MASTER_IP="192.168.59.99"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"
 SERVICE_COMPONENT_POSTGRES_OLAP_DATABASE="service"
+SERVICE_COMPONENT_POSTGRES_OLAP_IP="192.168.59.99"
 SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
 
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
 			ServiceNamespace: "wordcounter-ns",
+			IP:               "192.168.59.99",
 			ServiceComponentList: []*ServiceComponent{
 				{
 					Name: "master",
@@ -149,12 +152,14 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
 
 		expectedEnv := `SERVICE="wordcounter-svc"
 SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+SERVICE_COMPONENT_POSTGRES_MASTER_IP="192.168.59.99"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
 
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
 			ServiceNamespace: "wordcounter-ns",
+			IP:               "192.168.59.99",
 			ServiceComponentList: []*ServiceComponent{
 				{
 					Name: "master",
@@ -224,6 +229,7 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
 SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD="minio_secret"
 SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER="minio"
 SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+SERVICE_COMPONENT_POSTGRES_MASTER_IP="192.168.59.100"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"
 SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_LISTEN_ADDRESS="0.0.0.0:8200"
@@ -232,6 +238,7 @@ SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID="vault_secret"`
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
 			ServiceNamespace: "wordcounter-ns",
+			IP:               "192.168.59.100",
 			ServiceComponentList: []*ServiceComponent{
 				{
 					Name: "master",

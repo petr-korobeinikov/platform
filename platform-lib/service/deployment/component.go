@@ -17,7 +17,7 @@ func (c *PlatformComponent) containerName() string {
 	return fmt.Sprintf("platform-component-%s-%s", c.Type, c.Name)
 }
 
-func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
+func (c *PlatformComponent) dockerComposeServiceSpecList(request SpecGenerationRequest) (dcsList []dockerComposeServiceV2, err error) {
 	switch c.Type {
 	default:
 		return nil, ErrUnsupportedPlatformComponentType
@@ -126,7 +126,7 @@ func (c *ServiceComponent) containerName() string {
 	return fmt.Sprintf("service-component-%s-%s", c.Type, c.Name)
 }
 
-func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerComposeServiceV2, err error) {
+func (c *ServiceComponent) dockerComposeServiceSpecList(request SpecGenerationRequest) (dcsList []dockerComposeServiceV2, err error) {
 	switch c.Type {
 	default:
 		return nil, ErrUnsupportedServiceComponentType
@@ -155,9 +155,7 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 		// - fa (full access) = maintenance
 		// - ro (read only)   = reader
 		env.Registry().
-			// !!! Добавить ip/хост виртуальной машины
-			//Register(c.componentEnvVarName("IP"), os.Getenv("DOCKER_HOST")).
-			//Register(c.componentEnvVarName("HOST"), os.Getenv("DOCKER_HOST")).
+			Register(c.componentEnvVarName("ip"), request.IP).
 			Register(c.componentEnvVarName("service_user_rw"), "service_rw").
 			Register(c.componentEnvVarName("service_password_rw"), "postgres_secret").
 			Register(c.componentEnvVarName("database"), "service")
