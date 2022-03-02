@@ -323,6 +323,13 @@ FOO="foo"`
     container_name: platform-component-minio-minio
     image: quay.io/minio/minio:latest
     restart: always
+    ports:
+    - 9500:9500
+    - 9501:9501
+    environment:
+      MINIO_ROOT_PASSWORD: ${PLATFORM_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD}
+      MINIO_ROOT_USER: ${PLATFORM_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER}
+    command: server /data --address ":9500" --console-address ":9501"
   platform-component-opentracing-opentracing:
     container_name: platform-component-opentracing-opentracing
     image: jaegertracing/opentelemetry-all-in-one

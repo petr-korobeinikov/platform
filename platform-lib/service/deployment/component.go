@@ -94,10 +94,27 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 			ContainerName: c.containerName(),
 			Image:         "quay.io/minio/minio:latest",
 			Restart:       "always",
+			Environment: map[string]string{
+				"MINIO_ROOT_USER":     c.dockerComposeServiceEnvVarName("MINIO_ROOT_USER"),
+				"MINIO_ROOT_PASSWORD": c.dockerComposeServiceEnvVarName("MINIO_ROOT_PASSWORD"),
+			},
+			Ports: []string{
+				"9500:9500",
+				"9501:9501",
+			},
+			Command: `server /data --address ":9500" --console-address ":9501"`,
 		})
 	}
 
 	return
+}
+
+func (c *PlatformComponent) componentEnvVarName(s string) string {
+	return componentEnvVarName(s, c.containerName())
+}
+
+func (c *PlatformComponent) dockerComposeServiceEnvVarName(s string) string {
+	return dockerComposeServiceEnvVarName(s, c.containerName())
 }
 
 type ServiceComponent struct {
@@ -187,12 +204,20 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 }
 
 func (c *ServiceComponent) componentEnvVarName(s string) string {
+	return componentEnvVarName(s, c.containerName())
+}
+
+func (c *ServiceComponent) dockerComposeServiceEnvVarName(s string) string {
+	return dockerComposeServiceEnvVarName(s, c.containerName())
+}
+
+func componentEnvVarName(name, containerName string) string {
 	return strings.ToUpper(
 		strings.ReplaceAll(
 			fmt.Sprintf(
 				"%s_%s",
-				c.containerName(),
-				s,
+				containerName,
+				name,
 			),
 			"-",
 			"_",
@@ -200,15 +225,15 @@ func (c *ServiceComponent) componentEnvVarName(s string) string {
 	)
 }
 
-func (c *ServiceComponent) dockerComposeServiceEnvVarName(s string) string {
+func dockerComposeServiceEnvVarName(name, containerName string) string {
 	return fmt.Sprintf(
 		"${%s}",
 		strings.ToUpper(
 			strings.ReplaceAll(
 				fmt.Sprintf(
 					"%s_%s",
-					c.containerName(),
-					s,
+					containerName,
+					name,
 				),
 				"-",
 				"_",
