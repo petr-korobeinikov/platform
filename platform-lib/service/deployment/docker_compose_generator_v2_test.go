@@ -27,11 +27,14 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 	t.Run(`multiple service component`, func(t *testing.T) {
 		defer env.Registry().Clear()
 
+		// !!! Одинаковые порты не могут быть доступны при развёртывании в docker compose.
 		expected := `services:
   service-component-postgres-master:
     container_name: service-component-postgres-master
     image: postgres:13
     restart: always
+    ports:
+    - 5432:5432
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}
@@ -40,6 +43,8 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
     container_name: service-component-postgres-olap
     image: postgres:13
     restart: always
+    ports:
+    - 5432:5432
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_OLAP_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_PASSWORD_RW}
@@ -128,6 +133,8 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
     container_name: service-component-postgres-master
     image: postgres:13
     restart: always
+    ports:
+    - 5432:5432
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}
@@ -187,6 +194,8 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
     container_name: service-component-postgres-master
     image: postgres:13
     restart: always
+    ports:
+    - 5432:5432
     environment:
       POSTGRES_DB: ${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}
       POSTGRES_PASSWORD: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}

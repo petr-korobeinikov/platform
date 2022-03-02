@@ -113,6 +113,9 @@ func (c *ServiceComponent) dockerComposeServiceSpecList() (dcsList []dockerCompo
 			ContainerName: c.containerName(),
 			Image:         "postgres:13",
 			Restart:       "always",
+			Ports: []string{
+				"5432:5432",
+			},
 			// Префикс "service_" обозначает именно "сервисного" пользователя,
 			// под которым выполняется приложение.
 			// Для запуска миграций должен быть добавлен отдельный пользователь
