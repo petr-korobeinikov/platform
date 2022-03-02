@@ -14,6 +14,7 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 		defer env.Registry().Clear()
 
 		expected := "services: {}\n"
+		expectedEnv := `SERVICE=""`
 
 		sut := NewDockerComposeGeneratorV2()
 
@@ -21,7 +22,7 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
 
 		assert.NoError(t, err)
 		assert.Equal(t, expected, actual.FileList[DockerComposeFile])
-		assert.Equal(t, "", actual.FileList[env.File])
+		assert.Equal(t, expectedEnv, actual.FileList[env.File])
 	})
 
 	t.Run(`multiple service component`, func(t *testing.T) {
@@ -51,7 +52,8 @@ func TestDockerComposeGeneratorV2_Generate(t *testing.T) {
       POSTGRES_USER: ${SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW}
 `
 
-		expectedEnv := `SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+		expectedEnv := `SERVICE="wordcounter-svc"
+SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"
 SERVICE_COMPONENT_POSTGRES_OLAP_DATABASE="service"
@@ -145,7 +147,8 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
       POSTGRES_USER: ${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW}
 `
 
-		expectedEnv := `SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
+		expectedEnv := `SERVICE="wordcounter-svc"
+SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
 
@@ -217,7 +220,8 @@ SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW="service_rw"`
     - IPC_LOCK
 `
 
-		expectedEnv := `SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD="minio_secret"
+		expectedEnv := `SERVICE="wordcounter-svc"
+SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_PASSWORD="minio_secret"
 SERVICE_COMPONENT_MINIO_MINIO_MINIO_ROOT_USER="minio"
 SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE="service"
 SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW="postgres_secret"
@@ -258,7 +262,8 @@ SERVICE_COMPONENT_VAULT_VAULT_VAULT_DEV_ROOT_TOKEN_ID="vault_secret"`
 		defer env.Registry().Clear()
 
 		expectedEnv := `BAR="bar"
-FOO="foo"`
+FOO="foo"
+SERVICE="wordcounter-svc"`
 
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
@@ -340,7 +345,7 @@ FOO="foo"`
     - 14268:14268
 `
 
-		expectedEnv := ""
+		expectedEnv := `SERVICE="wordcounter-svc"`
 
 		given := SpecGenerationRequest{
 			ServiceName:      "wordcounter-svc",
