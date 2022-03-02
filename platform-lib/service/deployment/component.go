@@ -34,6 +34,9 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 				ContainerName: brokerName,
 				Image:         "confluentinc/cp-kafka:5.5.1",
 				Restart:       "always",
+				DependsOn: []string{
+					zookeeperName,
+				},
 				Environment: map[string]string{
 					"KAFKA_REST_HOST_NAME":                           brokerName,
 					"KAFKA_BROKER_ID":                                "1",
@@ -63,6 +66,9 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 				ContainerName: kafdropName,
 				Image:         "obsidiandynamics/kafdrop",
 				Restart:       "always",
+				DependsOn: []string{
+					zookeeperName,
+				},
 				Environment: map[string]string{
 					"KAFKA_BROKERCONNECT": brokerName + ":29092",
 					"SERVER_PORT":         "9100",

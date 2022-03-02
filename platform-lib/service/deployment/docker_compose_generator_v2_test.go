@@ -86,6 +86,8 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
     container_name: platform-component-kafka-kafka-broker
     image: confluentinc/cp-kafka:5.5.1
     restart: always
+    depends_on:
+    - platform-component-kafka-kafka-zookeeper
     environment:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://platform-component-kafka-kafka-broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
@@ -103,6 +105,8 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
     container_name: platform-component-kafka-kafka-kafdrop
     image: obsidiandynamics/kafdrop
     restart: always
+    depends_on:
+    - platform-component-kafka-kafka-zookeeper
     environment:
       KAFKA_BROKERCONNECT: platform-component-kafka-kafka-broker:29092
       SERVER_PORT: "9100"
@@ -264,6 +268,8 @@ FOO="foo"`
     container_name: platform-component-kafka-kafka-broker
     image: confluentinc/cp-kafka:5.5.1
     restart: always
+    depends_on:
+    - platform-component-kafka-kafka-zookeeper
     environment:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://platform-component-kafka-kafka-broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
@@ -281,6 +287,8 @@ FOO="foo"`
     container_name: platform-component-kafka-kafka-kafdrop
     image: obsidiandynamics/kafdrop
     restart: always
+    depends_on:
+    - platform-component-kafka-kafka-zookeeper
     environment:
       KAFKA_BROKERCONNECT: platform-component-kafka-kafka-broker:29092
       SERVER_PORT: "9100"
