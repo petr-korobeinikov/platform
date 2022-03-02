@@ -66,6 +66,9 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 				ContainerName: kafdropName,
 				Image:         "obsidiandynamics/kafdrop",
 				Restart:       "always",
+				Ports: []string{
+					"9100:9100",
+				},
 				DependsOn: []string{
 					zookeeperName,
 				},

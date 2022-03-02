@@ -107,6 +107,8 @@ SERVICE_COMPONENT_POSTGRES_OLAP_SERVICE_USER_RW="service_rw"`
     restart: always
     depends_on:
     - platform-component-kafka-kafka-zookeeper
+    ports:
+    - 9100:9100
     environment:
       KAFKA_BROKERCONNECT: platform-component-kafka-kafka-broker:29092
       SERVER_PORT: "9100"
@@ -289,6 +291,8 @@ FOO="foo"`
     restart: always
     depends_on:
     - platform-component-kafka-kafka-zookeeper
+    ports:
+    - 9100:9100
     environment:
       KAFKA_BROKERCONNECT: platform-component-kafka-kafka-broker:29092
       SERVER_PORT: "9100"
