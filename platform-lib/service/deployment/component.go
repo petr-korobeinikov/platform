@@ -22,22 +22,51 @@ func (c *PlatformComponent) dockerComposeServiceSpecList() (dcsList []dockerComp
 	default:
 		return nil, ErrUnsupportedPlatformComponentType
 	case "kafka":
+		var (
+			brokerName    = c.containerName() + "-broker"
+			zookeeperName = c.containerName() + "-zookeeper"
+			kafdropName   = c.containerName() + "-kafdrop"
+		)
+
 		dcsList = append(
 			dcsList,
 			dockerComposeServiceV2{
-				ContainerName: c.containerName() + "-broker",
+				ContainerName: brokerName,
 				Image:         "confluentinc/cp-kafka:5.5.1",
 				Restart:       "always",
+				Environment: map[string]string{
+					"KAFKA_REST_HOST_NAME":                           brokerName,
+					"KAFKA_BROKER_ID":                                "1",
+					"KAFKA_ZOOKEEPER_CONNECT":                        zookeeperName + ":2181",
+					"KAFKA_ADVERTISED_LISTENERS":                     "PLAINTEXT://" + brokerName + ":29092,PLAINTEXT_HOST://localhost:9092",
+					"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP":           "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT",
+					"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR":         "1",
+					"KAFKA_TRANSACTION_STATE_LOG_MIN_ISR":            "1",
+					"KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR": "1",
+					"KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS":         "0",
+					"KAFKA_JMX_PORT":                                 "9101",
+					"KAFKA_AUTO_CREATE_TOPICS_ENABLE":                "true",
+					"KAFKA_LOG4J_LOGGERS":                            "org.apache.zookeeper=ERROR,org.apache.kafka=ERROR,kafka=ERROR,kafka.cluster=ERROR,kafka.controller=ERROR,kafka.coordinator=ERROR,kafka.log=ERROR,kafka.server=ERROR,kafka.zookeeper=ERROR,state.change.logger=ERROR",
+				},
 			},
 			dockerComposeServiceV2{
-				ContainerName: c.containerName() + "-zookeeper",
+				ContainerName: zookeeperName,
 				Image:         "confluentinc/cp-zookeeper:5.5.1",
 				Restart:       "always",
+				Environment: map[string]string{
+					"ZOOKEEPER_CLIENT_PORT": "2181",
+					"ZOOKEEPER_TICK_TIME":   "2000",
+					"ALLOW_ANONYMOUS_LOGIN": "yes",
+				},
 			},
 			dockerComposeServiceV2{
-				ContainerName: c.containerName() + "-kafdrop",
+				ContainerName: kafdropName,
 				Image:         "obsidiandynamics/kafdrop",
 				Restart:       "always",
+				Environment: map[string]string{
+					"KAFKA_BROKERCONNECT": brokerName + ":29092",
+					"SERVER_PORT":         "9100",
+				},
 			},
 		)
 	case "opentracing":
