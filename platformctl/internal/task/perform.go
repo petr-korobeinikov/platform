@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/drone/envsubst"
+	"github.com/joho/godotenv"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/env"
 	"github.com/pkorobeinikov/platform/platform-lib/service/spec"
@@ -44,7 +45,6 @@ func Perform(ctx context.Context, args []string) error {
 		"run",
 		"--network", "host",
 		"--rm",
-		"--env-file", env.File,
 		"-v", fmt.Sprintf("%s:/service", pwd),
 	}
 
@@ -53,6 +53,10 @@ func Perform(ctx context.Context, args []string) error {
 	}
 
 	containerArgs = append(containerArgs, task.Image)
+
+	if err := godotenv.Load(env.File); err != nil {
+		return err
+	}
 
 	if command := str.Trim(task.Argument.Command); command != "" {
 		subst, err := envsubst.EvalEnv(command)
