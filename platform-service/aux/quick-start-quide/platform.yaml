@@ -8,8 +8,7 @@ environment:
 
 task:
   - name: template
-    image: hairyhenderson/gomplate:stable
+    image: platform/task/gomplate
     argument:
-      workdir: /service
       command: >
         --file src/index.html.tmpl --out static/index.html

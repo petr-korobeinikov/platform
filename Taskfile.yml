@@ -29,6 +29,7 @@ tasks:
       - task: platform-image:task:golangci-lint:build
       - task: platform-image:task:golang-migrate:build
       - task: platform-image:task:seeder:build
+      - task: platform-image:task:gomplate:build
 
   platform-image:task:debugging:directory-lister:build:
     desc: Build platform/task/debugging/directory-lister image
@@ -59,3 +60,9 @@ tasks:
     dir: platform-image/task/seeder
     cmds:
       - docker build --tag platform/task/seeder .
+
+  platform-image:task:gomplate:build:
+    desc: Build platform/task/gomplate image
+    dir: platform-image/task/gomplate
+    cmds:
+      - docker build --tag platform/task/gomplate .
