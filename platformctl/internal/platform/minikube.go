@@ -13,7 +13,6 @@ import (
 )
 
 func (b *minikubeBridge) Start(ctx context.Context) error {
-	profile := viper.GetString("platform.minikube.profile")
 	memory := viper.GetString("platform.minikube.memory")
 	cpus := viper.GetString("platform.minikube.cpus")
 	diskSize := viper.GetString("platform.minikube.disk-size")
@@ -25,7 +24,7 @@ func (b *minikubeBridge) Start(ctx context.Context) error {
 
 	args := []string{
 		"minikube",
-		"--profile", profile,
+		"--profile", cfg.PlatformMinikubeProfile,
 		"start",
 		"--memory", memory,
 		"--cpus", cpus,
