@@ -11,7 +11,7 @@ func TimeoutMediumOperation() time.Duration {
 }
 
 func TimeoutHeavyOperation() time.Duration {
-	return 10 * time.Minute
+	return 30 * time.Minute
 }
 
 var (
