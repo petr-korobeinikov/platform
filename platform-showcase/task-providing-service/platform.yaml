@@ -18,21 +18,20 @@ task:
     image: hello-world
 
   - name: ls
-    image: platform/task/debugging/directory-lister
+    image: ghcr.io/pkorobeinikov/platform/task/debugging/directory-lister
 
   - name: printenv
-    image: platform/task/debugging/environ-printer
+    image: ghcr.io/pkorobeinikov/platform/task/debugging/environ-printer
 
   - name: lint
-    image: platform/task/golangci-lint
+    image: ghcr.io/pkorobeinikov/platform/task/golangci-lint
 
   - name: db migrate master
-    image: platform/task/golang-migrate
+    image: ghcr.io/pkorobeinikov/platform/task/golang-migrate
     argument:
-      workdir: /service/db/changelog/postgres/master
       command: >
-        -path task-providing-service
-        -database postgres://${PG_USER}:${PG_PASSWORD}@localhost:5432/${PG_DATABASE}?x-migrations-table="changelog"&x-migrations-table-quoted=true&sslmode=disable
+        -path db/changelog/postgres/master/task-providing-service
+        -database postgres://${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_USER_RW}:${SERVICE_COMPONENT_POSTGRES_MASTER_SERVICE_PASSWORD_RW}@${SERVICE_COMPONENT_POSTGRES_MASTER_HOST}:${SERVICE_COMPONENT_POSTGRES_MASTER_PORT}/${SERVICE_COMPONENT_POSTGRES_MASTER_DATABASE}?x-migrations-table="changelog"&x-migrations-table-quoted=true&sslmode=disable
         up
 
   - name: db migrate olap

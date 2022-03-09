@@ -8,7 +8,7 @@ environment:
 
 task:
   - name: template
-    image: platform/task/gomplate
+    image: ghcr.io/pkorobeinikov/platform/task/gomplate
     argument:
       command: >
         --file src/index.html.tmpl --out static/index.html

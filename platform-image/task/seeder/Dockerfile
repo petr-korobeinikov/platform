@@ -1,3 +1,3 @@
-FROM seeder
+FROM ghcr.io/pkorobeinikov/seeder
 
 WORKDIR /service

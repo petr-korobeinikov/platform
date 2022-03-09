@@ -35,34 +35,34 @@ tasks:
     desc: Build platform/task/debugging/directory-lister image
     dir: platform-image/task/debugging/directory-lister
     cmds:
-      - docker build --tag platform/task/debugging/directory-lister .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/debugging/directory-lister .
 
   platform-image:task:debugging:environ-printer:build:
     desc: Build platform/task/debugging/environ-printer image
     dir: platform-image/task/debugging/environ-printer
     cmds:
-      - docker build --tag platform/task/debugging/environ-printer .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/debugging/environ-printer .
 
   platform-image:task:golangci-lint:build:
     desc: Build platform/task/golangci-lint image
     dir: platform-image/task/golangci-lint
     cmds:
-      - docker build --tag platform/task/golangci-lint .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/golangci-lint .
 
   platform-image:task:golang-migrate:build:
     desc: Build platform/task/golang-migrate image
     dir: platform-image/task/golang-migrate
     cmds:
-      - docker build --tag platform/task/golang-migrate .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/golang-migrate .
 
   platform-image:task:seeder:build:
     desc: Build platform/task/seeder image
     dir: platform-image/task/seeder
     cmds:
-      - docker build --tag platform/task/seeder .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/seeder .
 
   platform-image:task:gomplate:build:
     desc: Build platform/task/gomplate image
     dir: platform-image/task/gomplate
     cmds:
-      - docker build --tag platform/task/gomplate .
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/gomplate .
