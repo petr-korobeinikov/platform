@@ -17,6 +17,8 @@ platform:
     container-runtime-vm: minikube
 
   minikube:
+    profile: "platform"
+    driver: "virtualbox"
     memory: "8g"
     cpus: "8"
     disk-size: "50g"

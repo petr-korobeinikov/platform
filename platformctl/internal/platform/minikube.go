@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/pkorobeinikov/platform/platform-lib/str"
+	"platformctl/internal/cfg"
 )
 
 func (b *minikubeBridge) Start(ctx context.Context) error {
@@ -64,11 +65,9 @@ func (b *minikubeBridge) Stop(ctx context.Context) error {
 func (b *minikubeBridge) IP(ctx context.Context) (string, error) {
 	var buf bytes.Buffer
 
-	profile := viper.GetString("platform.minikube.profile")
-
 	args := []string{
 		"minikube",
-		"--profile", profile,
+		"--profile", cfg.PlatformMinikubeProfile,
 		"ip",
 	}
 

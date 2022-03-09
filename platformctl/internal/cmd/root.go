@@ -11,7 +11,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 
 	"github.com/pkorobeinikov/platform/platform-lib/service/platform"
@@ -117,7 +117,7 @@ func initConfig() {
 	viper.SetDefault("platform.flavor.container-runtime-vm", "docker-desktop")
 	cfg.PlatformFlavorContainerRuntimeVM = viper.GetString("platform.flavor.container-runtime-vm")
 
-	viper.SetDefault("", "platform.minikube.profile")
+	viper.SetDefault("platform", "platform.minikube.profile")
 	cfg.PlatformMinikubeProfile = viper.GetString("platform.minikube.profile")
 }
 
