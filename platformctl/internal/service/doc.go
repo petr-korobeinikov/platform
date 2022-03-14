@@ -14,15 +14,20 @@ import (
 
 	"github.com/pkorobeinikov/platform/platform-lib/filesystem"
 	"platformctl/internal/cfg"
+	"platformctl/internal/platform"
 )
 
 func Doc(ctx context.Context) error {
 	if filesystem.IsDirectoryExists("doc") {
-		// Only mkdocs-material supported at the moment
 		const (
-			host = "http://0.0.0.0"
 			port = 8000
 		)
+
+		ip, err := platform.IP(ctx)
+		if err != nil {
+			return err
+		}
+		host := "http://" + ip
 
 		url := fmt.Sprintf("%s:%d", host, port)
 
@@ -45,6 +50,7 @@ func Doc(ctx context.Context) error {
 			_ = browser.OpenURL(url)
 		}()
 
+		// Only mkdocs-material supported at the moment
 		args := []string{
 			cfg.PlatformFlavorContainerRuntimeCtl,
 			"run",
