@@ -41,8 +41,8 @@ func (c *PlatformComponent) dockerComposeServiceSpecList(request SpecGenerationR
 					"KAFKA_REST_HOST_NAME":                           brokerName,
 					"KAFKA_BROKER_ID":                                "1",
 					"KAFKA_ZOOKEEPER_CONNECT":                        zookeeperName + ":2181",
-					"KAFKA_ADVERTISED_LISTENERS":                     "PLAINTEXT://" + brokerName + ":29092,PLAINTEXT_HOST://localhost:9092",
-					"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP":           "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT",
+					"KAFKA_ADVERTISED_LISTENERS":                     "PLAINTEXT://" + brokerName + ":29092,PLAINTEXT_HOST://localhost:9092,PLAINTEXT://0.0.0.0:9092",
+					"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP":           "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT",
 					"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR":         "1",
 					"KAFKA_TRANSACTION_STATE_LOG_MIN_ISR":            "1",
 					"KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR": "1",
@@ -78,6 +78,9 @@ func (c *PlatformComponent) dockerComposeServiceSpecList(request SpecGenerationR
 				},
 			},
 		)
+
+		env.Registry().
+			Register(c.componentEnvVarName("KAFKA_BROKERCONNECT"), request.IP+":9092")
 	case "opentracing":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
