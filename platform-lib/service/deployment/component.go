@@ -89,6 +89,10 @@ func (c *PlatformComponent) dockerComposeServiceSpecList(request SpecGenerationR
 				"14268:14268",
 			},
 		})
+
+		env.Registry().
+			Register(c.componentEnvVarName("JAEGER_AGENT_ENDPOINT"), request.IP+":6831").
+			Register(c.componentEnvVarName("JAEGER_COLLECTOR_ENDPOINT"), "http://"+request.IP+":14268/api/traces")
 	case "minio":
 		dcsList = append(dcsList, dockerComposeServiceV2{
 			ContainerName: c.containerName(),
@@ -104,6 +108,11 @@ func (c *PlatformComponent) dockerComposeServiceSpecList(request SpecGenerationR
 			},
 			Command: `server /data --address ":9500" --console-address ":9501"`,
 		})
+
+		env.Registry().
+			Register(c.componentEnvVarName("MINIO_HOST"), request.IP).
+			Register(c.componentEnvVarName("MINIO_ROOT_USER"), "minio").
+			Register(c.componentEnvVarName("MINIO_ROOT_PASSWORD"), "minio_secret")
 	}
 
 	return
