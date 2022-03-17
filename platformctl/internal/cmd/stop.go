@@ -12,6 +12,9 @@ import (
 var stopCmd = &cobra.Command{
 	Use:   "stop",
 	Short: "Stop container runtime",
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		return nil
+	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ctx, cancel := context.WithTimeout(cmd.Context(), cfg.TimeoutMediumOperation())
 		defer cancel()
