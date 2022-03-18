@@ -14,4 +14,4 @@ COPY --from=builder /go/bin/gomplate /bin/gomplate
 
 WORKDIR /service
 
-ENTRYPOINT ["/bin/godotenv", "-f", ".env", "-f", ".platform/env/.env", "/bin/gomplate"]
+ENTRYPOINT ["/bin/godotenv", "-f", ".env,.platform/env/.env", "/bin/gomplate"]
