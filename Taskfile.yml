@@ -66,3 +66,9 @@ tasks:
     dir: platform-image/task/gomplate
     cmds:
       - docker build --tag ghcr.io/pkorobeinikov/platform/task/gomplate .
+
+  platform-image:task:oto:build:
+    desc: Build platform/task/oto image
+    dir: platform-image/task/oto
+    cmds:
+      - docker build --tag ghcr.io/pkorobeinikov/platform/task/oto .
