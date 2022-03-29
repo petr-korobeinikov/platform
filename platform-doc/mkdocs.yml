@@ -1,6 +1,7 @@
 site_name: platform
 repo_url: https://github.com/pkorobeinikov/platform
 repo_name: pkorobeinikov/platform
+edit_uri: ""
 theme:
   name: material
   custom_dir: overrides
