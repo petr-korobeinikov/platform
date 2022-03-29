@@ -8,6 +8,8 @@
 
 ## Документация
 
+> [https://pkorobeinikov.github.io/platform/](https://pkorobeinikov.github.io/platform/)
+
 Запуск контейнера с документацией для локального просмотра:
 
 ```shell
