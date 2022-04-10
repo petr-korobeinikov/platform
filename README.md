@@ -1,5 +1,9 @@
 # platform
 
+This project is not maintained anymore and will never receive any changes.
+
+See [platform-ng](https://github.com/pkorobeinikov/platform-ng) instead.
+
 <p align="center">
     <img src="platform-hack/asset/platform-icon-256.png" width="256" height="256" alt="platform" />
 </p>
